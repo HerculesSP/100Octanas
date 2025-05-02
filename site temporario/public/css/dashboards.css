@@ -1,0 +1,31 @@
+.container-fluid {
+    margin: 20px;
+    padding: 20px;
+    background-color: rgba(243, 243, 243, 0.993);
+    display: flex;
+    border: rgb(231, 231, 231) solid 2px;
+    border-radius: 20px;
+    
+}
+.container-fluid .dados-leitor {
+    max-width: 100%;
+    max-height: 20%;
+    display: flex;
+    
+}
+.container-fluid .dados-leitor .icon-leitor {
+    margin: 20px;
+    display: flex;
+    width: 100px;
+    height: 100px;
+    border: 1px solid rgb(6, 140, 173);
+    justify-content: center;
+} 
+.container-fluid .dados-leitor .nome-leitor {
+    margin-top: 17px;
+    border-top: 3px solid rgb(6, 140, 173);
+    padding: 0;
+}
+.container-fluid .dados-leitor .nome-leitor h2 {
+    margin:0;
+} 
