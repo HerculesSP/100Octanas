@@ -1,16 +1,18 @@
 .container-fluid {
     margin: 20px;
     padding: 20px;
-    background-color: rgba(243, 243, 243, 0.993);
-    display: flex;
+    background-color: rgba(255, 255, 252);
     border: rgb(231, 231, 231) solid 2px;
     border-radius: 20px;
+    max-width: 100%;
     
 }
 .container-fluid .dados-leitor {
     max-width: 100%;
     max-height: 20%;
     display: flex;
+    width: 100%;
+    box-sizing: border-box;
     
 }
 .container-fluid .dados-leitor .icon-leitor {
@@ -28,4 +30,53 @@
 }
 .container-fluid .dados-leitor .nome-leitor h2 {
     margin:0;
-} 
+}
+.painel {
+    margin: 20px;
+    padding: 20px;
+    border-top: rgb(231, 231, 231) solid 2px;
+    max-width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.graficos {
+    display: flex;
+    flex-direction:column;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 20px;
+    justify-content: flex-start;
+    align-items: center;
+    
+}
+.graficos .grafico {
+    display: flex;
+    flex-direction:column;
+    justify-content: space-evenly;
+    width: 70%;
+    max-width: 70%;
+    height: 50%;
+    margin-top: 0px;
+    align-items: center;
+}
+.kpis {
+    display: flex;
+    flex-direction:row;
+    justify-content: space-evenly;
+    width: 100%;
+    max-width: 100%;
+    
+}
+.kpis .kpi {
+    display: flex;
+    flex-direction:column;
+    justify-content: space-evenly;
+    width: 50%;
+    max-width: 100%;
+    margin-top: 5px;
+    align-items: center;
+}
+.kpis .kpi h3{
+    margin-top: 5px;
+}

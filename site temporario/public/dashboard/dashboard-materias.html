@@ -13,9 +13,43 @@
                 <img src="./../res/icon/default-icon.png" alt="Icone de usuario">
             </div>
             <div class="nome-leitor">
-                <h2>Nome do Leitoraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h2>
-                <p>Leitor desde: 01/01/2023</p>
+                <h2>Hércules da S. Pereira</h2>
+                <p>Leitor desde: <span>01/01/2023</span></p>
+            </div>
+        </div>
+        <div class="painel">
+            <div class="graficos">
+                <div class="grafico">
+                    <h2>Interesse por categorias</h2>
+                    <canvas id="donut"></canvas>
+                </div>
+                <div class="kpis">
+                    <div class="kpi">
+                        <h2>Tempo médio por matéria:</h2>
+                        <h3>4:43</h3>
+                    </div>
+                    <div class="kpi">
+                        <h2>Matérias acessadas:</h2>
+                        <h3>4524</h3>
+                    </div>
+                    <div class="kpi">
+                        <h2>Escrito na NewsLetter?</h2>
+                        <h3>Sim</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="graficos">
+                <div class="grafico">
+                    <h2>Taxa semanal de leitura</h2>
+                    <canvas id="usuario-dias"></canvas>
+                </div>
+                <div class="grafico">
+                    <h2>Taxa mensal de leitura</h2>
+                    <canvas id="usuario-meses"></canvas>
+                </div>
             </div>
         </div>
 </body>
 </html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="../js/dashboard.js"></script>

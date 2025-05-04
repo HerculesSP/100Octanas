@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS cemOctanas.Usuario_Materia (
   fkUsuario INT NOT NULL,
   fkMateria INT NOT NULL,
   sequencial INT NOT NULL,
-  segundosLidos INT NOT NULL,
+  segundosLidos INT,
   lerMais TINYINT NOT NULL,
   acesso DATETIME NOT NULL,
   PRIMARY KEY (fkUsuario, fkMateria, sequencial),
