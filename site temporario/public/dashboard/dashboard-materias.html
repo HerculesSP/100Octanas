@@ -8,13 +8,18 @@
 </head>
 <body>
     <div class="container-fluid">
-        <div class="dados-leitor">
-            <div class="icon-leitor">
-                <img src="./../res/icon/default-icon.png" alt="Icone de usuario">
+        <div class="conta-leitor">
+            <div class="dados-leitor">
+                <div class="icon-leitor">
+                    <img src="./../res/icon/default-icon.png" alt="Icone de usuario">
+                </div>
+                <div class="nome-leitor">
+                    <h2>Hércules da S. Pereira</h2>
+                    <p>Usuário desde: <span>01/01/2023</span></p>
+                </div>
             </div>
-            <div class="nome-leitor">
-                <h2>Hércules da S. Pereira</h2>
-                <p>Leitor desde: <span>01/01/2023</span></p>
+            <div class="apagar-leitor">
+                <button class="btn-apagar">Apagar conta</button>
             </div>
         </div>
         <div class="painel">
@@ -26,16 +31,24 @@
                 <div class="kpis">
                     <div class="kpi">
                         <h2>Tempo médio por matéria:</h2>
-                        <h3>4:43</h3>
+                        <span>4:43</span>
                     </div>
                     <div class="kpi">
                         <h2>Matérias acessadas:</h2>
-                        <h3>4524</h3>
+                        <span>4524</span>
                     </div>
                     <div class="kpi">
                         <h2>Escrito na NewsLetter?</h2>
-                        <h3>Sim</h3>
+                        <span>Sim</span>
                     </div>
+                </div>
+                <div class="kpis">
+                    <input type="radio" id="leitor" name="categoria" value="1">
+                    <label for="html">Usuário</label><br>
+                    <input type="radio" id="jornalista" name="categoria" value="2">
+                    <label for="css">Jornalista</label><br>
+                    <input type="radio" id="redator" name="categoria" value="3">
+                    <label for="javascript">Redator</label>
                 </div>
             </div>
             <div class="graficos">

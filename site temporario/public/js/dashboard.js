@@ -21,7 +21,7 @@ const ctx = document.getElementById('usuario-meses');
   const ctx2 = document.getElementById('usuario-dias');
 
   new Chart(ctx2, {
-    type: 'bar',
+    type: 'line',
     data: {
       labels: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
       datasets: [{

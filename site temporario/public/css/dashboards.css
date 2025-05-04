@@ -7,7 +7,17 @@
     max-width: 100%;
     
 }
-.container-fluid .dados-leitor {
+.conta-leitor {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 20px;
+    justify-content: flex-start;
+    align-items: center;
+}
+.container-fluid .conta-leitor .dados-leitor {
     max-width: 100%;
     max-height: 20%;
     display: flex;
@@ -15,7 +25,7 @@
     box-sizing: border-box;
     
 }
-.container-fluid .dados-leitor .icon-leitor {
+.container-fluid .conta-leitor .dados-leitor .icon-leitor {
     margin: 20px;
     display: flex;
     width: 100px;
@@ -23,13 +33,30 @@
     border: 1px solid rgb(6, 140, 173);
     justify-content: center;
 } 
-.container-fluid .dados-leitor .nome-leitor {
+.container-fluid .conta-leitor .dados-leitor .nome-leitor {
     margin-top: 17px;
     border-top: 3px solid rgb(6, 140, 173);
     padding: 0;
 }
-.container-fluid .dados-leitor .nome-leitor h2 {
+.container-fluid .conta-leitor .dados-leitor .nome-leitor h2 {
     margin:0;
+}
+.container-fluid .conta-leitor .apagar-leitor{
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+}
+.container-fluid .conta-leitor .apagar-leitor button {
+    padding: 10px;
+    background-color: rgba(255, 255, 252);
+    color: rgb(187, 9, 18);
+    border-radius: 5px;
+    border: rgb(187, 9, 18) solid 2px;
+    cursor: pointer;
+}
+.container-fluid .conta-leitor .apagar-leitor button:hover {
+    background-color: rgb(187, 9, 18);
+    color: white;
 }
 .painel {
     margin: 20px;
@@ -53,7 +80,6 @@
 .graficos .grafico {
     display: flex;
     flex-direction:column;
-    justify-content: space-evenly;
     width: 70%;
     max-width: 70%;
     height: 50%;
@@ -66,12 +92,11 @@
     justify-content: space-evenly;
     width: 100%;
     max-width: 100%;
-    
+    margin-top: 50px;
 }
 .kpis .kpi {
     display: flex;
     flex-direction:column;
-    justify-content: space-evenly;
     width: 50%;
     max-width: 100%;
     margin-top: 5px;
