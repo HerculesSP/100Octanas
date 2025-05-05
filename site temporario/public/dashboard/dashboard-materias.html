@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./../css/dashboards.css">
+    <title>Document</title>
+</head>
+<body>
+    <nav>
+        <div class="nav-container pags">
+            <div class="nav-menu" id="menu">
+                <a href="#">Site principal</a>
+                <a href="#">Dashboard matérias</a>
+            </div>
+        </div>
+        <div class="nav-container usr">
+            <div class="nav-user">
+                <img src="./../res/icon/default-icon.png" alt="Avatar do usuário" class="user-avatar">
+                <span class="user-name" id="userName">Nome</span>
+            </div>
+        <div class="nav-container">
+    </nav>
+    <div class="container-fluid">
+        <div class="conta-leitor">
+            <div class="dados-leitor">
+                <div class="nome-leitor">
+                    <h2>Disputa ilegal de racha na marginal pinheiros termina em prisão.</h2>
+                    <p>Publicada em: <span>01/01/2023</span></p>
+                </div>
+            </div>
+            <div class="apagar-leitor">
+                <button class="btn-apagar" onclick="abrir()">Apagar matéria</button>
+            </div>
+        </div>
+         <div class="popup-bg" id="popupConfirm">
+        <div class="popup-card">
+            <h3>Deseja realmente apagar a matéria?</h3>
+            <p>Você tem certeza que deseja apagar a matéria?</p>
+            <div class="popup-actions">
+                <button class="popup-btn confirm" onclick="confirmar()">Sim, apagar</button>
+                <button class="popup-btn cancel" onclick="fechar()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+        <div class="painel">
+            <div class="graficos">
+                <div class="grafico">
+                    <h2>Interesse por categorias</h2>
+                    <canvas id="donut"></canvas>
+                </div>
+                <div class="kpis">
+                    <div class="kpi">
+                        <h2>Tempo médio por matéria:</h2>
+                        <span>4:43</span>
+                    </div>
+                    <div class="kpi">
+                        <h2>Matérias acessadas:</h2>
+                        <span>4524</span>
+                    </div>
+                    <div class="kpi">
+                        <h2>Escrito na NewsLetter?</h2>
+                        <span>Sim</span>
+                    </div>
+                </div>
+                
+                    <div class="kpis">
+                        <h3>Selecione o tipo de usuário:</h3>
+                        <input type="radio" id="leitor" name="categoria" value="1">
+                        <label for="html">Usuário</label><br>
+                        <input type="radio" id="jornalista" name="categoria" value="2">
+                        <label for="css">Jornalista</label><br>
+                        <input type="radio" id="redator" name="categoria" value="3">
+                        <label for="javascript">Redator</label>
+                    </div>
+                
+            </div>
+            <div class="graficos">
+                <div class="grafico">
+                    <h2>Taxa semanal de leitura</h2>
+                    <canvas id="usuario-dias"></canvas>
+                </div>
+                <div class="grafico">
+                    <h2>Taxa mensal de leitura</h2>
+                    <canvas id="usuario-meses"></canvas>
+                </div>
+            </div>
+        </div>
+</body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="../js/dashboard.js"></script>
