@@ -64,15 +64,15 @@ const ctx = document.getElementById('usuario-meses');
     });
 
 
-        // Funções do popup
-    function abrirUsuario() {
+
+    function abrir() {
       document.getElementById('popupConfirm').style.display = 'flex';
     }
-    function fecharUsuario() {
+    function fechar() {
       document.getElementById('popupConfirm').style.display = 'none';
     }
-    function confirmarUsuario() {
-      fecharUsuario();
-      alert('Usuário apagado!');
+    function confirmar() {
+      fechar();
+      alert('Apagado com sucesso!');
     }
 
