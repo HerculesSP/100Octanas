@@ -7,6 +7,20 @@
     <title>Document</title>
 </head>
 <body>
+    <nav>
+        <div class="nav-container pags">
+            <div class="nav-menu" id="menu">
+                <a href="#">Site principal</a>
+                <a href="#">Dashboard matérias</a>
+            </div>
+        </div>
+        <div class="nav-container usr">
+            <div class="nav-user">
+                <img src="./../res/icon/default-icon.png" alt="Avatar do usuário" class="user-avatar">
+                <span class="user-name" id="userName">Nome</span>
+            </div>
+        <div class="nav-container">
+    </nav>
     <div class="container-fluid">
         <div class="conta-leitor">
             <div class="dados-leitor">
@@ -19,9 +33,20 @@
                 </div>
             </div>
             <div class="apagar-leitor">
-                <button class="btn-apagar">Apagar conta</button>
+                <button class="btn-apagar" onclick="abrirUsuario()">Apagar conta</button>
             </div>
         </div>
+         <div class="popup-bg" id="popupConfirm">
+        <div class="popup-card">
+            <h3>Deseja realmente apagar o usuário?</h3>
+            <p>Você tem certeza que deseja apagr a conta do usuario?</p>
+            <div class="popup-actions">
+                <button class="popup-btn confirm" onclick="confirmarUsuario()">Sim, apagar</button>
+                <button class="popup-btn cancel" onclick="fecharUsuario()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
         <div class="painel">
             <div class="graficos">
                 <div class="grafico">
