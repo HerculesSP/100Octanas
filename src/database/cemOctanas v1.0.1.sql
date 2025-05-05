@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS cemOctanas.Usuario (
   verificado TINYINT NOT NULL,
   foto VARCHAR(45) NULL,
   dtNasc DATE NOT NULL,
+  dtInsc DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
   email VARCHAR(45) NOT NULL,
   ativo TINYINT NOT NULL,
   PRIMARY KEY (idUsuario)
@@ -71,7 +72,6 @@ CREATE TABLE IF NOT EXISTS cemOctanas.Usuario_Materia (
   fkMateria INT NOT NULL,
   sequencial INT NOT NULL,
   segundosLidos INT,
-  lerMais TINYINT NOT NULL,
   acesso DATETIME NOT NULL,
   PRIMARY KEY (fkUsuario, fkMateria, sequencial),
   CONSTRAINT fk_Usuario_has_Materia_Usuario
@@ -167,3 +167,6 @@ CREATE TABLE IF NOT EXISTS cemOctanas.Imagem_Materia (
     REFERENCES cemOctanas.Materia (idMateria)
 );
 
+-- -----------------------------------------------------
+-- Procedimento
+-- -----------------------------------------------------
