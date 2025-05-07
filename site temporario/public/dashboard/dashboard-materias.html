@@ -36,7 +36,7 @@
          <div class="popup-bg" id="popupConfirm">
         <div class="popup-card">
             <h3>Deseja realmente apagar a matéria?</h3>
-            <p>Você tem certeza que deseja apagar a matéria?</p>
+            <p>Ao apagá-la, tornará-se apenas oculta ao usuário, mas não será eliminada do banco de dados</p>
             <div class="popup-actions">
                 <button class="popup-btn confirm" onclick="confirmar()">Sim, apagar</button>
                 <button class="popup-btn cancel" onclick="fechar()">Cancelar</button>
@@ -52,15 +52,15 @@
                 </div>
                 <div class="kpis">
                     <div class="kpi">
-                        <h2>Tempo médio por matéria:</h2>
+                        <h2>Tempo médio de leitura:</h2>
                         <span>4:43</span>
                     </div>
                     <div class="kpi">
-                        <h2>Matérias acessadas:</h2>
+                        <h2>Quantidade de acessos:</h2>
                         <span>4524</span>
                     </div>
                     <div class="kpi">
-                        <h2>Escrito na NewsLetter?</h2>
+                        <h2>Visível?</h2>
                         <span>Sim</span>
                     </div>
                 </div>
@@ -78,11 +78,11 @@
             </div>
             <div class="graficos">
                 <div class="grafico">
-                    <h2>Taxa semanal de leitura</h2>
+                    <h2>Taxa semanal de acesso</h2>
                     <canvas id="usuario-dias"></canvas>
                 </div>
                 <div class="grafico">
-                    <h2>Taxa mensal de leitura</h2>
+                    <h2>Taxa mensal de acesso</h2>
                     <canvas id="usuario-meses"></canvas>
                 </div>
             </div>
