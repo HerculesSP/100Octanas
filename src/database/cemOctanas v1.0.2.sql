@@ -4,24 +4,6 @@
 CREATE DATABASE IF NOT EXISTS cemOctanas ;
 
 -- -----------------------------------------------------
--- Tabela Usuario
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS cemOctanas.Usuario (
-  idUsuario INT NOT NULL,
-  nome VARCHAR(45) NOT NULL,
-  sobrenome VARCHAR(45) NOT NULL,
-  senha VARCHAR(45) NOT NULL,
-  verificado TINYINT NOT NULL,
-  foto VARCHAR(45) NULL,
-  dtNasc DATE NOT NULL,
-  dtInsc DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  email VARCHAR(45) NOT NULL,
-  ativo TINYINT NOT NULL,
-  PRIMARY KEY (idUsuario)
-);
-
-
--- -----------------------------------------------------
 -- Tabela Cargo
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS cemOctanas.Cargo (
@@ -32,18 +14,23 @@ CREATE TABLE IF NOT EXISTS cemOctanas.Cargo (
 
 
 -- -----------------------------------------------------
--- Tabela Funcionario
+-- Tabela Usuario
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS cemOctanas.Funcionario (
-  fkUsuario INT NOT NULL,
-  fkCargo INT NOT NULL,
-  PRIMARY KEY (fkUsuario),
-  CONSTRAINT fk_Autor_Usuario
-    FOREIGN KEY (fkUsuario)
-    REFERENCES cemOctanas.Usuario (idUsuario),
-  CONSTRAINT fk_Autor_Cargo1
+CREATE TABLE IF NOT EXISTS cemOctanas.Usuario (
+  idUsuario INT NOT NULL,
+  nome VARCHAR(45) NOT NULL,
+  sobrenome VARCHAR(45) NOT NULL,
+  senha VARCHAR(45) NOT NULL,
+  verificado TINYINT(1) NOT NULL DEFAULT 0,
+  foto VARCHAR(45) NULL,
+  dtNasc DATE NOT NULL,
+  dtInsc DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  ativo TINYINT(1) NOT NULL DEFAULT 1,
+  fkCargo INT DEFAULT NULL,
+  CONSTRAINT fk_Usuario_Cargo
     FOREIGN KEY (fkCargo)
-    REFERENCES cemOctanas.Cargo (idCargo)
+    REFERENCES cemOctanas.Cargo(idCargo),
+  PRIMARY KEY (idUsuario)
 );
 
 
@@ -55,12 +42,12 @@ CREATE TABLE IF NOT EXISTS cemOctanas.Materia (
   titulo VARCHAR(45) NOT NULL,
   resumo VARCHAR(45) NOT NULL,
   link VARCHAR(45) NOT NULL,
-  visivel TINYINT NOT NULL,
+  visivel TINYINT(1) NOT NULL DEFAULT 1,
   fkAutor INT NOT NULL,
   PRIMARY KEY (idMateria),
-  CONSTRAINT fk_Materia_Funcionario
+  CONSTRAINT fk_Materia_Autor
     FOREIGN KEY (fkAutor)
-    REFERENCES cemOctanas.Funcionario (fkUsuario)
+    REFERENCES cemOctanas.Usuario (idUsuario)
 );
 
 
