@@ -35,6 +35,17 @@ CREATE TABLE IF NOT EXISTS cemOctanas.Usuario (
 
 
 -- -----------------------------------------------------
+-- Tabela Imagem
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS cemOctanas.Capa (
+  idCapa INT NOT NULL,
+  link VARCHAR(45) NOT NULL,
+  legenda VARCHAR(45) NULL,
+  PRIMARY KEY (idCapa)
+);
+
+
+-- -----------------------------------------------------
 -- Tabela Materia
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS cemOctanas.Materia (
@@ -44,10 +55,14 @@ CREATE TABLE IF NOT EXISTS cemOctanas.Materia (
   link VARCHAR(45) NOT NULL,
   visivel TINYINT(1) NOT NULL DEFAULT 1,
   fkAutor INT NOT NULL,
+  fkCapa INT NOT NULL,
   PRIMARY KEY (idMateria),
   CONSTRAINT fk_Materia_Autor
     FOREIGN KEY (fkAutor)
-    REFERENCES cemOctanas.Usuario (idUsuario)
+    REFERENCES cemOctanas.Usuario (idUsuario),
+  CONSTRAINT fk_Materia_Capa
+    FOREIGN KEY (fkCapa)
+    REFERENCES cemOctanas.Capa (idCapa)
 );
 
 
@@ -129,31 +144,24 @@ CREATE TABLE IF NOT EXISTS cemOctanas.Contato (
 
 
 -- -----------------------------------------------------
--- Tabela Imagem
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS cemOctanas.Imagem (
-  idImagem INT NOT NULL,
-  link VARCHAR(45) NOT NULL,
-  legenda VARCHAR(45) NULL,
-  PRIMARY KEY (idImagem)
-);
-
-
--- -----------------------------------------------------
--- Tabela Imagem_Materia
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS cemOctanas.Imagem_Materia (
-  fkMateria INT NOT NULL,
-  fkImagem INT NOT NULL,
-  PRIMARY KEY (fkMateria, fkImagem),
-  CONSTRAINT fk_Imagem_Materia1
-    FOREIGN KEY (fkImagem)
-    REFERENCES cemOctanas.Imagem (idImagem),
-  CONSTRAINT fk_Imagem_Materia2
-    FOREIGN KEY (fkMateria)
-    REFERENCES cemOctanas.Materia (idMateria)
-);
-
--- -----------------------------------------------------
 -- Procedimento
 -- -----------------------------------------------------
+
+
+-- -----------------------------------------------------
+-- View vw_kpis_usuario
+-- -----------------------------------------------------
+create view cemOctanas.vw_kpis_usuario as
+select count(fkUsuario) materias_lidas, round(avg(segundosLidos),0) tempo_medio 
+	from cemOctanas.Usuario_Materia group by fkusuario;
+
+
+-- -----------------------------------------------------
+-- View vw_kpis_materia
+-- -----------------------------------------------------
+create view cemOctanas.vw_kpis_materia as
+select count(fkMateria) quantidade_acessos, round(avg(segundosLidos),0) tempo_medio 
+	from cemOctanas.Usuario_Materia group by fkMateria;
+    
+    
+select * from cemOctanas.vw_kpis_usuario;
