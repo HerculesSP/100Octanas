@@ -25,7 +25,7 @@
         <div class="conta-leitor">
             <div class="dados-leitor">
                 <div class="nome-leitor">
-                    <h2>Disputa ilegal de racha na marginal pinheiros termina em prisão.</h2>
+                    <h2>Max Vestappen conquista vitória no Grand Pix de Interlagos.</h2>
                     <p>Publicada em: <span>01/01/2023</span></p>
                 </div>
             </div>
@@ -36,7 +36,7 @@
          <div class="popup-bg" id="popupConfirm">
         <div class="popup-card">
             <h3>Deseja realmente apagar a matéria?</h3>
-            <p>Ao apagá-la, tornará-se apenas oculta ao usuário, mas não será eliminada do banco de dados</p>
+            <p>Essa ação é irreversível.</p>
             <div class="popup-actions">
                 <button class="popup-btn confirm" onclick="confirmar()">Sim, apagar</button>
                 <button class="popup-btn cancel" onclick="fechar()">Cancelar</button>
@@ -47,8 +47,8 @@
         <div class="painel">
             <div class="graficos">
                 <div class="grafico">
-                    <h2>Interesse por categorias</h2>
-                    <canvas id="donut"></canvas>
+                    <h2>Interesse por idade</h2>
+                    <canvas id="materia-donut"></canvas>
                 </div>
                 <div class="kpis">
                     <div class="kpi">
@@ -60,34 +60,38 @@
                         <span>4524</span>
                     </div>
                     <div class="kpi">
-                        <h2>Visível?</h2>
-                        <span>Sim</span>
+                        <h2>Autor</h2>
+                        <span>Calígula</span>
                     </div>
                 </div>
                 
-                    <div class="kpis">
-                        <h3>Selecione o tipo de usuário:</h3>
-                        <input type="radio" id="leitor" name="categoria" value="1">
-                        <label for="html">Usuário</label><br>
-                        <input type="radio" id="jornalista" name="categoria" value="2">
-                        <label for="css">Jornalista</label><br>
-                        <input type="radio" id="redator" name="categoria" value="3">
-                        <label for="javascript">Redator</label>
+                <div class="kpis">
+                    <div class="kpi">
+                        <h2>Categoria principal:</h2>
+                        <span>Fórmula 1</span>
                     </div>
-                
+                    <div class="kpi">
+                        <h2>Categoria secundária:</h2>
+                        <span>Max Vestappen</span>
+                    </div>
+                    <div class="kpi">
+                        <h2>Categoria terciária:</h2>
+                        <span>Corridas</span>
+                    </div>
+                </div>
             </div>
             <div class="graficos">
                 <div class="grafico">
                     <h2>Taxa semanal de acesso</h2>
-                    <canvas id="usuario-dias"></canvas>
+                    <canvas id="materia-dias"></canvas>
                 </div>
                 <div class="grafico">
                     <h2>Taxa mensal de acesso</h2>
-                    <canvas id="usuario-meses"></canvas>
+                    <canvas id="materia-meses"></canvas>
                 </div>
             </div>
         </div>
 </body>
 </html>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="../js/dashboard.js"></script>
+<script src="../js/dashboard-materias.js"></script>

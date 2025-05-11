@@ -1,6 +1,6 @@
-const ctx = document.getElementById('usuario-meses');
+const usuarioMensal = document.getElementById('usuario-meses');
 
-  new Chart(ctx, {
+  new Chart(usuarioMensal, {
     type: 'bar',
     data: {
       labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
@@ -18,9 +18,9 @@ const ctx = document.getElementById('usuario-meses');
       }
     }
   });
-  const ctx2 = document.getElementById('usuario-dias');
+  const usuarioSemanal = document.getElementById('usuario-dias');
 
-  new Chart(ctx2, {
+  new Chart(usuarioSemanal, {
     type: 'line',
     data: {
       labels: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
@@ -38,9 +38,9 @@ const ctx = document.getElementById('usuario-meses');
       }
     }
   });
-  const ctxDonut = document.getElementById('donut').getContext('2d');
+  const usuarioDonut = document.getElementById('usuario-donut').getContext('2d');
 
-    window.graficoDonutInstance = new Chart(ctxDonut, {
+    window.graficoDonutInstance = new Chart(usuarioDonut, {
         type: 'doughnut',
         data: {
             labels: ['Tema 1', 'Tema 2', 'Tema 3'],
@@ -63,6 +63,7 @@ const ctx = document.getElementById('usuario-meses');
         }
     });
 
+    
 
 
     function abrir() {
