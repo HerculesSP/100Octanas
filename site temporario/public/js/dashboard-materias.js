@@ -5,7 +5,7 @@ const materiaMensal = document.getElementById('materia-meses');
     data: {
       labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
       datasets: [{
-        label: 'Matérias lidas por mês',
+        label: 'Acessos por mês',
         data: [12, 19, 3, 5, 2, 3, 10, 15, 20, 25, 30, 35],
         borderWidth: 1
       }]
@@ -25,7 +25,7 @@ const materiaMensal = document.getElementById('materia-meses');
     data: {
       labels: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
       datasets: [{
-        label: 'Matérias lidas por dia',
+        label: 'Acessos por dia',
         data: [12, 19, 3, 5, 2, 3, 10],
         borderWidth: 1
       }]

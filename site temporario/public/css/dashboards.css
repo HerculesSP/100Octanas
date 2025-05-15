@@ -1,45 +1,82 @@
-nav {
-    background: rgb(6, 140, 173);
-    color: #fff;
-    padding: 0 20px;
-    
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    top: 0;
-    left: 0;
-    right: 0;
-    border-bottom: rgb(6, 140, 173) solid 2px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    display: flex;
+body {
+  font-family: 'Arial', sans-serif;
+  background: #f4f4f4;
+  margin: 0;
+  padding: 0;
 }
+.navigation {
+  height: 70px;
+  background: #8b0000;
+}
+
 .nav-container {
-    display: flex;
-    
-    flex-direction: column;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 10px 20px;
-    
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  height: 70px;
+  justify-content: space-between;
 }
-.usr{
-    justify-content: right;
+
+.brand {
+  font-size: 1.4em;
+  text-transform: uppercase;
 }
-.nav-menu {
-    display: flex;
-    
+
+.brand a {
+  color: #fff;
+  text-decoration: none;
 }
-.nav-menu a {
-    color: #fff;
-    text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    margin-right: 10px;
-    font-size: 1em;
-    transition: background 0.2s, color 0.2s;
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
 }
-.nav-menu a:hover {
-    background: rgba(255,255,255,0.13);
+
+nav ul li {
+  margin-left: 20px;
+  position: relative;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  padding: 0 10px;
+  line-height: 70px;
+  transition: background 0.2s;
+}
+
+.nav-dropdown {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 70px;
+  background: #262626;
+  min-width: 180px;
+  box-shadow: 0 3px 12px rgba(223, 1, 1, 0.15);
+  z-index: 100;
+}
+
+.nav-dropdown li {
+  margin: 0;
+}
+
+.nav-dropdown li a {
+  padding: 12px 20px;
+  line-height: 20px;
+  display: block;
+  background: #262626;
+  color: #fff;
+}
+
+.nav-dropdown li a:hover {
+  background: #8b0000;
+}
+
+nav ul li:hover > .nav-dropdown {
+  display: block;
 }
 .nav-user {
     display: flex;
@@ -53,27 +90,6 @@ nav {
     object-fit: cover;
     border: 2px solid #fff;
 }
-.user-name {
-    font-weight: 500;
-    font-size: 1em;
-}
-.logout-btn {
-    background: #fff;
-    color: #2563eb;
-    border: none;
-    padding: 7px 14px;
-    border-radius: 4px;
-    font-size: 1em;
-    cursor: pointer;
-    margin-left: 6px;
-    transition: background 0.2s, color 0.2s;
-}
-.logout-btn:hover {
-    background: #2563eb;
-    color: #fff;
-    border: 1px solid #fff;
-}
-
 .container-fluid {
     margin: 20px;
     padding: 20px;
