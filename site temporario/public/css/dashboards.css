@@ -83,6 +83,10 @@ nav ul li:hover > .nav-dropdown {
     align-items: center;
     gap: 12px;
 }
+.user-name {
+    color: #fff;
+    font-size: 1.2em;
+}
 .user-avatar {
     width: 36px;
     height: 36px;
