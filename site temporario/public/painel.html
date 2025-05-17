@@ -49,68 +49,88 @@
         </nav>
     </div>
     </section>
-    <div class="container-fluid">
-        <div class="controle">
-            <div class="conta-leitor">
-                <div class="dados-leitor painel">
-                    <h1> Painel do Jornalista </h1>
-                </div>
-            </div>
-            <div class="container">
-                <div class="titulo">
-                    <h2>Componentes obrigatórios</h2>
-                </div>
-                <div class="inputs">
-                    <div class="input">
-                        <h3>Título</h3>
-                        <input type="text" class="form-control" id="input_titulo" placeholder="Pesquisar...">
-                    </div>
-                    <div class="input">
-                        <h3>Capa</h3>
-                        <input type="text" class="form-control" id="input_capa" placeholder="Pesquisar...">
-                        <h3>Legenda</h3>
-                        <input type="text" class="form-control" id="input_legendaCapa" placeholder="Pesquisar...">
-                    </div>
-                    <div class="input">
-                        <h3>Resumo</h3>
-                        <input type="text" class="form-control" id="input_resumo" placeholder="Pesquisar...">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="titulo">
-                    <h2>Corpo da matéria</h2>
-                </div>
-                <div class="inputs">
-                    <div class="input">
-                        <h3>Subtítulo</h3>
-                        <input type="text" class="form-control" id="input_subtitulo" placeholder="Pesquisar...">
-                        <button class="btn-materia" onclick="addSubtitle()">Adicionar subtítulo</button>
-                    </div>
-                    <div class="input">
-                        <h3>Parágrafo</h3>
-                        <input type="text" class="form-control" id="input_paragrafo" placeholder="Pesquisar...">
-                        <button class="btn-materia" onclick="addParagraph()">Adicionar parágrafo</button>
-                    </div>
-                    <div class="input">
-                        <h3>Imagem</h3>
-                        <input type="text" class="form-control" id="input_imagem" placeholder="Pesquisar...">
-                        <h3>Legenda</h3>
-                        <input type="text" class="form-control" id="input_legenda" placeholder="Pesquisar...">
-                        <button class="btn-materia" onclick="addImage()">Adicionar imagem</button>
-                    </div>
-                    <div class="input">
-                        <h3>Vídeo</h3>
-                        <input type="text" class="form-control" id="input_video" placeholder="Pesquisar...">
-                        <button class="btn-materia" onclick="addVideo()">Adicionar vídeo</button>
-                    </div>
-                </div>
+    <div class="container-fluid ">
+        <div class="conta-leitor ">
+            <div class="dados-leitor painel">
+                <h1> Painel do Jornalista </h1>
             </div>
         </div>
-        <div class="corpo">
-            <div class="conta-leitor">
-                <div class="dados-leitor painel">
-                    <h2> Estrutura atual </h2>
+        <div class="materia posicao">
+            <div class="controle">
+                <div class="container">
+                    <div class="titulo">
+                        <h2>Componentes obrigatórios</h2>
+                    </div>
+                    <div class="inputs">
+                        <div class="input">
+                            <h3>Título</h3>
+                            <input type="text" class="form-control" id="input_titulo" placeholder="Pesquisar...">
+                        </div>
+                        <div class="input">
+                            <h3>Capa</h3>
+                            <input type="text" class="form-control" id="input_capa" placeholder="Pesquisar...">
+                            <h3>Legenda</h3>
+                            <input type="text" class="form-control" id="input_legendaCapa" placeholder="Pesquisar...">
+                        </div>
+                        <div class="input">
+                            <h3>Resumo</h3>
+                            <input type="text" class="form-control" id="input_resumo" placeholder="Pesquisar...">
+                        </div>
+                        <div class="input">
+                            <h3>Gerar matéria</h3>
+                            <button class="btn-materia" onclick="generate()">Enviar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="titulo">
+                        <h2>Corpo da matéria</h2>
+                    </div>
+                    <div class="inputs">
+                        <div class="input">
+                            <h3>Subtítulo</h3>
+                            <input type="text" class="form-control" id="input_subtitulo" placeholder="Adicionar subtítulo...">
+                            <button class="btn-materia" onclick="addSubtitle()">Adicionar subtítulo</button>
+                        </div>
+                        <div class="input">
+                            <h3>Parágrafo</h3>
+                            <input type="text" class="form-control" id="input_paragrafo" placeholder="Adicionar parágrafo...">
+                            <button class="btn-materia" onclick="addParagraph()">Adicionar parágrafo</button>
+                        </div>
+                        <div class="input">
+                            <h3>Imagem</h3>
+                            <input type="text" class="form-control" id="input_imagem" placeholder="Pesquisar...">
+                            <h3>Legenda (opcional)</h3>
+                            <input type="text" class="form-control" id="input_legenda" placeholder="Adicionar legenda...">
+                            <button class="btn-materia" onclick="addImage()">Adicionar imagem</button>
+                        </div>
+                        <div class="input">
+                            <h3>Vídeo</h3>
+                            <input type="text" class="form-control" id="input_video" placeholder="Adicionar Link...">
+                            <button class="btn-materia" onclick="addVideo()">Adicionar vídeo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="corpo">
+                <div class="conta-leitor">
+                    <div class="dados-leitor painel">
+                        <h2> Estrutura atual </h2>
+                        <div class="container" id="div_corpo">
+                            <div class="topicos">
+                                <button class="desativado">•Título</button>
+                            </div>
+                            <div class="topicos">
+                                <button class="desativado">•Capa</button>
+                            </div>
+                            <div class="topicos">
+                                <button class="desativado">•Autor</button>
+                            </div>
+                            <div class="topicos">
+                                <button class="desativado">•Rodapé</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -133,3 +153,4 @@
     </footer>
 </body>
 </html>
+<script src="js/painel.js"></script>

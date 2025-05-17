@@ -1,5 +1,5 @@
 const corpo=[];
-
+const tipo=[]
 function addSubtitle (){
     let text= input_subtitulo.value;
     if(text==''){
@@ -7,6 +7,8 @@ function addSubtitle (){
     } else{
         text = `<h3>${text}</h3>`;
         corpo.push(text);
+        tipo.push('Subtítulo');
+        atualizar();
     }
 }
 function addParagraph(){
@@ -16,16 +18,20 @@ function addParagraph(){
     } else{
         text = `<p>${text}</p>`;
         corpo.push(text);
+        tipo.push('Paragráfo');
+        atualizar();
     }
 }
 function addImage(){
     let text= input_imagem.value;
-    let text2= input_legendaImagem.value;
+    let text2= input_legenda.value;
     if(text==''){
         alert('Valor inválido');
     } else{
         text = `<img src="${text}" alt="${text2}">`;
         corpo.push(text);
+        tipo.push('Imagem');
+        atualizar();
     }
 }
 function addVideo(){
@@ -35,6 +41,8 @@ function addVideo(){
     } else{
         text = `<iframe src="${text}" frameborder="0" allowfullscreen></iframe>`;
         corpo.push(text);
+        tipo.push('Vídeo');
+        atualizar();
     }
 }
 function generate(){
@@ -43,12 +51,13 @@ function generate(){
     let subtitulo = input_subtitulo.value;
     let paragrafo = input_paragrafo.value;
     let capa = input_capa.value;
-    let legenda = legendaCapa.value;
+    let legenda = input_legendaCapa.value;
     if(titulo=='' || subtitulo=='' || paragrafo=='' || capa==''){
         alert('Valor inválido');
-    } else{
-        tituloLink = linkdificador(titulo);
-    }
+        return;
+    } 
+    tituloLink = linkdificador(titulo);
+    
 }
 function linkdificador(str) {
   return str
@@ -59,4 +68,19 @@ function linkdificador(str) {
     .replace(/-+/g, '-')                  
     .replace(/^-+|-+$/g, '')              
     .toLowerCase();                       
+}
+function atualizar(){
+    div_corpo.innerHTML = '';
+    div_corpo.innerHTML += `<div class="topicos"><button class="desativado">•Título</button></div>
+                            <div class="topicos"><button class="desativado">•Capa</button></div>
+                            <div class="topicos"><button class="desativado">•Autor</button></div>`;
+    for (let i=0; i<tipo.length; i++){
+        div_corpo.innerHTML += `<div class="topicos"><button onclick="excluir(${i})"> •${tipo[i]}</button> </div>`;
+    }
+    div_corpo.innerHTML += `<div class="topicos"><button class="desativado">•Rodapé</button></div>`;
+};
+function excluir(i){
+    corpo.splice(i, 1);
+    tipo.splice(i, 1);
+    atualizar();
 }
