@@ -10,6 +10,7 @@ function addSubtitle (){
         tipo.push('Subtítulo');
         atualizar();
     }
+    input_subtitulo.value = '';
 }
 function addParagraph(){
     let text= input_paragrafo.value;
@@ -21,6 +22,7 @@ function addParagraph(){
         tipo.push('Paragráfo');
         atualizar();
     }
+    input_paragrafo.value = '';
 }
 function addImage(){
     let text= input_imagem.value;
@@ -28,11 +30,13 @@ function addImage(){
     if(text==''){
         alert('Valor inválido');
     } else{
-        text = `<img src="${text}" alt="${text2}">`;
+        text = `<img src="res/img/${text}" alt="${text2}">`;
         corpo.push(text);
         tipo.push('Imagem');
         atualizar();
     }
+    input_imagem.value = '';
+    input_legenda.value = '';
 }
 function addVideo(){
     let text= input_video.value;
@@ -44,6 +48,7 @@ function addVideo(){
         tipo.push('Vídeo');
         atualizar();
     }
+    input_video.value = '';
 }
 function generate(){
     let titulo = input_titulo.value;
@@ -53,7 +58,7 @@ function generate(){
     let capa = input_capa.value;
     let legenda = input_legendaCapa.value;
     if(titulo=='' || subtitulo=='' || paragrafo=='' || capa==''){
-        alert('Valor inválido');
+        alert('Preencha todos os campos obrigatórios');
         return;
     } 
     tituloLink = linkdificador(titulo);
@@ -71,11 +76,17 @@ function linkdificador(str) {
 }
 function atualizar(){
     div_corpo.innerHTML = '';
-    div_corpo.innerHTML += `<div class="topicos"><button class="desativado">•Título</button></div>
+    div_corpo.innerHTML += `<div class="topicos"><button class="desativado">•Menu</button></div>
+                            <div class="topicos"><button class="desativado">•Título</button></div>
                             <div class="topicos"><button class="desativado">•Capa</button></div>
                             <div class="topicos"><button class="desativado">•Autor</button></div>`;
     for (let i=0; i<tipo.length; i++){
-        div_corpo.innerHTML += `<div class="topicos"><button onclick="excluir(${i})"> •${tipo[i]}</button> </div>`;
+        div_corpo.innerHTML += `<div class="topicos">
+                                    <button class="ativo" onclick="excluir(${i})"> 
+                                        <span class="texto-normal">•${tipo[i]}</span>
+                                        <span class="texto-apagar">Excluir</span>
+                                    </button>
+                                </div>`;
     }
     div_corpo.innerHTML += `<div class="topicos"><button class="desativado">•Rodapé</button></div>`;
 };

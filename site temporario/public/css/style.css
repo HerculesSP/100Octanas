@@ -102,7 +102,15 @@ nav ul li:hover > .nav-dropdown {
     border-radius: 20px;
     max-width: 100%;
     min-height: 760px;
-    
+}
+.titulo h1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container{
+    display: flex;
+    flex-direction: column;
 }
 .posicao{
     display: flex;
@@ -116,12 +124,53 @@ nav ul li:hover > .nav-dropdown {
 .inputs{
     display: flex;
     flex-direction: row;
-    gap: 30px;
+    gap: 70px;
 }
 .input {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+.input button{
+    background-color: rgb(187, 9, 18);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+.input button:hover{
+    background-color: rgb(255, 255, 252);
+    color: rgb(187, 9, 18);
+    border: rgb(187, 9, 18) solid 2px;
+}
+.input input{
+    padding: 10px;
+    border-radius: 5px;
+    border: rgb(187, 9, 18) solid 2px;
+}
+.topicos button{
+    background-color: rgba(255, 255, 252);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+.topicos .ativo .texto-apagar{
+  display: none;
+}
+.topicos .ativo:hover{
+   background-color: rgb(187, 9, 18);;
+    color: white;
+    border-radius: 5px;
+    border: rgb(172, 6, 14) solid 3px;
+}
+.topicos .ativo:hover .texto-normal{
+  display: none;
+}
+.topicos .ativo:hover .texto-apagar{
+  display: inline;
+}
+.desativado:hover{
+  cursor: not-allowed;
 }
 .footer {
   background: #8b0000;
@@ -149,7 +198,6 @@ nav ul li:hover > .nav-dropdown {
   text-transform: uppercase;
   font-weight: bold;
 }
-
 .footer-links {
   list-style: none;
   display: flex;
