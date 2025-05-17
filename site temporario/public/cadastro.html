@@ -6,11 +6,54 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/menu-rodape.css">
   <link rel="icon" href="img/logo-VitAgro.ico" />
   <title>VitAgro | Cadastro</title>
 </head>
 
 <body>
+     <section class="navigation">
+        <div class="nav-container">
+            <div class="brand">
+                <a href="index.html">100 Octanas</a>
+            </div>
+        <nav>
+            <ul class="nav-list">
+                <li>
+                    <a href="index.html">Início</a>
+                </li>
+                <li>
+                    <a href="noticias.html">Notícias</a>
+                </li>
+                <li>
+                    <a href="#">Gerenciamento</a>
+                    <ul class="nav-dropdown">
+                        <li>
+                            <a href="dashboard/dashboard-usuarios.html">Dashboard Usuários</a>
+                        </li>
+                        <li>
+                            <a href="dashboard/dashboard-materias.html">Dashboard Matérias</a>
+                        </li>
+                        <li>
+                            <a href="painel.html">Painel</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="nav-user">
+                        <img src="res/icon/default-icon.png" alt="Avatar do usuário" class="user-avatar">
+                        <span class="user-name" id="userName">Nome</span>
+                    </div>
+                    <ul class="nav-dropdown">
+                        <li>
+                            <a href="#!">Sair</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    </section>
   <div class="login">
     <div class="container">
       <div class="card card-cadastro">
@@ -27,24 +70,9 @@
                 <div id="invalid_lastname" class="invalid-feedback">Insira o Sobrenome</div>
             </div>
             <div class="campo">
-                <span>CPF:</span>
-                <input id="input_cpf" type="text" placeholder="123.456.788-90" oninput="cpf()"/>
-                <div id="invalid_cpf" class="invalid-feedback">Insira o CPF</div>
-            </div>
-            <div class="campo">
-                <span>token:</span>
-                <input id="input_token" type="text" placeholder="Insira aqui seu código" oninput="token()"/>
-                <div id="invalid_token" class="invalid-feedback">Insira o Token</div>
-            </div>
-            <div class="campo">
                 <span>E-mail:</span>
                 <input id="input_email" type="text" placeholder="email@vitagro.com" oninput="email()"/>
                 <div id="invalid_email" class="invalid-feedback">Insira o Email</div>
-            </div>
-            <div class="campo">
-                <span>Telefone celular:</span>
-                <input id="input_phone" type="text" placeholder="+55 (11) 91234-5678" oninput="phone()"/>
-                <div id="invalid_phone" class="invalid-feedback">Insira o Telefone</div>
             </div>
             <div class="campo">
                 <span>Senha:</span>
@@ -65,7 +93,22 @@
       </div>
     </div>
   </div>
-  
+   <footer class="footer">
+            <div class="footer-container">
+                <span class="footer-brand">100 Octanas</span>
+                <ul class="footer-links">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="materias.html">Notícias</a></li>
+                </ul>
+                <div class="footer-social">
+                    <a href="#"><img src="assets/icon/facebook.png" alt="Facebook"></a>
+                    <!-- https://uxwing.com/facebook-app-round-white-icon/-->
+                    <a href="#"><img src="assets/icon/twitter.png" alt="Twitter"></a>
+                    <!--https://uxwing.com/x-social-media-white-icon/-->
+                    <a href="#"><img src="assets/icon/instagram.png" alt="Instagram"></a>
+                    <!--https://uxwing.com/instagram-white-icon/-->
+            </div>
+    </footer>
 </body>
 <script src="js/vitagro.js"></script>
 
