@@ -5,144 +5,239 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>AquaTech | Cadastro</title>
-
-  <script src="./js/sessao.js"></script>
-
-  <link rel="stylesheet" href="./css/estilo.css" />
-  <link rel="icon" href="./assets/icon/favicon2.ico" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/menu-rodape.css">
+  <link rel="icon" href="img/logo-VitAgro.ico" />
+  <title>100 Octanas | Cadastro</title>
 </head>
 
-<body onload="listar()">
-  <!--header inicio-->
-  <div class="header">
-    <div class="container">
-      <h1 class="titulo">AquaTech</h1>
-      <ul class="navbar">
-        <li>
-          <a href="index.html">Inicial</a>
-        </li>
-        <li>
-          <a href="simulador.html">Simulador</a>
-        </li>
-        <li>|</li>
-        <li>
-          <a href="login.html">Login</a>
-        </li>
-        <li class="agora">
-          <a href="#">Cadastro</a>
-        </li>
-      </ul>
+<body>
+     <section class="navigation">
+        <div class="nav-container">
+            <div class="brand">
+                <a href="index.html">100 Octanas</a>
+            </div>
+        <nav>
+            <ul class="nav-list">
+                <li>
+                    <a href="index.html">Início</a>
+                </li>
+                <li>
+                    <a href="noticias.html">Notícias</a>
+                </li>
+                <li>
+                    <a href="#">Gerenciamento</a>
+                    <ul class="nav-dropdown">
+                        <li>
+                            <a href="dashboard/dashboard-usuarios.html">Dashboard Usuários</a>
+                        </li>
+                        <li>
+                            <a href="dashboard/dashboard-materias.html">Dashboard Matérias</a>
+                        </li>
+                        <li>
+                            <a href="painel.html">Painel</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="nav-user">
+                        <img src="res/icon/default-icon.png" alt="Avatar do usuário" class="user-avatar">
+                        <span class="user-name" id="userName">Nome</span>
+                    </div>
+                    <ul class="nav-dropdown">
+                        <li>
+                            <a href="#!">Sair</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
     </div>
-  </div>
-  <!--header fim-->
-
+    </section>
   <div class="login">
-    <div class="alerta_erro">
-      <div class="card_erro" id="cardErro">
-        <span id="mensagem_erro"></span>
-      </div>
-    </div>
     <div class="container">
       <div class="card card-cadastro">
         <h2>Bem-vindo!</h2>
-        <div class="formulario">
-          <!--
-                         Para inserir mais um campo, copie uma das inputs abaixo.
-                         Assim que inserir vá para o script abaixo.
-                     -->
-          <div class="campo">
-            <span>Código de ativação:</span>
-            <input id="codigo_input" type="text" placeholder="Insira aqui seu código" />
-          </div>
-          <div class="campo">
-            <span>Nome:</span>
-            <input id="nome_input" type="text" placeholder="Seu nome" />
-          </div>
-          <div class="campo">
-            <span>E-mail:</span>
-            <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
-          </div>
-          <div class="campo">
-            <span>Senha:</span>
-            <input id="senha_input" type="password" placeholder="******" />
-          </div>
-          <div class="campo">
-            <span>Confirmação da Senha:</span>
-            <input id="confirmacao_senha_input" type="password" placeholder="******" />
-          </div>
-          <button class="botao" onclick="cadastrar()">Cadastrar</button>
+        <div class="forms">
+            <div class="campo">
+                <span>Nome:</span>
+                <input id="input_name" type="text" placeholder="Seu nome" oninput="emptyName()" />
+                <div id="invalid_name" class="invalid-feedback">Insira o Nome</div>
+            </div>
+            <div class="campo">
+                <span>Sobrenome:</span>
+                <input id="input_lastname" type="text" placeholder="Seu sobrenome" oninput="emptyLastname()" />
+                <div id="invalid_lastname" class="invalid-feedback">Insira o Sobrenome</div>
+            </div>
+            <div class="campo">
+                <span>E-mail:</span>
+                <input id="input_email" type="text" placeholder="exemplo@email.com" oninput="email()"/>
+                <div id="invalid_email" class="invalid-feedback">Insira o Email</div>
+            </div>
+             <div class="campo">
+                <span>Data de Nascimento:</span>
+                <input id="input_data" type="date" class="input-data" oninput="nasc()"/>
+                <div id="invalid_data" class="invalid-feedback">Insira a data de nascimento</div>
+            </div>
+            <div class="campo">
+                <span>Senha:</span>
+                <input id="input_password" type="password" placeholder="******" oninput="password()"/>
+                <div id="invalid_password" class="invalid-feedback">Insira a Senha</div>
+            </div>
+            <div class="campo">
+                <span>Confirmação da Senha:</span>
+                <input id="input_confirm_password" type="password" placeholder="******" oninput="confirmPassword()"/>
+                <div id="invalid_confirm_password" class="invalid-feedback">Insira a senha novamente</div>
+            </div>
+            <button class="credential-submit" id="credential_submit_button" onclick="checkAllSubmit()" onmouseover="checkAll()">Cadastrar</button>
+            </div>
+            <div class="login-redirect">
+                <p>Já tem uma conta? <a href="login.html">Faça login</a></p>
+            </div>    
         </div>
-        <div id="div_aguardar" class="loading-div">
-          <img src="./assets/circle-loading.gif" id="loading-gif" />
-        </div>
-
-        <div id="div_erros_login"></div>
       </div>
     </div>
   </div>
-
-  <!--footer inicio-->
-  <div class="footer">
-    <div class="container">
-      <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023</h4>
-      <span class="version">v1.0.0</span>
-    </div>
-  </div>
-  <!--footer fim-->
+   <footer class="footer">
+            <div class="footer-container">
+                <span class="footer-brand">100 Octanas</span>
+                <ul class="footer-links">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="noticias.html">Notícias</a></li>
+                </ul>
+                <div class="footer-social">
+                    <a href="#"><img src="assets/icon/facebook.png" alt="Facebook"></a>
+                    <!-- https://uxwing.com/facebook-app-round-white-icon/-->
+                    <a href="#"><img src="assets/icon/twitter.png" alt="Twitter"></a>
+                    <!--https://uxwing.com/x-social-media-white-icon/-->
+                    <a href="#"><img src="assets/icon/instagram.png" alt="Instagram"></a>
+                    <!--https://uxwing.com/instagram-white-icon/-->
+            </div>
+    </footer>
 </body>
 
+
 </html>
-
 <script>
+    function emptyName(){
+    let text = input_name.value;
+    if(text == ""){
+        input_name.style.border = "2px solid red";
+        invalid_name.innerHTML = "<img src='../assets/icon/denied.png'> <span class='denied'> Nome Inválido! </span>";
+        return false;
+    } else{
+        input_name.style.border = "2px solid green";
+        invalid_name.innerHTML = "<img src='../assets/icon/accept.png'> <span class='accept'> Nome Ok! </span>";
+        return true;
+    }
+}
+function emptyLastname(){
+    let text = input_lastname.value;
+    if(text == ""){
+        input_lastname.style.border = "2px solid red";
+        invalid_lastname.innerHTML = "<img src='../assets/icon/denied.png'><span class='denied'> Sobrenome Inválido! </span>";
+        return false;
+    } else{
+        input_lastname.style.border = "2px solid green";
+        invalid_lastname.innerHTML = "<img src='../assets/icon/accept.png'> <span class='accept'> Sobrenome Ok! </span>";
+        return true;
+    }
+}
+function email(){
+    let text = input_email.value;
+    let haveAt = text.indexOf('@');
+    if(haveAt == -1){
+        input_email.style.border = "2px solid red";
+        invalid_email.innerHTML = "<img src='../assets/icon/denied.png'> <span class='denied'> Email Inválido! </span>";
+        return false;
+    }else{
+        input_email.style.border = "2px solid green";
+        invalid_email.innerHTML = "<img src='../assets/icon/accept.png'> <span class='accept'> Email Ok! </span>";
+        return true;
+    }
+}
+function nasc(){
+    let text = input_data.value;
+    let data = new Date(text);
+    let dataAtual = new Date();
+    let idade = dataAtual.getFullYear() - data.getFullYear();
+    if(idade < 18){
+        input_data.style.border = "2px solid red";
+        invalid_data.innerHTML = "<img src='../assets/icon/denied.png'> <span class='denied'> Você deve ter mais de 18 anos! </span>";
+        return false;
+    }else{
+        input_data.style.border = "2px solid green";
+        invalid_data.innerHTML = "<img src='../assets/icon/accept.png'> <span class='accept'> Data Ok! </span>";
+        return true;
+    }
+}
+function password(){
+    var password= input_password.value;
+    let passwordLength = password.length;
+    let haveNumber = /\d/.test(password);
+    let haveSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    let haveLower = /[a-z]/.test(password);
+    let haveUpper = /[A-Z]/.test(password);
+    if(passwordLength < 8 || passwordLength > 20){
+        input_password.style.border = "2px solid red";
+        invalid_password.innerHTML = "<img src='../assets/icon/denied.png'> <span class='denied'> A senha deve ter entre 8 e 20 dígitos! </span>";
+        return false;
+    } else if(!haveNumber || !haveSpecial || !haveLower || !haveUpper){
+        input_password.style.border = "2px solid red";
+        invalid_password.innerHTML = "<img src='../assets/icon/denied.png'> <span class='denied'> A senha deve conter letras maiúsculas, minúsculas, números e caracteres especiais! </span>";
+        return false;
+    } else{
+        input_password.style.border = "2px solid green";
+        invalid_password.innerHTML = "<img src='../assets/icon/accept.png'> <span class='accept'> Senha Ok! </span>";
+        return true;
+    }
+}
+function confirmPassword(){
+    let confirmPassword = input_confirm_password.value;
+    if(confirmPassword != input_password.value ){
+        input_confirm_password.style.border = "2px solid red";
+        invalid_confirm_password.innerHTML = "<img src='../assets/icon/denied.png'> <span class='denied'> As senhas não conferem! </span>";
+        return false;
+    } else if(input_confirm_password.value == ""){
+        input_confirm_password.style.border = "2px solid red";
+        invalid_confirm_password.innerHTML = "<img src='../assets/icon/denied.png'> <span class='denied'> Esse campo não pode ficar vazio! </span>";
+        return false;
+    } else{
+        input_confirm_password.style.border = "2px solid green";
+        invalid_confirm_password.innerHTML = "<img src='../assets/icon/accept.png'> <span class='accept'> Senha Ok! </span>";
+        return true;
+    }
+}
+function checkAll(){
+    let nameValid = emptyName();
+    let lastnameValid = emptyLastname();
+    let passwordValid = password();
+    let emailValid = email();
+    let nascValid = nasc();
+    let confirmPasswordValid = confirmPassword();
+    if(nameValid && lastnameValid && emailValid && passwordValid && confirmPasswordValid && nascValid){
+        credential_submit_button.disabled = false;
+        credential_submit_button.style.cursor = "pointer";
+        return true;
+    }else{
+        credential_submit_button.disabled = true;
+        credential_submit_button.style.cursor = "not-allowed";
+        return false;
+    }
+}
 
-  // Array para armazenar empresas cadastradas para validação de código de ativação 
-  let listaEmpresasCadastradas = [];
-
-  function cadastrar() {
-    // aguardar();
-
+function checkAllSubmit(){
+    let validAll = checkAll();
+    if (validAll=0) {
+        return ; 
+    }
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
-    var nomeVar = nome_input.value;
-    var emailVar = email_input.value;
-    var senhaVar = senha_input.value;
-    var confirmacaoSenhaVar = confirmacao_senha_input.value;
-    var codigoVar = codigo_input.value;
-    var idEmpresaVincular
-
-    // Verificando se há algum campo em branco
-    if (
-      nomeVar == "" ||
-      emailVar == "" ||
-      senhaVar == "" ||
-      confirmacaoSenhaVar == "" ||
-      codigoVar == ""
-    ) {
-      cardErro.style.display = "block";
-      mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
-
-      finalizarAguardar();
-      return false;
-    } else {
-      setInterval(sumirMensagem, 5000);
-    }
-
-    // Verificando se o código de ativação é de alguma empresa cadastrada
-    for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
-      if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
-        idEmpresaVincular = listaEmpresasCadastradas[i].id
-        console.log("Código de ativação válido.");
-        break;
-      } else {
-        cardErro.style.display = "block";
-        mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
-        finalizarAguardar();
-      }
-    }
+    var nomeVar = input_name.value;
+    var sobrenomeVar = input_lastname.value;
+    var emailVar = input_email.value;
+    var senhaVar =input_password.value;
+    var nascVar = input_data.value;
 
     // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
@@ -154,59 +249,34 @@
         // crie um atributo que recebe o valor recuperado aqui
         // Agora vá para o arquivo routes/usuario.js
         nomeServer: nomeVar,
+        sobrenomeServer: sobrenomeVar,
+        dataNascimentoServer: nascVar,
         emailServer: emailVar,
         senhaServer: senhaVar,
-        idEmpresaVincularServer: idEmpresaVincular
       }),
     })
       .then(function (resposta) {
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-          cardErro.style.display = "block";
-
-          mensagem_erro.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+          alert(
+            "Cadastro realizado com sucesso! Redirecionando para tela de Login...");
 
           setTimeout(() => {
             window.location = "login.html";
           }, "2000");
 
           limparFormulario();
-          finalizarAguardar();
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
-        finalizarAguardar();
       });
 
     return false;
   }
 
-  // Listando empresas cadastradas 
-  function listar() {
-    fetch("/empresas/listar", {
-      method: "GET",
-    })
-      .then(function (resposta) {
-        resposta.json().then((empresas) => {
-          empresas.forEach((empresa) => {
-            listaEmpresasCadastradas.push(empresa);
-
-            console.log("listaEmpresasCadastradas")
-            console.log(listaEmpresasCadastradas[0].codigo_ativacao)
-          });
-        });
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
-  }
-
-  function sumirMensagem() {
-    cardErro.style.display = "none";
-  }
+ 
 </script>
