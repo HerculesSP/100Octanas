@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS cemOctanas.Usuario_Materia (
   fkUsuario INT NOT NULL,
   fkMateria INT NOT NULL,
   sequencial INT NOT NULL,
-  segundosLidos INT NOT NULL,
+  segundosLidos INT,
   acesso TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (fkUsuario, fkMateria, sequencial),
   INDEX idx_materia_usuario (fkMateria, fkUsuario),
@@ -136,7 +136,7 @@ CREATE TABLE IF NOT EXISTS cemOctanas.InfoUsuario (
   idContato INT NOT NULL AUTO_INCREMENT,
   email VARCHAR(200) NOT NULL,
   dtInsc DATE NOT NULL,
-  foto VARCHAR(70) NOT NULL,
+  foto VARCHAR(70) NOT NULL DEFAULT 'default-icon.png',
   ativo TINYINT NULL DEFAULT 1,
   banido TINYINT NULL,
   verificado TINYINT NOT NULL DEFAULT 0,
@@ -151,9 +151,27 @@ CREATE TABLE IF NOT EXISTS cemOctanas.InfoUsuario (
 );
 
 -- -----------------------------------------------------
--- Procedimento
+-- Procedimento  cadastrarUsuarioInfo
 -- -----------------------------------------------------
+DELIMITER $$
 
+CREATE PROCEDURE cadastrarUsuarioInfo(
+    IN p_nome VARCHAR(100),
+    IN p_sobrenome VARCHAR(100),
+    IN p_email VARCHAR(255),
+    IN p_dtNasc DATE,
+    IN p_senha VARCHAR(100)
+)
+BEGIN
+    -- Inserir na tabela Usuario
+    INSERT INTO cemOctanas.Usuario (nome, sobrenome, dtNasc, senha)
+    VALUES (p_nome, p_sobrenome, p_dtNasc, p_senha);
+
+    INSERT INTO cemOctanas.InfoUsuario (email, dtInsc, fkUsuario)
+    VALUES (p_email, NOW(), LAST_INSERT_ID());
+END$$
+
+DELIMITER ;
 
 -- -----------------------------------------------------
 -- View vw_kpis_usuario
