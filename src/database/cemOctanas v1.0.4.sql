@@ -155,7 +155,7 @@ CREATE TABLE IF NOT EXISTS cemOctanas.InfoUsuario (
 -- -----------------------------------------------------
 DELIMITER $$
 
-CREATE PROCEDURE cadastrarUsuarioInfo(
+CREATE PROCEDURE cemOctanas.cadastrarUsuarioInfo(
     IN p_nome VARCHAR(100),
     IN p_sobrenome VARCHAR(100),
     IN p_email VARCHAR(255),
@@ -179,7 +179,7 @@ DELIMITER ;
 create view cemOctanas.vw_kpis_usuario as
 select count(fkUsuario) materias_lidas, round(avg(segundosLidos),0) tempo_medio 
 	from cemOctanas.Usuario_Materia group by fkusuario;
-
+    
 
 -- -----------------------------------------------------
 -- View vw_kpis_materia
