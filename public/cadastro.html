@@ -80,6 +80,10 @@
                 <div id="invalid_data" class="invalid-feedback">Insira a data de nascimento</div>
             </div>
             <div class="campo">
+                <span>Foto de perfil:</span>
+                <input id="input_foto" type="file" class="input-data"/>
+            </div>
+            <div class="campo">
                 <span>Senha:</span>
                 <input id="input_password" type="password" placeholder="******" oninput="password()"/>
                 <div id="invalid_password" class="invalid-feedback">Insira a Senha</div>
@@ -238,22 +242,17 @@ function checkAllSubmit(){
     var emailVar = input_email.value;
     var senhaVar =input_password.value;
     var nascVar = input_data.value;
-
+    const formData = new FormData();
+    formData.append('foto', input_foto.files[0])
+    formData.append('nome', nomeVar)
+    formData.append('sobrenome', sobrenomeVar)
+    formData.append('email', emailVar)
+    formData.append('senha', senhaVar)
+    formData.append('dataNascimento', nascVar)
     // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
-        nomeServer: nomeVar,
-        sobrenomeServer: sobrenomeVar,
-        dataNascimentoServer: nascVar,
-        emailServer: emailVar,
-        senhaServer: senhaVar,
-      }),
+      body: formData
     })
       .then(function (resposta) {
         console.log("resposta: ", resposta);

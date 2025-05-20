@@ -1,5 +1,4 @@
-var mysql = require("mysql2");
-
+const mysql = require("mysql2");
 // CONEXÃO DO BANCO MYSQL SERVER
 var mySqlConfig = {
     host: process.env.DB_HOST,
