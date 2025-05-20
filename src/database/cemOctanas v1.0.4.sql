@@ -136,7 +136,7 @@ CREATE TABLE IF NOT EXISTS cemOctanas.InfoUsuario (
   idContato INT NOT NULL AUTO_INCREMENT,
   email VARCHAR(200) NOT NULL,
   dtInsc DATE NOT NULL,
-  foto VARCHAR(70) NOT NULL DEFAULT 'default-icon.png',
+  foto VARCHAR(133) NOT NULL DEFAULT 'default-icon.png',
   ativo TINYINT NULL DEFAULT 1,
   banido TINYINT NULL,
   verificado TINYINT NOT NULL DEFAULT 0,
@@ -160,15 +160,16 @@ CREATE PROCEDURE cemOctanas.cadastrarUsuarioInfo(
     IN p_sobrenome VARCHAR(100),
     IN p_email VARCHAR(255),
     IN p_dtNasc DATE,
-    IN p_senha VARCHAR(100)
+    IN p_senha VARCHAR(100),
+    IN p_imagem VARCHAR(133)
 )
 BEGIN
     -- Inserir na tabela Usuario
     INSERT INTO cemOctanas.Usuario (nome, sobrenome, dtNasc, senha)
     VALUES (p_nome, p_sobrenome, p_dtNasc, p_senha);
 
-    INSERT INTO cemOctanas.InfoUsuario (email, dtInsc, fkUsuario)
-    VALUES (p_email, NOW(), LAST_INSERT_ID());
+    INSERT INTO cemOctanas.InfoUsuario (email, dtInsc, foto, fkUsuario)
+    VALUES (p_email, NOW(), p_imagem, LAST_INSERT_ID());
 END$$
 
 DELIMITER ;
