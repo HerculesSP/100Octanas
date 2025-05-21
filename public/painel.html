@@ -67,7 +67,7 @@
                         </div>
                         <div class="input">
                             <h3>Capa*</h3>
-                            <input type="text" class="form-control" id="input_capa" placeholder="...">
+                            <input type="file" class="form-control" id="input_capa" placeholder="...">
                             <h3>Legenda</h3>
                             <input type="text" class="form-control" id="input_legendaCapa" placeholder="Adicionar legenda...">
                         </div>
@@ -112,7 +112,7 @@
                         </div>
                         <div class="input">
                             <h3>Imagem</h3>
-                            <input type="text" class="form-control" id="input_imagem" placeholder="Pesquisar...">
+                            <input type="file" class="form-control" id="input_imagem">
                             <h3>Legenda (opcional)</h3>
                             <input type="text" class="form-control" id="input_legenda" placeholder="Adicionar legenda...">
                             <button class="btn-materia" onclick="addImage()">Adicionar imagem</button>
@@ -167,13 +167,12 @@
 </html>
 <script>
 const corpo=[];
-const tipo=[]
+const tipo=[];
 function addSubtitle (){
     let text= input_subtitulo.value;
     if(text==''){
         alert('Valor inválido');
     } else{
-        text = `<h3>${text}</h3>`;
         corpo.push(text);
         tipo.push('Subtítulo');
         atualizar();
@@ -185,7 +184,6 @@ function addParagraph(){
     if(text==''){
         alert('Valor inválido');
     } else{
-        text = `<p>${text}</p>`;
         corpo.push(text);
         tipo.push('Paragráfo');
         atualizar();
@@ -198,9 +196,10 @@ function addImage(){
     if(text==''){
         alert('Valor inválido');
     } else{
-        text = `<img src="res/img/${text}" alt="${text2}">`;
         corpo.push(text);
         tipo.push('Imagem');
+        corpo.push(text2);
+        tipo.push('Legenda')
         atualizar();
     }
     input_imagem.value = '';
@@ -211,8 +210,9 @@ function addVideo(){
     if(text==''){
         alert('Valor inválido');
     } else{
-        text = `<iframe src="${text}" frameborder="0" allowfullscreen></iframe>`;
-        corpo.push(text);
+        const embedUrl = text.replace("watch?v=", "embed/");
+       
+        corpo.push(embedUrl);
         tipo.push('Vídeo');
         atualizar();
     }
@@ -221,15 +221,62 @@ function addVideo(){
 function generate(){
     let titulo = input_titulo.value;
     let tituloLink ='';
-    let subtitulo = input_subtitulo.value;
-    let paragrafo = input_paragrafo.value;
     let capa = input_capa.value;
+    let resumo = input_resumo.value;
     let legenda = input_legendaCapa.value;
-    if(titulo=='' || subtitulo=='' || paragrafo=='' || capa==''){
+    let categoria1 = input_categoria1.value;
+    let categoria2 = input_categoria2.value;
+    let categoria3 = input_categoria3.value;
+    if(titulo=='' || resumo=='' || capa=='' || categoria1==''|| categoria2=='' || categoria3==''){
         alert('Preencha todos os campos obrigatórios');
         return;
     } 
     tituloLink = linkdificador(titulo);
+    
+    const formData = new FormData();
+    formData.append('capa', input_capa.files[0])
+    formData.append('titulo', titulo)
+    formData.append('legenda', legenda)
+    formData.append('link', tituloLink)
+    formData.append('categoria1', categoria1)
+    formData.append('categoria2', categoria2)
+    formData.append('categoria3', categoria3)
+    formData.append('local', '1')
+    formData.append('id', sessionStorage.ID_USUARIO)
+    tipo.forEach((tipo, i) => {
+    formData.append('tipo[]', tipo);
+    formData.append('corpo[]', corpo[i]);
+    });
+    for (let pair of formData.entries()) {
+  console.log(pair[0] + ':', pair[1]);
+}
+    // Enviando o valor da nova input
+    fetch("/materias/enviarMateria", {
+      method: "POST",
+      body: formData
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          alert(
+            "Cadastro realizado com sucesso! Redirecionando para tela de Login...");
+
+          setTimeout(() => {
+            window.location = "login.html";
+          }, "2000");
+
+          limparFormulario();
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+
+    return false;
+
     
 }
 function linkdificador(str) {

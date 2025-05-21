@@ -47,7 +47,7 @@ function autenticar(req, res) {
 function cadastrar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     const imagem = req.file.filename;
-    const {nome, sobrenome, email, senha, dataNascimento} = req.body
+    const {nome, sobrenome, email, senha, dataNascimento, tipo} = req.body
     const usuario = { nome, sobrenome, email, senha, dataNascimento, imagem }
 
 

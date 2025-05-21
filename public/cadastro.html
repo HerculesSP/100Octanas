@@ -249,6 +249,11 @@ function checkAllSubmit(){
     formData.append('email', emailVar)
     formData.append('senha', senhaVar)
     formData.append('dataNascimento', nascVar)
+    formData.append('local', '1')
+    for (let pair of formData.entries()) {
+  console.log(pair[0] + ':', pair[1]);
+}
+
     // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
       method: "POST",
