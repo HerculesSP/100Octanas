@@ -191,7 +191,7 @@ function addParagraph(){
     input_paragrafo.value = '';
 }
 function addImage(){
-    let text= input_imagem.value;
+    let text= input_imagem.files[0];;
     let text2= input_legenda.value;
     if(text==''){
         alert('Valor inválido');
@@ -221,7 +221,7 @@ function addVideo(){
 function generate(){
     let titulo = input_titulo.value;
     let tituloLink ='';
-    let capa = input_capa.value;
+    let capa = input_capa.files[0];
     let resumo = input_resumo.value;
     let legenda = input_legendaCapa.value;
     let categoria1 = input_categoria1.value;
@@ -234,7 +234,7 @@ function generate(){
     tituloLink = linkdificador(titulo);
     
     const formData = new FormData();
-    formData.append('capa', input_capa.files[0])
+    formData.append('capa', capa)
     formData.append('titulo', titulo)
     formData.append('legenda', legenda)
     formData.append('link', tituloLink)
