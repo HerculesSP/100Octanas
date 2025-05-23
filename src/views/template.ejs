@@ -3,41 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/menu-rodape.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/menu-rodape.css">
     <title>Document</title>
 </head>
 <body>
     <section class="navigation">
         <div class="nav-container">
             <div class="brand">
-                <a href="index.html">100 Octanas</a>
+                <a href="../../index.html">100 Octanas</a>
             </div>
         <nav>
             <ul class="nav-list">
                 <li>
-                    <a href="index.html">Início</a>
+                    <a href="../../index.html">Início</a>
                 </li>
                 <li>
-                    <a href="noticias.html">Notícias</a>
+                    <a href="../../noticias.html">Notícias</a>
                 </li>
                 <li>
                     <a href="#">Gerenciamento</a>
                     <ul class="nav-dropdown">
                         <li>
-                            <a href="dashboard/dashboard-usuarios.html">Dashboard Usuários</a>
+                            <a href="../../dashboard/dashboard-usuarios.html">Dashboard Usuários</a>
                         </li>
                         <li>
-                            <a href="dashboard/dashboard-materias.html">Dashboard Matérias</a>
+                            <a href="../../dashboard/dashboard-materias.html">Dashboard Matérias</a>
                         </li>
                         <li>
-                            <a href="painel.html">Painel</a>
+                            <a href="../../painel.html">Painel</a>
                         </li>
                     </ul>
                 </li>
                 <li>
                     <div class="nav-user">
-                        <img src="res/icon/default-icon.png" alt="Avatar do usuário" class="user-avatar">
+                        <img src="../icon/default-icon.png" alt="Avatar do usuário" class="user-avatar">
                         <span class="user-name" id="userName">Nome</span>
                     </div>
                     <ul class="nav-dropdown">
@@ -52,19 +52,20 @@
     </section>
     <div class="container-geral ">
         <div class="titulo-materia">
-            <h1><%= Título %></h1>
+            <h1><%= Titulo %></h1>
         </div>
         <div class="dados-materia">
-                <div class="icon-jornalista-materia">
-                    <img src="<%= foto_jornalista %>"" alt="Icone de usuario">
-                </div>
-                <div class="nome-jornalista-materia">
-                    <h2><%= Nome do jornalista %></h2>
-                    <p>Publicada em: <span><%= data %></span></p>
-                </div>
+        <div class="icon-jornalista-materia">
+            <img src="<%= foto_jornalista %>" alt="Icone de usuario">
         </div>
+        <div class="nome-jornalista-materia">
+            <h2><%= Nome_do_jornalista %></h2>
+            <p>Publicada em: <span><%= data %></span></p>
+        </div>
+        </div>
+
         <div class="capa-materia">
-            <img src="<%= capa_materia %>" alt="Icone de usuario">
+            <img src="../img/<%= capa_materia %>">
         </div>
         <div class="corpo-materia">
             <div class="resumo-materia">
@@ -79,15 +80,15 @@
             <div class="footer-container">
                 <span class="footer-brand">100 Octanas</span>
                 <ul class="footer-links">
-                    <li><a href="index.html">Início</a></li>
-                    <li><a href="noticias.html">Notícias</a></li>
+                    <li><a href="../../index.html">Início</a></li>
+                    <li><a href="../../noticias.html">Notícias</a></li>
                 </ul>
                 <div class="footer-social">
-                    <a href="#"><img src="assets/icon/facebook.png" alt="Facebook"></a>
+                    <a href="#"><img src="../../assets/icon/facebook.png" alt="Facebook"></a>
                     <!-- https://uxwing.com/facebook-app-round-white-icon/-->
-                    <a href="#"><img src="assets/icon/twitter.png" alt="Twitter"></a>
+                    <a href="#"><img src="../../assets/icon/twitter.png" alt="Twitter"></a>
                     <!--https://uxwing.com/x-social-media-white-icon/-->
-                    <a href="#"><img src="assets/icon/instagram.png" alt="Instagram"></a>
+                    <a href="#"><img src="../../assets/icon/instagram.png" alt="Instagram"></a>
                     <!--https://uxwing.com/instagram-white-icon/-->
             </div>
     </footer>

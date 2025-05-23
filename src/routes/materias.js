@@ -8,7 +8,7 @@ router.post(
   '/enviarMateria',
   upload.fields([
     { name: 'capa', maxCount: 1 },
-    { name: 'corpo[]' }
+    { name: 'corpoArquivo[]' }
   ]),
   (req, res) => {
     materiaController.criarMateria(req, res);

@@ -1,34 +1,55 @@
 const fs = require('fs');
 const ejs = require('ejs');
-
+const path = require('path');
 exports.mostrarMateria = (req, res) => {
   res.sendFile('public/index.html', { root: '.' });
 };
 
 exports.criarMateria = (req, res) => {
-  const { capa, titulo, legenda, link, local, categoria1, categoria2, categoria3, tipo, corpo, id } = req.body;
-  console.log(capa, titulo, legenda, link, local, categoria1, categoria2, categoria3, tipo, corpo, id)
-  if (tipo && !Array.isArray(tipo)) tipo = [tipo];
-  if (corpo && !Array.isArray(corpo)) corpo = [corpo];
-  let text=''
-  for (let i=0; i<corpo.length; i++){
-    if (tipo[i]=='Subtítulo'){
-      text+=`<h3> ${corpo[i]} </h3>`
-    } else if (tipo[i]=='Paragráfo'){
-      text+=`<p> ${corpo[i]} </p>`
-    } else if (tipo[i]=='Vídeo'){
-      text += `<iframe src="${corpo[i]}" frameborder="0" allowfullscreen></iframe>`;
-    } else if (tipo[i]=='Imagem' && tipo[i+1]=='Legenda'){
-      text += `<img src="res/img/${corpo[i]}" alt="${corpo[i+1]}">`;
-      i++
-    } else if (tipo[i]=='Imagem'){
-      text += `<img src="res/img/${corpo[i]}">`;
+  const capa = req.files['capa'] ? req.files['capa'][0].filename : null;
+  const {titulo, link, local, categoria1, categoria2, categoria3, tipo, id, corpoTexto } = req.body;
+  const arquivosCorpo = req.files['corpoArquivo[]'] || [];
+  if (corpoTexto && !Array.isArray(corpoTexto)) corpoTexto = [corpoTexto];
+  console.log('--- DADOS DA MATÉRIA ---');
+  console.log('Capa:', capa);
+  console.log('Título:', titulo);
+  console.log('Link:', link);
+  console.log('Local:', local);
+  console.log('Categoria1:', categoria1);
+  console.log('Categoria2:', categoria2);
+  console.log('Categoria3:', categoria3);
+  console.log('ID:', id);
+  console.log('Tipos:', tipo);
+  console.log('Arquivos do corpo:', arquivosCorpo.map(f => f.filename));
+  console.log('Textos/links do corpo:', corpoTexto);
+  let text = '';
+  let txtIndex = 0;
+  let imgIndex = 0;
+  for (let i = 0; i < tipo.length; i++) {
+    if (tipo[i] === 'Subtítulo') {
+      text += `<h3>${corpoTexto[txtIndex++]}</h3>\n`;
+    } else if (tipo[i] === 'Parágrafo') {
+      text += `<p>${corpoTexto[txtIndex++]}</p>\n`;
+    } else if (tipo[i] === 'Vídeo') {
+      text += `<iframe src="${corpoTexto[txtIndex++]}" frameborder="0" allowfullscreen></iframe>\n`;
+    } else if (tipo[i] === 'Imagem') {
+      const imgFile = arquivosCorpo[imgIndex++];
+      text += `<img src="../img/${imgFile.filename}">\n`;
     }
   }
   console.log(text)
-  //ejs.renderFile('views/template.ejs', { nome, email }, (err, html) => {
-    //fs.writeFile('public/template.html', html, (err) => {
-      //res.redirect('/template.html');
-    //});
-  //});
+  ejs.renderFile('src/views/template.ejs', { Titulo: titulo, foto_jornalista:null, Nome_do_jornalista:'hercules', data:'20/01/2024', capa_materia:capa, conteudo:text }, (err, html) => {
+  if (err) {
+    console.error('Erro ao renderizar EJS:', err);
+    return res.status(500).send('Erro ao gerar página');
+  }
+  const filePath = path.join(__dirname, '../../public/res/materias/', `${link}.html`);
+  fs.writeFile(filePath, html, (err) => {
+    if (err) {
+      console.error('Erro ao salvar arquivo HTML:', err);
+      return res.status(500).send('Erro ao salvar página');
+    }
+    res.redirect(`/res/materias/${link}.html`);
+  });
+});
 };
