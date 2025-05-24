@@ -32,17 +32,6 @@ CREATE TABLE IF NOT EXISTS cemOctanas.Usuario (
 
 
 -- -----------------------------------------------------
--- Tabela cemOctanas.Capa
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS cemOctanas.Capa (
-  idCapa INT NOT NULL AUTO_INCREMENT,
-  link VARCHAR(100) NOT NULL,
-  legenda VARCHAR(75) NULL,
-  PRIMARY KEY (idCapa)
-);
-
-
--- -----------------------------------------------------
 -- Tabela cemOctanas.Materia
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS cemOctanas.Materia (
@@ -51,16 +40,13 @@ CREATE TABLE IF NOT EXISTS cemOctanas.Materia (
   resumo VARCHAR(300) NOT NULL,
   link VARCHAR(120) NOT NULL,
   visivel TINYINT NOT NULL DEFAULT 1,
+  capa VARCHAR(69) NOT NULL,
   fkAutor INT NOT NULL,
-  fkCapa INT NOT NULL,
   PRIMARY KEY (idMateria),
   INDEX idx_titulo (titulo),
   CONSTRAINT fk_Materia_Autor
     FOREIGN KEY (fkAutor)
-    REFERENCES cemOctanas.Usuario (idUsuario),
-  CONSTRAINT fk_Materia_Capa
-    FOREIGN KEY (fkCapa)
-    REFERENCES cemOctanas.Capa (idCapa)
+    REFERENCES cemOctanas.Usuario (idUsuario)
 );
 
 
@@ -68,12 +54,12 @@ CREATE TABLE IF NOT EXISTS cemOctanas.Materia (
 -- Tabela cemOctanas.Usuario_Materia
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS cemOctanas.Usuario_Materia (
+  sequencial INT NOT NULL AUTO_INCREMENT,
   fkUsuario INT NOT NULL,
   fkMateria INT NOT NULL,
-  sequencial INT NOT NULL,
   segundosLidos INT,
   acesso TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (fkUsuario, fkMateria, sequencial),
+  PRIMARY KEY (sequencial, fkUsuario, fkMateria),
   INDEX idx_materia_usuario (fkMateria, fkUsuario),
   INDEX idx_usuario_materia (fkUsuario, fkMateria),
   CONSTRAINT fk_Usuario_Materia
@@ -136,7 +122,7 @@ CREATE TABLE IF NOT EXISTS cemOctanas.InfoUsuario (
   idContato INT NOT NULL AUTO_INCREMENT,
   email VARCHAR(200) NOT NULL,
   dtInsc DATE NOT NULL,
-  foto VARCHAR(133) NOT NULL DEFAULT 'default-icon.png',
+  foto VARCHAR(69) NOT NULL DEFAULT 'default-icon.png',
   ativo TINYINT NULL DEFAULT 1,
   banido TINYINT NULL,
   verificado TINYINT NOT NULL DEFAULT 0,
@@ -156,15 +142,14 @@ CREATE TABLE IF NOT EXISTS cemOctanas.InfoUsuario (
 DELIMITER $$
 
 CREATE PROCEDURE cemOctanas.cadastrarUsuarioInfo(
-    IN p_nome VARCHAR(100),
-    IN p_sobrenome VARCHAR(100),
-    IN p_email VARCHAR(255),
+    IN p_nome VARCHAR(75),
+    IN p_sobrenome VARCHAR(150),
+    IN p_email VARCHAR(200),
     IN p_dtNasc DATE,
-    IN p_senha VARCHAR(100),
-    IN p_imagem VARCHAR(133)
+    IN p_senha VARCHAR(20),
+    IN p_imagem VARCHAR(69)
 )
 BEGIN
-    -- Inserir na tabela Usuario
     INSERT INTO cemOctanas.Usuario (nome, sobrenome, dtNasc, senha)
     VALUES (p_nome, p_sobrenome, p_dtNasc, p_senha);
 

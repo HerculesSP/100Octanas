@@ -1,6 +1,7 @@
 const fs = require('fs');
 const ejs = require('ejs');
 const path = require('path');
+var materiaModel = require("../models/materiaModel");
 exports.mostrarMateria = (req, res) => {
   res.sendFile('public/index.html', { root: '.' });
 };
@@ -8,6 +9,7 @@ exports.mostrarMateria = (req, res) => {
 exports.criarMateria = (req, res) => {
   const capa = req.files['capa'] ? req.files['capa'][0].filename : null;
   const {titulo, link, local, categoria1, categoria2, categoria3, tipo, id, corpoTexto } = req.body;
+  const materia = {titulo, link,  categoria1, categoria2, categoria3, id}
   const arquivosCorpo = req.files['corpoArquivo[]'] || [];
   if (corpoTexto && !Array.isArray(corpoTexto)) corpoTexto = [corpoTexto];
   console.log('--- DADOS DA MATÉRIA ---');
@@ -49,7 +51,23 @@ exports.criarMateria = (req, res) => {
       console.error('Erro ao salvar arquivo HTML:', err);
       return res.status(500).send('Erro ao salvar página');
     }
+    materiaModel.criarMateria(materia)
+                .then(
+                    function (resultado) {
+                        res.json(resultado);
+                    }
+                ).catch(
+                    function (erro) {
+                        console.log(erro);
+                        console.log(
+                            "\nHouve um erro ao realizar o cadastro! Erro: ",
+                            erro.sqlMessage
+                        );
+                        res.status(500).json(erro.sqlMessage);
+                    }
+                );
     res.redirect(`/res/materias/${link}.html`);
   });
 });
 };
+

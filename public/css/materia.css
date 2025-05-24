@@ -1,0 +1,32 @@
+.conta-leitor {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 20px;
+    justify-content: flex-start;
+    align-items: center;
+}
+.container-geral .dados-materia {
+    max-width: 100%;
+    max-height: 20%;
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    
+}
+.container-geral .dados-materia .icon-jornalista-materia {
+    margin: 20px;
+    display: flex;
+    width: 100px;
+    height: 100px;
+    border: 1px solid  #000000;
+    justify-content: center;
+    border-radius: 12px;
+} 
+.container-geral .dados-materia .nome-jornalista-materia {
+    margin-top: 17px;
+    border-top: 3px solid  #d40000;
+    padding: 0;
+}

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/menu-rodape.css">
     <title>Document</title>
 </head>
-<body>
+<body onload="categorias('categoria1'), categorias('categoria2'), categorias('categoria3')">
     <section class="navigation">
         <div class="nav-container">
             <div class="brand">
@@ -81,15 +81,21 @@
                     <div class="inputs">
                         <div class="input">
                             <h3>Categoria principal</h3>
-                            <input type="text" class="form-control" id="input_categoria1" placeholder="Adicionar categoria...">
+                            <select id="categoria1" name="categoria" required>
+                            <option value="">Selecione uma categoria</option>
+                            </select>
                         </div>
                         <div class="input">
                             <h3>Categoria secundária</h3>
-                            <input type="text" class="form-control" id="input_categoria2" placeholder="Adicionar categoria...">
+                             <select id="categoria2" name="categoria" required>
+                            <option value="">Selecione uma categoria</option>
+                            </select>
                         </div>
                         <div class="input">
                             <h3>Categoria terciária</h3>
-                            <input type="text" class="form-control" id="input_categoria3" placeholder="Adicionar categoria...">
+                            <select id="categoria3" name="categoria" required>
+                            <option value="">Selecione uma categoria</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -215,10 +221,10 @@ function generate(){
     let tituloLink ='';
     let capa = input_capa.files[0];
     let resumo = input_resumo.value;
-    let categoria1 = input_categoria1.value;
-    let categoria2 = input_categoria2.value;
-    let categoria3 = input_categoria3.value;
-    if(titulo=='' || resumo=='' || capa=='' || categoria1==''|| categoria2=='' || categoria3==''){
+    let categoria1let = categoria1.value;
+    let categoria2let = categoria2.value;
+    let categoria3let = categoria3.value;
+    if(titulo=='' || resumo=='' || capa=='' || categoria1let==''|| categoria2let=='' || categoria3let==''){
         alert('Preencha todos os campos obrigatórios');
         return;
     } 
@@ -228,9 +234,9 @@ function generate(){
     formData.append('capa', capa);
     formData.append('titulo', titulo);
     formData.append('link', tituloLink);
-    formData.append('categoria1', categoria1);
-    formData.append('categoria2', categoria2);
-    formData.append('categoria3', categoria3);
+    formData.append('categoria1', categoria1let);
+    formData.append('categoria2', categoria2let);
+    formData.append('categoria3', categoria3let);
     formData.append('local', '2');
     formData.append('id', sessionStorage.ID_USUARIO);
     tipo.forEach((tipoItem, i) => {
@@ -310,4 +316,28 @@ function excluir(i){
         atualizar();
     }
 }
+function categorias(idSelect, selecionada = null) {
+  fetch('categorias/listarCategorias')
+    .then(response => {
+      if (response.ok) {
+        response.json().then(resposta => {
+          const select = document.getElementById(idSelect);
+          select.innerHTML = "<option value=''>Selecione uma categoria</option>";
+
+          resposta.forEach(categoria => {
+            const option = document.createElement('option');
+            option.value = categoria.idCategoria;
+            option.textContent = categoria.Categoria;
+            select.appendChild(option);
+          });
+        });
+      } else {
+        console.error('Nenhuma categoria encontrada ou erro na API');
+      }
+    })
+    .catch(error => {
+      console.error(`Erro na obtenção das categorias para o painel: ${error.message}`);
+    });
+}
+
 </script>
