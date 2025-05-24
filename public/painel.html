@@ -247,7 +247,7 @@ function generate(){
         formData.append('corpoTexto[]', corpo[i]);
     }
     });
-
+    console.log (corpo, tipo)
     // Enviando o valor da nova input
     fetch("/materias/enviarMateria", {
       method: "POST",
@@ -304,17 +304,9 @@ function atualizar(){
     div_corpo.innerHTML += `<div class="topicos"><button class="desativado">•Rodapé</button></div>`;
 };
 function excluir(i){
-    if(tipo[i]=='Imagem' && tipo[i+1]=='Legenda'){
-        corpo.splice(i, 1);
-        corpo.splice(i, 1);
-        tipo.splice(i, 1);
-        tipo.splice(i, 1);
-        atualizar();
-    } else {
-        corpo.splice(i, 1);
-        tipo.splice(i, 1);
-        atualizar();
-    }
+    corpo.splice(i, 1);
+    tipo.splice(i, 1);
+    atualizar();
 }
 function categorias(idSelect, selecionada = null) {
   fetch('categorias/listarCategorias')

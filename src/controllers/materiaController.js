@@ -29,7 +29,7 @@ exports.criarMateria = (req, res) => {
   let imgIndex = 0;
   for (let i = 0; i < tipo.length; i++) {
     if (tipo[i] === 'Subtítulo') {
-      text += `<h3>${corpoTexto[txtIndex++]}</h3>\n`;
+      text += `<h2>${corpoTexto[txtIndex++]}</h2>\n`;
     } else if (tipo[i] === 'Parágrafo') {
       text += `<p>${corpoTexto[txtIndex++]}</p>\n`;
     } else if (tipo[i] === 'Vídeo') {
@@ -39,8 +39,10 @@ exports.criarMateria = (req, res) => {
       text += `<img src="../img/${imgFile.filename}">\n`;
     }
   }
+  const hoje = new Date();
+  const dataAtual = hoje.toLocaleDateString('pt-BR');
   console.log(text)
-  ejs.renderFile('src/views/template.ejs', { Titulo: titulo, foto_jornalista:null, Nome_do_jornalista:'hercules', data:'20/01/2024', capa_materia:capa, conteudo:text }, (err, html) => {
+  ejs.renderFile('src/views/template.ejs', { Titulo: titulo, foto_jornalista:null, Nome_do_jornalista:'Hercules da S. Pereira', data:dataAtual, capa_materia:capa, conteudo:text }, (err, html) => {
   if (err) {
     console.error('Erro ao renderizar EJS:', err);
     return res.status(500).send('Erro ao gerar página');
