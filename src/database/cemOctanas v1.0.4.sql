@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS cemOctanas.Materia (
   link VARCHAR(120) NOT NULL,
   visivel TINYINT NOT NULL DEFAULT 1,
   capa VARCHAR(69) NOT NULL,
+  dtPub date,
   fkAutor INT NOT NULL,
   PRIMARY KEY (idMateria),
   INDEX idx_titulo (titulo),
@@ -159,6 +160,34 @@ END$$
 
 DELIMITER ;
 
+
+-- -----------------------------------------------------
+-- Procedimento  cadastrarMateria
+-- -----------------------------------------------------
+DELIMITER $$
+
+CREATE PROCEDURE cemOctanas.cadastrarMateria(
+    IN p_titulo VARCHAR(100),
+    IN p_resumo VARCHAR(300),
+    IN p_link VARCHAR(120),
+    IN p_capa VARCHAR(69),
+    IN p_autor int,
+    IN p_categoria1 int,
+    IN p_categoria2 int,
+    IN p_categoria3 int
+)
+BEGIN
+	DECLARE id int;
+    INSERT INTO cemOctanas.Materia (titulo, resumo, link, capa, dtPub, fkAutor)
+    VALUES (p_titulo, p_resumo, p_link, p_capa, NOW(), p_autor);
+    set id = LAST_INSERT_ID();
+    INSERT INTO cemOctanas.Categoria_Materia (fkMateria, fkCategoria, nivel)
+    VALUES (id, p_categoria1, 3), (id, p_categoria2, 2), (id, p_categoria3, 1);
+END$$
+
+DELIMITER ;
+
+
 -- -----------------------------------------------------
 -- View vw_kpis_usuario
 -- -----------------------------------------------------
@@ -174,5 +203,29 @@ create view cemOctanas.vw_kpis_materia as
 select count(fkMateria) quantidade_acessos, round(avg(segundosLidos),0) tempo_medio 
 	from cemOctanas.Usuario_Materia group by fkMateria;
     
-    
-select * from cemOctanas.vw_kpis_usuario;
+
+-- -----------------------------------------------------
+-- Inserindo as categorias
+-- -----------------------------------------------------
+INSERT INTO cemOctanas.Categoria (Categoria) VALUES
+  ('Fórmula 1'),
+  ('WEC'),
+  ('Fórmula E'),
+  ('Rali'),
+  ('MotoGP'),
+  ('Stock Car'),
+  ('NASCAR'),
+  ('Audi'),
+  ('BMW'),
+  ('Mercedes-Benz'),
+  ('Ferrari'),
+  ('Porsche'),
+  ('Lançamentos'),
+  ('Mercado'),
+  ('Testes'),
+  ('Clássicos'),
+  ('Tecnologia'),
+  ('Elétricos'),
+  ('Eventos'),
+  ('JDM'),
+  ('Mercado de usados');

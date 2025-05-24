@@ -218,7 +218,7 @@ function addVideo(){
 }
 function generate(){
     let titulo = input_titulo.value;
-    let tituloLink ='';
+    var tituloLink ='';
     let capa = input_capa.files[0];
     let resumo = input_resumo.value;
     let categoria1let = categoria1.value;
@@ -261,7 +261,7 @@ function generate(){
             "Cadastro da notícia realizado com sucesso! Redirecionando para a matéria..");
 
           setTimeout(() => {
-            window.location = "login.html";
+            window.location = `res/materias/${tituloLink}.html`;
           }, "2000");
 
           limparFormulario();
