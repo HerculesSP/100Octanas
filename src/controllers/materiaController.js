@@ -88,3 +88,17 @@ exports.listarMaterias = (req, res) => {
     });
   }*/
 };
+
+exports.armazenar = (req, res) => {
+  const idMateria = req.body.idMateria;
+  const idUsuario = req.body.idUsuario;
+  materiaModel.armazenar(idMateria, idUsuario)
+    .then(function (resultado) {
+        res.json(resultado);
+    })
+    .catch(function (erro) {
+        console.log(erro);
+        res.status(500).json(erro.sqlMessage);
+    });
+
+};

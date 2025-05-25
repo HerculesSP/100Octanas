@@ -18,5 +18,8 @@ router.post(
   }
 );
 
+router.post("/inserirInformacoes", function (req, res) {
+    materiaController.armazenar(req, res);
+});
 
 module.exports = router;

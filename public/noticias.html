@@ -116,21 +116,52 @@ function exibirMaterias(materias){
     resultados.innerHTML=''
     for (let i=0; i<materias.length; i++){
         const data = new Date(materias[i].data).toLocaleDateString('pt-BR');
-        resultados.innerHTML += `<a href="res/materias/${materias[i].link}.html"><div class="resultados-card">
-            <div class="imagem">
-                <img src="res/img/${materias[i].capa}">
-            </div>
-            <div class="estrutura">
-                <div class="informacoes">
-                    <span class="titulo-card">${materias[i].titulo}</span>
-                    <span class="resumo-card">${materias[i].resumo}</span>
+        resultados.innerHTML += `
+            <a href="javascript:redirecionarUsuario(${materias[i].id}, ${sessionStorage.ID_USUARIO}, '${materias[i].link}')">
+                <div class="resultados-card">
+                    <div class="imagem">
+                        <img src="res/img/${materias[i].capa}">
+                    </div>
+                    <div class="estrutura">
+                        <div class="informacoes">
+                            <span class="titulo-card">${materias[i].titulo}</span>
+                            <span class="resumo-card">${materias[i].resumo}</span>
+                        </div>
+                        <div class="data">
+                            <span class="data-card">Publicado em ${data}</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="data">
-                    <span class="data-card">Publicado em ${data}</span>
-                </div>
-            </div>
-        </div></a>`
+            </a>`
     }
+}
+function redirecionarUsuario(idMateria, idUsuario, link){
+    const dados = {
+        idMateria: idMateria,
+        idUsuario: idUsuario
+    };
+    fetch("/materias/inserirInformacoes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(dados)
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+        if (resposta.ok) {
+          console.log(
+            "Cadastro da notícia realizado com sucesso! Redirecionando para a matéria..");
+            window.location = `./res/materias/${link}.html`;
+        } else {
+          throw "Houve um erro ao salvar as matérias no banco!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+
+    return false;
 }
 </script>
 

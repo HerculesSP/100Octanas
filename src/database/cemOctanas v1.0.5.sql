@@ -209,8 +209,8 @@ select count(fkMateria) quantidade_acessos, round(avg(segundosLidos),0) tempo_me
 -- -----------------------------------------------------
 create view cemOctanas.vw_materias as
 select m.idMateria id, m.titulo titulo, m.resumo resumo, m.link link, m.capa capa, m.dtPub data, count(mu.fkMateria) acessos
-from Usuario_Materia mu
-right join Materia m on m.idMateria=mu.fkMateria 
+from cemOctanas.Usuario_Materia mu
+right join cemOctanas.Materia m on m.idMateria=mu.fkMateria 
 group by m.idMateria, m.titulo, m.resumo, m.link, m.capa, m.dtPub;
     
 
