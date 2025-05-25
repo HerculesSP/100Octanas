@@ -263,7 +263,49 @@ margin-bottom: 10px;
 .seta.direita {
   right: 16px;
 }
-
-
+.resultados {
+  display: flex;
+  flex-direction: column;
+}
+.resultados a {
+  text-decoration: none;
+  color: inherit;
+}
+.resultados-card{
+    margin: 20px;
+    border-bottom: rgb(231, 231, 231) solid 2px;
+    max-width: 100%;
+    min-height: 200px;
+    display: flex;
+    flex-direction: row;
+}
+.resultados-card .estrutura {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.resultados-card .imagem {
+  margin-right: 30px;
+}
+.resultados-card .imagem img {
+  width: 400px;
+  height: 225px;
+  border-radius: 7px;
+}
+.resultados-card .estrutura .informacoes {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+.resultados-card .estrutura .informacoes .titulo-card{
+  font-size: 32px;
+}
+.resultados-card .estrutura .informacoes .resumo-card{
+  font-size: 18px;
+}
+.resultados-card .estrutura .data{
+  font-size: 18px;
+  margin-bottom: 10px;
+}
 
 

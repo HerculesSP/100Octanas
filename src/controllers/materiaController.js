@@ -2,9 +2,7 @@ const fs = require('fs');
 const ejs = require('ejs');
 const path = require('path');
 var materiaModel = require("../models/materiaModel");
-exports.mostrarMateria = (req, res) => {
-  res.sendFile('public/index.html', { root: '.' });
-};
+
 
 exports.criarMateria = (req, res) => {
   const capa = req.files['capa'] ? req.files['capa'][0].filename : null;
@@ -65,3 +63,28 @@ exports.criarMateria = (req, res) => {
 });
 };
 
+exports.listarMaterias = (req, res) => {
+  const ordem =req.query.ordem;
+  const pesquisa1 =req.query.pesquisa;
+  const pesquisa = `where titulo like '%${pesquisa1}%'`
+  console.log(ordem, pesquisa)
+  if (ordem=='data' || ordem == 'acessos desc'){
+    materiaModel.listarNormal(ordem, pesquisa)
+    .then(function (resultado) {
+        res.json(resultado);
+    })
+    .catch(function (erro) {
+        console.log(erro);
+        res.status(500).json(erro.sqlMessage);
+    });
+  } /*else {
+    materiaModel.listarRecomendados(pesquisa)
+    .then(function (resultado) {
+        res.json(resultado);
+    })
+    .catch(function (erro) {
+        console.log(erro);
+        res.status(500).json(erro.sqlMessage);
+    });
+  }*/
+};

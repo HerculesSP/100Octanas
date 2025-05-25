@@ -11,7 +11,7 @@
   <title>100 Octanas | Cadastro</title>
 </head>
 
-<body>
+<body onload="buscarMaterias()">
      <section class="navigation">
         <div class="nav-container">
             <div class="brand">
@@ -58,15 +58,18 @@
         <div class="container-busca">
             <div class="container-ordenar">
                 <label for="ordenar">Ordenar por:</label>
-                <select id="ordenar"class="dropdown">
+                <select id="ordenar"class="dropdown" onchange="buscarMaterias()">
+                    <option value="data">Mais recentes</option>
                     <option value="recomendados">Recomendados</option>
-                    <option value="recentes">Mais recentes</option>
-                    <option value="acessadas">Mais acessadas</option>
+                    <option value="acessos desc">Mais acessadas</option>
                 </select>
             </div>
             <div class="search-box">
-                <input type="text" class="search-txt" id="termo_pesquisa" placeholder="Pesquisar">
+                <input type="text" class="search-txt" id="termo_pesquisa" placeholder="Pesquisar" oninput="buscarMaterias()">
             </div>
+        </div>
+        <div class="resultados" id="resultados">
+           
         </div>
     </div>
       <footer class="footer">
@@ -86,6 +89,49 @@
             </div>
     </footer>
 </body>
-<script src="js/cadastro-login.js"></script>
+<script>
+function buscarMaterias(){
+    let pesquisa = termo_pesquisa.value
+    let ordem = ordenar.value;
+    if (pesquisa == ''){
+        pesquisa = ``;
+    } 
+
+    fetch(`materias/listarMaterias?ordem=${ordem}&pesquisa=${pesquisa}`)
+    .then(response => {
+      if (response.ok) {
+        response.json().then(resposta => {
+            console.log(resposta)
+            exibirMaterias(resposta)
+        });
+      } else {
+        console.error('Nenhuma matéria encontrada ou erro na API');
+      }
+    })
+    .catch(error => {
+      console.error(`Erro na obtenção das matérias para exibir: ${error.message}`);
+    });
+}
+function exibirMaterias(materias){
+    resultados.innerHTML=''
+    for (let i=0; i<materias.length; i++){
+        const data = new Date(materias[i].data).toLocaleDateString('pt-BR');
+        resultados.innerHTML += `<a href="res/materias/${materias[i].link}.html"><div class="resultados-card">
+            <div class="imagem">
+                <img src="res/img/${materias[i].capa}">
+            </div>
+            <div class="estrutura">
+                <div class="informacoes">
+                    <span class="titulo-card">${materias[i].titulo}</span>
+                    <span class="resumo-card">${materias[i].resumo}</span>
+                </div>
+                <div class="data">
+                    <span class="data-card">Publicado em ${data}</span>
+                </div>
+            </div>
+        </div></a>`
+    }
+}
+</script>
 
 </html>

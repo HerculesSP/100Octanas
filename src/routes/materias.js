@@ -3,7 +3,10 @@ const router = express.Router();
 const upload = require('../config/configUpload');
 const materiaController = require('../controllers/materiaController');
 
-//router.get('/', materiaController.mostarMateria);
+router.get("/listarMaterias", function (req, res) {
+    materiaController.listarMaterias(req, res);
+});
+
 router.post(
   '/enviarMateria',
   upload.fields([
