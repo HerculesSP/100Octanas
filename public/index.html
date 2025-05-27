@@ -1,82 +1,251 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>AquaTech | Página Inicial</title>
-
-    <script src="./js/sessao.js"></script>
-
-    <link rel="stylesheet" href="./css/estilo.css">
-    <link rel="icon" href="./assets/icon/favicon2.ico">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/menu-rodape.css">
+  <link rel="icon" href="img/logo-VitAgro.ico" />
+  <title>100 Octanas | Início</title>
 </head>
 
-<body>
-    <div class="header">
-      <div class="container">
-        <h1 class="titulo">AquaTech</h1>
-        <ul class="navbar">
-          <li class="agora">
-            <a href="#">Inicial</a>
-          </li>
-          <li>
-            <a href="simulador.html">Simulador</a>
-          </li>
-          <li>|</li>
-          <li>
-            <a href="login.html">Login</a>
-          </li>
-          <li>
-            <a href="cadastro.html">Cadastro</a>
-          </li>
-        </ul>
-      </div>
+<body onload="buscarPopulares(), buscarRecentes(), validarSessao()">
+     <section class="navigation">
+        <div class="nav-container">
+            <div class="brand">
+                <a href="index.html">100 Octanas</a>
+            </div>
+        <nav>
+            <ul class="nav-list">
+                <li>
+                    <a href="index.html">Início</a>
+                </li>
+                <li>
+                    <a href="noticias.html">Notícias</a>
+                </li>
+                <li>
+                    <a href="#">Gerenciamento</a>
+                    <ul class="nav-dropdown">
+                        <li>
+                            <a href="dashboard/dashboard-usuarios.html">Dashboard Usuários</a>
+                        </li>
+                        <li>
+                            <a href="dashboard/dashboard-materias.html">Dashboard Matérias</a>
+                        </li>
+                        <li>
+                            <a href="painel.html">Painel</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="nav-user">
+                        <img src="res/icon/default-icon.png" alt="Avatar do usuário" class="user-avatar">
+                        <span class="user-name" id="b_usuario">Nome</span>
+                    </div>
+                    <ul class="nav-dropdown">
+                        <li>
+                            <a onclick=" limparSessao()">Sair</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
     </div>
-  
-    <div class="banner">
-      <div class="container">
-        <p>Preservando <span>hoje</span> para existirem <span>amanhã</span>.</p>
-      </div>
+    </section>
+    <div class="container-geral">
+      <h2>Mais Populares</h2>
+       <div class="container-carrossel">
+            <div class="carrossel" id="carrossel-db">
+            </div>
+       </div>
+       <h2>Mais Recentes</h2>
+        <div class="resultados" id="resultados">
+           
+        </div>
     </div>
-  
-    <div class="social">
-      <div class="container">
-        <div class="boxes">
-          <div class="box">
-            <img src="assets/imgs/planet-earth_color.png">
-            <h4>Missão</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, quas cupiditate asperiores provident magnam
-              vitae illum iusto fugiat atque deleniti nulla sed iure suscipit, laborum, aliquid accusantium cum dicta
-              minima.</p>
+      <footer class="footer">
+            <div class="footer-container">
+                <span class="footer-brand">100 Octanas</span>
+                <ul class="footer-links">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="noticias.html">Notícias</a></li>
+                </ul>
+                <div class="footer-social">
+                    <a href="#"><img src="assets/icon/facebook.png" alt="Facebook"></a>
+                    <!-- https://uxwing.com/facebook-app-round-white-icon/-->
+                    <a href="#"><img src="assets/icon/twitter.png" alt="Twitter"></a>
+                    <!--https://uxwing.com/x-social-media-white-icon/-->
+                    <a href="#"><img src="assets/icon/instagram.png" alt="Instagram"></a>
+                    <!--https://uxwing.com/instagram-white-icon/-->
+            </div>
+    </footer>
+</body>
+</html>
+<script src="js/sessao.js"></script>
+<script>
+const slides = ['slide1', 'slide2', 'slide3'];
+let atual = 0;
+let intervalo = setInterval(proximoSlide, 7000);
+
+function mostrarSlide(indice) {
+  document.getElementById(slides[indice]).checked = true;
+  atual = indice;
+}
+
+function proximoSlide() {
+  atual = (atual + 1) % slides.length;
+  mostrarSlide(atual);
+}
+
+function anteriorSlide() {
+  atual = (atual - 1 + slides.length) % slides.length;
+  mostrarSlide(atual);
+}
+
+function proximo() {
+  proximoSlide();
+  reiniciarIntervalo();
+};
+function anterior() {
+  anteriorSlide();
+  reiniciarIntervalo();
+};
+
+function reiniciarIntervalo() {
+  clearInterval(intervalo);
+  intervalo = setInterval(proximoSlide, 7000);
+}
+function buscarPopulares(){
+    fetch(`materias/listarMaterias?ordem=acessos desc&pesquisa=&limit=3`)
+    .then(response => {
+      if (response.ok) {
+        response.json().then(resposta => {
+            exibirSlides(resposta);
+        });
+      } else {
+        console.error('Nenhuma matéria encontrada ou erro na API');
+      }
+    })
+    .catch(error => {
+      console.error(`Erro na obtenção das matérias para exibir: ${error.message}`);
+    });
+}
+
+function exibirSlides(materias) {
+   const carrossel = document.getElementById('carrossel-db');
+  if (!carrossel){ 
+    return;
+  }
+  let radios = '';
+  let slides = '';
+
+  materias.forEach((materia, index) => {
+    const checked = index === 0 ? 'checked' : '';
+    const data = new Date(materia.data).toLocaleDateString('pt-BR');
+    radios += `<input type="radio" name="carrossel" id="slide${index+1}" style="display:none;" ${checked}>`;
+    slides += `
+      <div class="slide s${index+1}">
+        <div class="slide-conteudo">
+          <div class="slide-imagem">
+            <img src="res/img/${materia.capa}" alt="${materia.titulo}">
           </div>
-          <div class="box">
-            <img src="assets/imgs/lightbulb_color.png">
-            <h4>Visão</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, quas cupiditate asperiores provident magnam
-              vitae illum iusto fugiat atque deleniti nulla sed iure suscipit, laborum, aliquid accusantium cum dicta
-              minima.</p>
-          </div>
-          <div class="box">
-            <img src="assets/imgs/growth_color.png">
-            <h4>Valores</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, quas cupiditate asperiores provident magnam
-              vitae illum iusto fugiat atque deleniti nulla sed iure suscipit, laborum, aliquid accusantium cum dicta
-              minima.</p>
+          <div class="slide-info">
+            <div class="titulo">${materia.titulo}</div>
+            <div class="resumo">${materia.resumo}</div>
+            <div class="data">Publicado em: ${data}</div>
           </div>
         </div>
       </div>
-    </div>
-  
-    <div class="footer">
-      <div class="container">
-        <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023</h4>
-        <span class="version">v1.0.0</span>
-      </div>
-    </div>
-  </body>
+    `;
+  });
 
-</html>
+  const botoes = `
+    <button class="seta esquerda" onclick="mudarSlide(-1)">
+      <img src="https://cdn-icons-png.flaticon.com/512/271/271220.png" alt="Anterior" />
+    </button>
+    <button class="seta direita" onclick="mudarSlide(1)">
+      <img src="https://cdn-icons-png.flaticon.com/512/271/271228.png" alt="Próximo" />
+    </button>
+  `;
+
+  carrossel.innerHTML = radios + `<div class="slides">` + slides + `</div>` + botoes;
+}
+
+function mudarSlide(direcao) {
+  const radios = Array.from(document.querySelectorAll('input[name="carrossel"]'));
+  const atual = radios.findIndex(r => r.checked);
+  let novo = atual + direcao;
+  if (novo < 0) novo = radios.length - 1;
+  if (novo >= radios.length) novo = 0;
+  radios[novo].checked = true;
+}
+function buscarRecentes(){
+    fetch(`materias/listarMaterias?ordem=data&pesquisa=&limit=3`)
+    .then(response => {
+      if (response.ok) {
+        response.json().then(resposta => {
+            console.log(resposta)
+            exibirMaterias(resposta)
+        });
+      } else {
+        console.error('Nenhuma matéria encontrada ou erro na API');
+      }
+    })
+    .catch(error => {
+      console.error(`Erro na obtenção das matérias para exibir: ${error.message}`);
+    });
+}
+function exibirMaterias(materias){
+    resultados.innerHTML=''
+    for (let i=0; i<materias.length; i++){
+        const data = new Date(materias[i].data).toLocaleDateString('pt-BR');
+        resultados.innerHTML += `
+            <a href="javascript:redirecionarUsuario(${materias[i].id}, ${sessionStorage.ID_USUARIO}, '${materias[i].link}')">
+                <div class="resultados-card">
+                    <div class="imagem">
+                        <img src="res/img/${materias[i].capa}">
+                    </div>
+                    <div class="estrutura">
+                        <div class="informacoes">
+                            <span class="titulo-card">${materias[i].titulo}</span>
+                            <span class="resumo-card">${materias[i].resumo}</span>
+                        </div>
+                        <div class="data">
+                            <span class="data-card">Publicado em ${data}</span>
+                        </div>
+                    </div>
+                </div>
+            </a>`
+    }
+}
+function redirecionarUsuario(idMateria, idUsuario, link){
+    const dados = {
+        idMateria: idMateria,
+        idUsuario: idUsuario
+    };
+    fetch("/materias/inserirInformacoes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(dados)
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+        if (resposta.ok) {
+          console.log(
+            "Cadastro da notícia realizado com sucesso! Redirecionando para a matéria..");
+            window.location = `./res/materias/${link}.html`;
+        } else {
+          throw "Houve um erro ao salvar as matérias no banco!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+
+    return false;
+}
+</script>

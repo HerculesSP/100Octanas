@@ -97,7 +97,7 @@ function buscarMaterias(){
         pesquisa = ``;
     } 
 
-    fetch(`materias/listarMaterias?ordem=${ordem}&pesquisa=${pesquisa}`)
+    fetch(`materias/listarMaterias?ordem=${ordem}&pesquisa=${pesquisa}&limit=100`)
     .then(response => {
       if (response.ok) {
         response.json().then(resposta => {
