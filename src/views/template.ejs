@@ -8,42 +8,32 @@
     <link rel="stylesheet" href="../../css/menu-rodape.css">
     <title><%= Titulo %></title>
 </head>
-<body>
+<body onload="validarSessaoMateria()">
     <section class="navigation">
         <div class="nav-container">
             <div class="brand">
-                <a href="../../index.html">100 Octanas</a>
+                <a href="./../../index.html">100 Octanas</a>
             </div>
         <nav>
-            <ul class="nav-list">
+            <ul class="nav-list" id="menu">
                 <li>
-                    <a href="../../index.html">Início</a>
+                    <a href="./../../index.html">Início</a>
                 </li>
                 <li>
-                    <a href="../../noticias.html">Notícias</a>
+                    <a href="./../../noticias.html">Notícias</a>
                 </li>
+                
                 <li>
-                    <a href="#">Gerenciamento</a>
-                    <ul class="nav-dropdown">
-                        <li>
-                            <a href="../../dashboard/dashboard-usuarios.html">Dashboard Usuários</a>
-                        </li>
-                        <li>
-                            <a href="../../dashboard/dashboard-materias.html">Dashboard Matérias</a>
-                        </li>
-                        <li>
-                            <a href="../../painel.html">Painel</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <div class="nav-user">
-                        <img src="../icon/default-icon.png" alt="Avatar do usuário" class="user-avatar">
-                        <span class="user-name" id="userName">Nome</span>
+                    <div class="nav-user" id="div_usuario">
+                        <img src="res/icon/default-icon.png" alt="Avatar do usuário" class="user-avatar">
+                        <span class="user-name" id="b_usuario">Nome</span>
                     </div>
                     <ul class="nav-dropdown">
                         <li>
-                            <a href="#!">Sair</a>
+                            <a onclick=" limparSessao()">Sair</a>
+                        </li>
+                        <li>
+                            <a onclick=" apagarConta()">Sair</a>
                         </li>
                     </ul>
                 </li>
@@ -57,7 +47,7 @@
         </div>
         <div class="dados-materia">
         <div class="icon-jornalista-materia">
-            <img src="<%= foto_jornalista %>" alt="Icone de usuario">
+            <img src="./../icon/<%= foto_jornalista %>" alt="Icone de usuario" class="icon-jornalista-materia-img">
         </div>
         <div class="nome-jornalista-materia">
             <h4><%= Nome_do_jornalista %></h4>
@@ -94,4 +84,15 @@
             </div>
     </footer>
 </body>
+<div class="popup-bg" id="popupConfirm">
+        <div class="popup-card">
+            <h3>Deseja realmente apagar a sua conta?</h3>
+            <p>Essa ação é irreversível.</p>
+            <div class="popup-actions">
+                <button class="popup-btn confirm" onclick="confirmar()">Sim, apagar</button>
+                <button class="popup-btn cancel" onclick="fechar()">Cancelar</button>
+            </div>
+        </div>
+        </div>
 </html>
+<script src="./../../js/sessao.js"></script>

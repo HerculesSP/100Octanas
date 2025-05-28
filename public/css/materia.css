@@ -26,13 +26,22 @@
 }
 .container-geral .dados-materia .icon-jornalista-materia {
     margin: 20px;
-    display: flex;
     width: 80px;
     height: 80px;
+    display: flex;
     border: 1px solid  #000000;
     justify-content: center;
+    align-items: center;
+    overflow: hidden;
     border-radius: 12px;
-} 
+}
+
+.container-geral .dados-materia .icon-jornalista-materia-img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
 .container-geral .dados-materia .nome-jornalista-materia {
     margin-top: 17px;
     border-top: 3px solid  #d40000;

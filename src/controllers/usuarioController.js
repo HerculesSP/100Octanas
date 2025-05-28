@@ -23,7 +23,9 @@ function autenticar(req, res) {
                                         idUsuario: resultadoAutenticar[0].idUsuario,
                                         email: resultadoAutenticar[0].email,
                                         nome: resultadoAutenticar[0].nome,
+                                        sobrenome: resultadoAutenticar[0].sobrenome,
                                         descricao: resultadoAutenticar[0].descricao,
+                                        icon: resultadoAutenticar[0].foto,
                                     });
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
@@ -69,8 +71,20 @@ function cadastrar(req, res) {
             );
     
 }
+function apagarUsuario (req, res) {
+  const idUsuario = req.body.idUsuario;
+  usuarioModel.apagarUsuario(idUsuario)
+    .then(function (resultado) {
+        res.json(resultado);
+    })
+    .catch(function (erro) {
+        console.log(erro);
+        res.status(500).json(erro.sqlMessage);
+    });
 
+};
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    apagarUsuario
 }

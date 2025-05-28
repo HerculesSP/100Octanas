@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS cemOctanas.Usuario (
   sobrenome VARCHAR(150) NOT NULL,
   senha VARCHAR(20) NOT NULL,
   dtNasc DATE NOT NULL,
-  fkCargo INT NULL,
+  fkCargo INT NOT NULL DEFAULT 1,
   PRIMARY KEY (idUsuario),
   INDEX idx_nome (nome),
   CONSTRAINT fk_Usuario_Cargo
@@ -239,3 +239,12 @@ INSERT INTO cemOctanas.Categoria (Categoria) VALUES
   ('Eventos'),
   ('JDM'),
   ('Mercado de usados');
+
+-- -----------------------------------------------------
+-- Inserindo os cargos
+-- -----------------------------------------------------
+INSERT INTO cemOctanas.Cargo (descricao) VALUES
+('Leitor'),
+('Jornalista'),
+('Redator');
+ 

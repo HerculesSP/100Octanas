@@ -7,42 +7,29 @@
     <link rel="stylesheet" href="css/menu-rodape.css">
     <title>Document</title>
 </head>
-<body onload="categorias('categoria1'), categorias('categoria2'), categorias('categoria3')">
+<body onload="categorias('categoria1'), categorias('categoria2'), categorias('categoria3'), validarSessao(), validarSessaoPainel() ">
     <section class="navigation">
         <div class="nav-container">
             <div class="brand">
                 <a href="index.html">100 Octanas</a>
             </div>
         <nav>
-            <ul class="nav-list">
+            <ul class="nav-list" id="menu">
                 <li>
                     <a href="index.html">Início</a>
                 </li>
                 <li>
                     <a href="noticias.html">Notícias</a>
                 </li>
+                
                 <li>
-                    <a href="#">Gerenciamento</a>
-                    <ul class="nav-dropdown">
-                        <li>
-                            <a href="dashboard/dashboard-usuarios.html">Dashboard Usuários</a>
-                        </li>
-                        <li>
-                            <a href="dashboard/dashboard-materias.html">Dashboard Matérias</a>
-                        </li>
-                        <li>
-                            <a href="painel.html">Painel</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <div class="nav-user">
+                    <div class="nav-user" id="div_usuario">
                         <img src="res/icon/default-icon.png" alt="Avatar do usuário" class="user-avatar">
-                        <span class="user-name" id="userName">Nome</span>
+                        <span class="user-name" id="b_usuario">Nome</span>
                     </div>
                     <ul class="nav-dropdown">
                         <li>
-                            <a href="#!">Sair</a>
+                            <a onclick=" limparSessao()">Sair</a>
                         </li>
                     </ul>
                 </li>
@@ -166,7 +153,18 @@
             </div>
     </footer>
 </body>
+<div class="popup-bg" id="popupConfirm">
+        <div class="popup-card">
+            <h3>Deseja realmente apagar a sua conta?</h3>
+            <p>Essa ação é irreversível.</p>
+            <div class="popup-actions">
+                <button class="popup-btn confirm" onclick="confirmar()">Sim, apagar</button>
+                <button class="popup-btn cancel" onclick="fechar()">Cancelar</button>
+            </div>
+        </div>
+        </div>
 </html>
+<script src="js/sessao.js"></script>
 <script>
 const corpo=[];
 const tipo=[];
@@ -239,6 +237,9 @@ function generate(){
     formData.append('categoria3', categoria3let);
     formData.append('local', '2');
     formData.append('id', sessionStorage.ID_USUARIO);
+    formData.append('nome', sessionStorage.NOME_USUARIO);
+    formData.append('sobrenome', sessionStorage.SOBRENOME_USUARIO);
+    formData.append('icon', sessionStorage.FOTO);
     tipo.forEach((tipoItem, i) => {
     formData.append('tipo[]', tipoItem);
     if (tipoItem === 'Imagem') {

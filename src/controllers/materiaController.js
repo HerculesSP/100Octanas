@@ -6,7 +6,7 @@ var materiaModel = require("../models/materiaModel");
 
 exports.criarMateria = (req, res) => {
   const capa = req.files['capa'] ? req.files['capa'][0].filename : null;
-  const {titulo, link, local, categoria1, categoria2, categoria3, tipo, id, corpoTexto } = req.body;
+  const {titulo, link, local, categoria1, categoria2, categoria3, tipo, id, nome, sobrenome, icon, corpoTexto } = req.body;
   const materia = {titulo, link, capa, categoria1, categoria2, categoria3, id}
   const arquivosCorpo = req.files['corpoArquivo[]'] || [];
   if (corpoTexto && !Array.isArray(corpoTexto)) corpoTexto = [corpoTexto];
@@ -40,7 +40,7 @@ exports.criarMateria = (req, res) => {
   const hoje = new Date();
   const dataAtual = hoje.toLocaleDateString('pt-BR');
   console.log(text)
-  ejs.renderFile('src/views/template.ejs', { Titulo: titulo, foto_jornalista:null, Nome_do_jornalista:'Hercules da S. Pereira', data:dataAtual, capa_materia:capa, conteudo:text }, (err, html) => {
+  ejs.renderFile('src/views/template.ejs', { Titulo: titulo, foto_jornalista:icon, Nome_do_jornalista:(nome + ' ' + sobrenome), data:dataAtual, capa_materia:capa, conteudo:text }, (err, html) => {
   if (err) {
     console.error('Erro ao renderizar EJS:', err);
     return res.status(500).send('Erro ao gerar página');

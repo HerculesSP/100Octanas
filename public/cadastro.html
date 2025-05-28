@@ -11,7 +11,7 @@
   <title>100 Octanas | Cadastro</title>
 </head>
 
-<body>
+<body onload="validarSessaoAoContrario()">
      <section class="navigation">
         <div class="nav-container">
             <div class="brand">
@@ -21,34 +21,6 @@
             <ul class="nav-list">
                 <li>
                     <a href="index.html">Início</a>
-                </li>
-                <li>
-                    <a href="noticias.html">Notícias</a>
-                </li>
-                <li>
-                    <a href="#">Gerenciamento</a>
-                    <ul class="nav-dropdown">
-                        <li>
-                            <a href="dashboard/dashboard-usuarios.html">Dashboard Usuários</a>
-                        </li>
-                        <li>
-                            <a href="dashboard/dashboard-materias.html">Dashboard Matérias</a>
-                        </li>
-                        <li>
-                            <a href="painel.html">Painel</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <div class="nav-user">
-                        <img src="res/icon/default-icon.png" alt="Avatar do usuário" class="user-avatar">
-                        <span class="user-name" id="userName">Nome</span>
-                    </div>
-                    <ul class="nav-dropdown">
-                        <li>
-                            <a href="#!">Sair</a>
-                        </li>
-                    </ul>
                 </li>
             </ul>
         </nav>
@@ -122,6 +94,7 @@
 
 
 </html>
+<script src="js/sessao.js"></script>
 <script>
     function emptyName(){
     let text = input_name.value;

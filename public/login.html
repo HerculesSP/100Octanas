@@ -22,34 +22,6 @@
                 <li>
                     <a href="index.html">Início</a>
                 </li>
-                <li>
-                    <a href="noticias.html">Notícias</a>
-                </li>
-                <li>
-                    <a href="#">Gerenciamento</a>
-                    <ul class="nav-dropdown">
-                        <li>
-                            <a href="dashboard/dashboard-usuarios.html">Dashboard Usuários</a>
-                        </li>
-                        <li>
-                            <a href="dashboard/dashboard-materias.html">Dashboard Matérias</a>
-                        </li>
-                        <li>
-                            <a href="painel.html">Painel</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <div class="nav-user">
-                        <img src="res/icon/default-icon.png" alt="Avatar do usuário" class="user-avatar">
-                        <span class="user-name" id="userName">Nome</span>
-                    </div>
-                    <ul class="nav-dropdown">
-                        <li>
-                            <a href="#!">Sair</a>
-                        </li>
-                    </ul>
-                </li>
             </ul>
         </nav>
     </div>
@@ -179,12 +151,10 @@ function checkAllLoginSubmit(){
                     sessionStorage.ID_USUARIO = json.idUsuario;
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.SOBRENOME_USUARIO = json.sobrenome;
                     sessionStorage.CARGO = json.descricao;
-                    //sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
-
-                    setTimeout(function () {
-                        window.location = "./index.html";
-                    }, 1000); // apenas para exibir o loading
+                    sessionStorage.FOTO = json.icon;
+                     window.location = "./index.html";
 
                 });
 

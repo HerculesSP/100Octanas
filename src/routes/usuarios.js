@@ -12,4 +12,8 @@ router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
 
+router.post("/apagarUsuario", function (req, res) {
+    usuarioController.apagarUsuario(req, res);
+});
+
 module.exports = router;
