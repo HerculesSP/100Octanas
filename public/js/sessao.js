@@ -188,32 +188,14 @@ function validarSessaoDash() {
     let div_usuario = document.getElementById('div_usuario');
     let menubar = document.getElementById('menu');
 
-    if (email != null && nome != null && cargo=='Leitor') {
-        div_usuario.innerHTML = div_usuario.innerHTML=''
-        menubar.innerHTML += `
-        <li>
-                    <div class="nav-user">
-                        <img src="res/icon/${icon}" alt="Avatar do usuário" class="user-avatar">
-                        <span class="user-name" id="b_usuario">${nome}</span>
-                    </div>
-                    <ul class="nav-dropdown">
-                        <li>
-                            <a onclick=" limparSessao()">Sair</a>
-                        </li>
-                        <li>
-                            <a onclick=" apagarConta()">Apagar conta</a>
-                        </li>
-                    </ul>
-                </li>`;
-            
-    } else if (email != null && nome != null && cargo=='Jornalista') {
-        div_usuario.innerHTML=''
+    if (email != null && nome != null && cargo=='Jornalista') {
+        div_usuario.innerHTML=' '
         menubar.innerHTML += `
                 <li>
                     <a href="#">Gerenciamento</a>
                     <ul class="nav-dropdown">
                         <li>
-                            <a href="dashboard/dashboard-materias.html">Dashboard Matérias</a>
+                            <a href="dashboard-materias.html">Dashboard Matérias</a>
                         </li>
                         <li>
                             <a href="painel.html">Painel</a>
@@ -222,7 +204,7 @@ function validarSessaoDash() {
                 </li>
                 <li>
                     <div class="nav-user">
-                        <img src="res/icon/${icon}" alt="Avatar do usuário" class="user-avatar">
+                        <img src="../res/icon/${icon}" alt="Avatar do usuário" class="user-avatar">
                         <span class="user-name" id="b_usuario">${nome}</span>
                     </div>
                     <ul class="nav-dropdown">
@@ -243,10 +225,10 @@ function validarSessaoDash() {
                     <a href="#">Gerenciamento</a>
                     <ul class="nav-dropdown">
                         <li>
-                            <a href="dashboard/dashboard-usuarios.html">Dashboard Usuários</a>
+                            <a href="dashboard-usuarios.html">Dashboard Usuários</a>
                         </li>
                         <li>
-                            <a href="dashboard/dashboard-materias.html">Dashboard Matérias</a>
+                            <a href="dashboard-materias.html">Dashboard Matérias</a>
                         </li>
                     </ul>
                 </li>
@@ -398,7 +380,7 @@ function validarSessaoDashUsuario() {
 }
 function validarSessaoDashMateria() {
     let cargo = sessionStorage.CARGO;
-    if (cargo != 'Redator' || cargo != 'Jornalista') {
+    if (!(cargo == 'Redator' || cargo == 'Jornalista')) {
         window.location = "../index.html";
     } 
 }

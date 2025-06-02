@@ -144,6 +144,7 @@ function exibirSlides(materias) {
     const data = new Date(materia.data).toLocaleDateString('pt-BR');
     radios += `<input type="radio" name="carrossel" id="slide${index+1}" style="display:none;" ${checked}>`;
     slides += `
+    <a href="javascript:redirecionarUsuario(${materias[index].id}, ${sessionStorage.ID_USUARIO}, '${materias[index].link}')">
       <div class="slide s${index+1}">
         <div class="slide-conteudo">
           <div class="slide-imagem">
@@ -156,6 +157,7 @@ function exibirSlides(materias) {
           </div>
         </div>
       </div>
+      </a>
     `;
   });
 
@@ -219,6 +221,10 @@ function exibirMaterias(materias){
     }
 }
 function redirecionarUsuario(idMateria, idUsuario, link){
+    if (idUsuario==undefined){
+       window.location = `./login.html`;
+       return
+    }
     const dados = {
         idMateria: idMateria,
         idUsuario: idUsuario

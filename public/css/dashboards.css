@@ -1,428 +1,153 @@
-/* pagina mural */
-
-@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.conta-leitor {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 20px;
+    justify-content: flex-start;
+    align-items: center;
+}
+.container-fluid .conta-leitor .dados-leitor {
+    max-width: 100%;
+    max-height: 20%;
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    
+}
+.container-fluid .conta-leitor .dados-leitor .icon-leitor {
+    margin: 20px;
+    display: flex;
+    width: 100px;
+    height: 100px;
+    border: 1px solid rgb(6, 140, 173);
+    justify-content: center;
+} 
+.container-fluid .conta-leitor .dados-leitor .nome-leitor {
+    margin-top: 17px;
+    border-top: 3px solid rgb(6, 140, 173);
+    padding: 0;
+}
+.container-fluid .conta-leitor .dados-leitor .nome-leitor h2 {
+    margin:0;
+}
+.container-fluid .conta-leitor .apagar-leitor{
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+}
+.container-fluid .conta-leitor .apagar-leitor button {
+    padding: 10px;
+    background-color: rgba(255, 255, 252);
+    color: rgb(187, 9, 18);
+    border-radius: 5px;
+    border: rgb(187, 9, 18) solid 2px;
+    cursor: pointer;
+}
+.container-fluid .conta-leitor .apagar-leitor button:hover {
+    background-color: rgb(187, 9, 18);
+    color: white;
+}
+.painel {
+    margin: 20px;
+    padding: 20px;
+    border-top: rgb(231, 231, 231) solid 2px;
+    max-width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.graficos {
+    display: flex;
+    flex-direction:column;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 20px;
+    justify-content: flex-start;
+    align-items: center;
+    
+}
+.graficos .grafico {
+    display: flex;
+    flex-direction:column;
+    width: 70%;
+    max-width: 70%;
+    height: 50%;
+    margin-top: 0px;
+    align-items: center;
+}
+.kpis {
+    display: flex;
+    flex-direction:row;
+    justify-content: space-evenly;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 50px;
+}
+.kpis .kpi {
+    display: flex;
+    flex-direction:column;
+    width: 50%;
+    max-width: 100%;
+    margin-top: 5px;
+    align-items: center;
+}
+.kpis .kpi h3{
+    margin-top: 5px;
+}
+.logout-btn:hover {
+    background: #2563eb;
+    color: #fff;
+    border: 1px solid #fff;
 }
 
-.label-captura {
-  display: flex;
-  justify-content: center;
+.popup-bg {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.4);
+    align-items: center;
+    justify-content: center;
 }
-
-.dash-right .avisos {
-  width: 100%;
-  color: rgb(216, 216, 216);
-  font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.popup-card {
+    background: #fff;
+    padding: 28px 24px;
+    border-radius: 10px;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.18);
+    text-align: center;
+    min-width: 270px;
+    
 }
-
-.dash-right .avisos .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.popup-card h3 {
+    margin-bottom: 10px;
+    color: #2563eb;
 }
-
-.dash-right .avisos .container .div-form {
-  width: 95%;
+.popup-actions {
+    margin-top: 22px;
+    display: flex;
+    gap: 18px;
+    justify-content: center;
 }
-
-.dash-right .avisos .container .div-form #form_postagem {
-  width: 95%;
+.popup-btn {
+    padding: 7px 18px;
+    border-radius: 4px;
+    border: none;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.2s;
 }
-
-.dash-right .avisos .div-form label {
-  width: 95%;
+.popup-btn.confirm {
+    background: #2563eb;
+    color: #fff;
 }
-
-.dash-right .avisos .div-form input {
-  width: 95%;
-  border-radius: 5px;
+.popup-btn.confirm:hover {
+    background: #1e40af;
 }
-
-.dash-right .avisos .div-form textarea {
-  width: 95%;
-  border: 3px solid #e6005a;
-  background-color: white;
-  border-radius: 5px;
+.popup-btn.cancel {
+    background: #eee;
+    color: #333;
 }
-
-.dash-right .avisos .div-form button {
-  cursor: pointer;
-  font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  border: 0;
-  border-radius: 5px;
-  font-weight: 600;
-  font-size: 18px;
-  padding: 10px 15px;
-  color: white;
-  background-color: #e6005a;
-  width: 120px;
-}
-
-.publicacao-btn-editar {
-  cursor: pointer;
-  font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  border: 0;
-  border-radius: 5px;
-  font-weight: 600;
-  font-size: 14px;
-  padding: 5px 8px;
-  color: white;
-  background-color: #e6005a;
-  width: 80px;
-}
-
-.publicacao {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: stretch;
-  flex-direction: column;
-  justify-content: center;
-  align-items: stretch;
-  border-bottom: 3px solid #e6005a;
-  padding: 20px;
-}
-
-.publicacao>*:not(:last-child) {
-  padding: 0 0 10px 0;
-}
-
-.div-results {
-  width: 100%;
-}
-
-.div-results .feed-container {
-  background-color: #212124;
-  border-radius: 5px;
-  margin-bottom: 80px;
-}
-
-.div-buttons {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.div-buttons>* {
-  margin-left: 30px;
-}
-
-/* pagina graficos */
-
-.dash-header {
-  background-color: #212124;
-}
-
-.dash {
-  width: 80%;
-  position: relative;
-  top: 0;
-  left: 20%;
-  background-color: #161618;
-  height: 100vh;
-  overflow: auto;
-}
-
-.area-parametros-alerta {
-  /* border: 2px solid pink; */
-  display: flex;
-  flex-direction: column;
-  width: 70%;
-  margin: auto;
-  margin-top: 10px;
-  background-color: #212124;
-}
-
-.area-parametros-alerta .titulo-legenda {
-  color: white;
-  font-weight: 600;
-  width: fit-content;
-  margin: 10px 20px;
-}
-
-.parametros-alerta {
-  display: flex;
-  width: 100%;
-}
-
-.item-regua {
-  width: 20%;
-  text-align: center;
-  height: 80px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-self: center;
-}
-
-.item-regua p {
-  margin: 0;
-  font-weight: 500;
-}
-
-.item-regua p:nth-child(2) {
-  font-weight: 800;
-}
-
-.perigo-frio {
-  background-color: #5c6bc0;
-}
-
-.perigo-quente {
-  background-color: #ff7043;
-}
-
-.alerta-frio {
-  background-color: #42a5f5;
-}
-
-.alerta-quente {
-  background-color: #ffee58;
-}
-
-.ideal {
-  background-color: #9ccc65;
-}
-
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  height: 450px;
-  width: 100%;
-  align-items: center;
-  color: white;
-}
-
-.card-aquario {
-  margin: 2%;
-  min-width: 40%;
-  max-width: 50%;
-  width: fit-content;
-  flex-wrap: wrap;
-  display: flex;
-  /* text-align: center; */
-  height: 180px;
-  /* justify-content: right; */
-  background-color: #212124;
-  font-size: 20px;
-}
-
-.card-aquario h1 {
-  width: fit-content;
-}
-
-.card-aquario p {
-  margin: 0;
-  font-size: 50px;
-  font-weight: lighter;
-  text-align: left;
-}
-
-.desc-aquario {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 100%;
-}
-
-.desc-aquario .cor-alerta {
-  width: 30px;
-}
-
-.title-aquario {
-  width: 100%;
-}
-
-
-.cards h1 {
-  font-size: 22px;
-  border-bottom: solid white 1px;
-  text-align: left;
-  font-weight: lighter;
-  margin: 20px;
-}
-
-.temperatura,
-.umidade {
-  margin: 5px;
-  margin-left: 20px;
-  width: 75%;
-}
-
-.cor-alerta {
-  width: 13%;
-  height: 30%;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.btns-dash {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 30px;
-  flex-wrap: wrap;
-  padding: 0 30% 0 30%;
-}
-
-.graph {
-  width: 70%;
-  margin: auto;
-  padding-top: 10px;
-}
-
-.tituloGraficos {
-  color: rgb(216, 216, 216);
-  display: flex;
-  justify-content: center;
-}
-
-.btn-chart {
-  font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  border: 0;
-  font-weight: 600;
-  font-size: 18px;
-  padding: 10px 15px;
-  color: #e6005a;
-  background-color: white;
-  margin: 5px;
-  border-radius: 3px;
-  cursor: pointer
-}
-
-.btn-pink {
-  color: white;
-  background-color: #e6005a;
-}
-
-.btn-white {
-  color: #e6005a;
-  background-color: white;
-
-}
-
-.label-captura {
-  height: 80px;
-}
-
-.display-none {
-  display: none;
-}
-
-.display-flex {
-  display: flex;
-}
-
-.display-block {
-  display: block;
-}
-
-canvas {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-/* PAGINA DOS GRÁFICOS 2023 */
-
-.janela {
-  display: flex;
-  /* width: 100vw; */
-}
-
-.header-left a {
-  text-decoration: none;
-  color: white;
-}
-
-.header-left {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 999;
-  height: 100vh;
-  width: 20%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  border-right: 3px solid #32b9cd;
-  background-color: #212124;
-}
-
-.dash-right {
-  display: flex;
-  width: 70%;
-  height: fit-content;
-  background-color: #161618;
-  position: relative;
-  top: 0;
-  left: 25%;
-  height: 100vh;
-  overflow: auto;
-}
-
-.header-left h1 {
-  color: #32b9cd;
-}
-
-.hello {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.hello h3 {
-  color: #e3b062;
-  font-weight: 300;
-  font-size: 1.2rem;
-}
-
-.hello h3 span {
-  font-weight: 800;
-}
-
-.btn-nav {
-  width: 40%;
-  color: white;
-  background-color: #e6005a;
-  border-radius: 5px;
-  text-align: center;
-  padding: 2% 5%;
-}
-
-.btn-nav-white {
-  width: 40%;
-  background-color: white;
-  border: 3px solid #e6005a;
-  border-radius: 5px;
-  text-align: center;
-  padding: 2% 5%;
-}
-
-.btn-nav-white h3 {
-  color: #e6005a;
-  padding: 0;
-  margin: 0;
-}
-
-.btn-nav h3,
-.btn-logout h3 {
-  margin: 0;
-  padding: 0;
-}
-
-.btn-logout {
-  margin: 0;
-  padding: 0;
-  width: 20%;
-  background-color: #32b9cd;
-  color: white;
-  border-radius: 10px;
-  text-align: center;
-  padding: 10px 15px;
-  margin-bottom: 100px;
-  cursor: pointer;
+.popup-btn.cancel:hover {
+    background: #ddd;
 }
