@@ -21,12 +21,12 @@
     display: flex;
     width: 100px;
     height: 100px;
-    border: 1px solid rgb(6, 140, 173);
+    border: 1px solid rgb(182, 0, 0);
     justify-content: center;
 } 
 .container-fluid .conta-leitor .dados-leitor .nome-leitor {
     margin-top: 17px;
-    border-top: 3px solid rgb(6, 140, 173);
+    border-top: 3px solid rgb(212, 0, 0);
     padding: 0;
 }
 .container-fluid .conta-leitor .dados-leitor .nome-leitor h2 {
@@ -40,13 +40,13 @@
 .container-fluid .conta-leitor .apagar-leitor button {
     padding: 10px;
     background-color: rgba(255, 255, 252);
-    color: rgb(187, 9, 18);
+    color: rgb(212, 0, 0);
     border-radius: 5px;
-    border: rgb(187, 9, 18) solid 2px;
+    border: rgb(212, 0, 0) solid 2px;
     cursor: pointer;
 }
 .container-fluid .conta-leitor .apagar-leitor button:hover {
-    background-color: rgb(187, 9, 18);
+    background-color: rgb(212, 0, 0);
     color: white;
 }
 .painel {
@@ -97,7 +97,7 @@
     margin-top: 5px;
 }
 .logout-btn:hover {
-    background: #2563eb;
+    background: rgb(212, 0, 0);
     color: #fff;
     border: 1px solid #fff;
 }
@@ -121,7 +121,7 @@
 }
 .popup-card h3 {
     margin-bottom: 10px;
-    color: #2563eb;
+    color: rgb(212, 0, 0);
 }
 .popup-actions {
     margin-top: 22px;
@@ -138,11 +138,11 @@
     transition: background 0.2s;
 }
 .popup-btn.confirm {
-    background: #2563eb;
+    background: rgb(212, 0, 0);
     color: #fff;
 }
 .popup-btn.confirm:hover {
-    background: #1e40af;
+    background: rgb(212, 0, 0);
 }
 .popup-btn.cancel {
     background: #eee;

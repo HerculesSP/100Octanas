@@ -44,7 +44,7 @@
 }
 .container-geral .dados-materia .nome-jornalista-materia {
     margin-top: 17px;
-    border-top: 3px solid  #d40000;
+    border-top: 3px solid  rgb(212, 0, 0);
     padding: 0;
     height: 20px;
 }
