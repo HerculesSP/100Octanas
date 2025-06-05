@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS cemOctanas.InfoUsuario (
   fkUsuario INT NOT NULL,
   PRIMARY KEY (idContato),
   UNIQUE INDEX unique_email (email, ativo),
-  UNIQUE INDEX unique_bloqueado (email, banido),
+  UNIQUE INDEX unique_bloqueado (email, ativo, banido),
   INDEX idx_email (email),
   CONSTRAINT fk_Contato_Usuario
     FOREIGN KEY (fkUsuario)
@@ -183,6 +183,82 @@ BEGIN
     set id = LAST_INSERT_ID();
     INSERT INTO cemOctanas.Categoria_Materia (fkMateria, fkCategoria, nivel)
     VALUES (id, p_categoria1, 3), (id, p_categoria2, 2), (id, p_categoria3, 1);
+END$$
+
+DELIMITER ;
+
+
+-- -----------------------------------------------------
+-- Procedimento  ultimosSeteDiasMateria
+-- -----------------------------------------------------
+DELIMITER $$
+
+CREATE PROCEDURE cemOctanas.ultimosSeteDiasMateria(
+    IN fk int
+)
+BEGIN
+	SET lc_time_names = 'pt_BR';
+	SELECT COUNT(fkMateria) qtd, DATE_FORMAT(acesso, '%a') semana
+	FROM cemOctanas.Usuario_Materia
+	WHERE fkMateria = fk AND acesso BETWEEN DATE_ADD(now(), INTERVAL -7 DAY) AND now()
+	GROUP BY DAY(acesso), semana;
+END$$
+
+DELIMITER ;
+
+
+-- -----------------------------------------------------
+-- Procedimento  ultimosSeteDiasUsuario
+-- -----------------------------------------------------
+DELIMITER $$
+
+CREATE PROCEDURE cemOctanas.ultimosSeteDiasUsuario(
+    IN fk int
+)
+BEGIN
+	SET lc_time_names = 'pt_BR';
+	SELECT COUNT(fkUsuario) qtd, DATE_FORMAT(acesso, '%a') semana
+	FROM cemOctanas.Usuario_Materia
+	WHERE fkUsuario = fk AND acesso BETWEEN DATE_ADD(now(), INTERVAL -7 DAY) AND now()
+	GROUP BY DAY(acesso), semana;
+END$$
+
+DELIMITER ;
+
+
+-- -----------------------------------------------------
+-- Procedimento  ultimosDozeMesesMateria
+-- -----------------------------------------------------
+DELIMITER $$
+
+CREATE PROCEDURE cemOctanas.ultimosDozeMesesMateria(
+    IN fk int
+)
+BEGIN
+	SET lc_time_names = 'pt_BR';
+	SELECT COUNT(fkMateria) qtd, DATE_FORMAT(acesso, '%b') mes
+	FROM cemOctanas.Usuario_Materia
+	WHERE fkMateria = fk AND acesso BETWEEN DATE_ADD(now(), INTERVAL -12 MONTH) AND now()
+	GROUP BY MONTH(acesso), mes;
+END$$
+
+DELIMITER ;
+
+
+-- -----------------------------------------------------
+-- Procedimento  ultimosDozeMesesUsuario
+-- -----------------------------------------------------
+DELIMITER $$
+
+CREATE PROCEDURE cemOctanas.ultimosDozeMesesUsuario(
+    IN fk int
+)
+BEGIN
+	SET lc_time_names = 'pt_BR';
+	SELECT COUNT(fkUsuario) qtd, DATE_FORMAT(acesso, '%b') mes
+	FROM cemOctanas.Usuario_Materia
+	WHERE fkUsuario = fk AND acesso BETWEEN DATE_ADD(now(), INTERVAL -12 MONTH) AND now()
+	GROUP BY MONTH(acesso), mes;
 END$$
 
 DELIMITER ;
