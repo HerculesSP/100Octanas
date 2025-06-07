@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS cemOctanas.Materia (
   link VARCHAR(120) NOT NULL,
   visivel TINYINT NOT NULL DEFAULT 1,
   capa VARCHAR(69) NOT NULL,
-  dtPub date,
+  dtPub DATETIME,
   fkAutor INT NOT NULL,
   PRIMARY KEY (idMateria),
   INDEX idx_titulo (titulo),

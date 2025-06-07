@@ -116,7 +116,7 @@ function reiniciarIntervalo() {
   intervalo = setInterval(proximoSlide, 7000);
 }
 function buscarPopulares(){
-    fetch(`materias/listarMaterias?ordem=acessos desc&pesquisa=&limit=3`)
+    fetch(`materias/listarMaterias?ordem=acessos&pesquisa=&limit=3`)
     .then(response => {
       if (response.ok) {
         response.json().then(resposta => {

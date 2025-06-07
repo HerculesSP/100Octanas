@@ -13,7 +13,7 @@ function criarMateria(materia) {
 function listarNormal(ordem, pesquisa, limite){
     console.log("ACESSEI O MATERIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarNormal:", ordem, pesquisa, limite);
     var instrucaoSql = `
-        select  id, titulo, resumo, link, capa, data from vw_materias ${pesquisa} order by ${ordem} limit ${limite};
+        select  id, titulo, resumo, link, capa, data from vw_materias ${pesquisa} order by ${ordem} desc limit ${limite};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)

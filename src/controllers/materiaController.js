@@ -69,7 +69,7 @@ exports.listarMaterias = (req, res) => {
   const limite = req.query.limit;
   const pesquisa = `where titulo like '%${pesquisa1}%'`
   console.log(ordem, pesquisa, limite, 'a')
-  if (ordem=='data' || ordem == 'acessos desc'){
+  if (ordem=='data' || ordem == 'acessos'){
     materiaModel.listarNormal(ordem, pesquisa, limite)
     .then(function (resultado) {
         res.json(resultado);

@@ -235,7 +235,6 @@ function generate(){
     formData.append('categoria1', categoria1let);
     formData.append('categoria2', categoria2let);
     formData.append('categoria3', categoria3let);
-    formData.append('local', '2');
     formData.append('id', sessionStorage.ID_USUARIO);
     formData.append('nome', sessionStorage.NOME_USUARIO);
     formData.append('sobrenome', sessionStorage.SOBRENOME_USUARIO);
@@ -249,7 +248,7 @@ function generate(){
     }
     });
     console.log (corpo, tipo)
-    // Enviando o valor da nova input
+    
     fetch("/materias/enviarMateria", {
       method: "POST",
       body: formData

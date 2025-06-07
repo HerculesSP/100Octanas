@@ -108,7 +108,7 @@ function validarSessaoMateria() {
                     </div>
                     <ul class="nav-dropdown">
                         <li>
-                            <a onclick=" limparSessao()">Sair</a>
+                            <a onclick=" limparSessaoDashMaterias()">Sair</a>
                         </li>
                         <li>
                             <a onclick=" apagarConta()">Apagar conta</a>
@@ -137,7 +137,7 @@ function validarSessaoMateria() {
                     </div>
                     <ul class="nav-dropdown">
                         <li>
-                            <a onclick=" limparSessao()">Sair</a>
+                            <a onclick=" limparSessaoDashMaterias()">Sair</a>
                         </li>
                         <li>
                             <a onclick=" apagarConta()">Apagar conta</a>
@@ -167,7 +167,7 @@ function validarSessaoMateria() {
                     </div>
                     <ul class="nav-dropdown">
                         <li>
-                            <a onclick=" limparSessao()">Sair</a>
+                            <a onclick=" limparSessaoDashMaterias()">Sair</a>
                         </li>
                         <li>
                             <a onclick=" apagarConta()">Apagar conta</a>
@@ -209,7 +209,7 @@ function validarSessaoDash() {
                     </div>
                     <ul class="nav-dropdown">
                         <li>
-                            <a onclick=" limparSessao()">Sair</a>
+                            <a onclick=" limparSessaoDashMaterias()">Sair</a>
                         </li>
                         <li>
                             <a onclick=" apagarConta()">Apagar conta</a>
@@ -239,7 +239,7 @@ function validarSessaoDash() {
                     </div>
                     <ul class="nav-dropdown">
                         <li>
-                            <a onclick=" limparSessao()">Sair</a>
+                            <a onclick=" limparSessaoDashMaterias()">Sair</a>
                         </li>
                         <li>
                             <a onclick=" apagarConta()">Apagar conta</a>
@@ -387,6 +387,10 @@ function validarSessaoDashMateria() {
 function limparSessao() {
     sessionStorage.clear();
     window.location = "../login.html";
+}
+function limparSessaoDashMaterias() {
+    sessionStorage.clear();
+    window.location = "/.../../login.html";
 }
 function apagarConta(){
     document.getElementById('popupConfirm').style.display = 'flex';
