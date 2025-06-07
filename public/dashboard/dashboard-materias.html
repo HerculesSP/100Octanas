@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./../css/menu-rodape.css">
     <title>100 Octanas | Máterias</title>
 </head>
-<body onload="validarSessaoDash(), validarSessaoDashMateria()">
+<body onload="validarSessaoDash(), validarSessaoDashMateria(), verificadoDashMaterias()">
    <section class="navigation">
         <div class="nav-container">
             <div class="brand">
@@ -29,7 +29,7 @@
                     </div>
                     <ul class="nav-dropdown">
                         <li>
-                            <a onclick=" limparSessao()">Sair</a>
+                            <a onclick=" limparSessaoDashMaterias()">Sair</a>
                         </li>
                     </ul>
                 </li>
@@ -128,6 +128,7 @@
 </html>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="../js/sessao.js"></script>
+<script src="../js/verificacao.js"></script>
 <script >
     const materiaMensal = document.getElementById('materia-meses');
 

@@ -11,7 +11,7 @@
   <title>100 Octanas | Notícias</title>
 </head>
 
-<body onload="buscarMaterias(), validarSessao()">
+<body onload="buscarMaterias(), validarSessao(), verificado()">
     <section class="navigation">
         <div class="nav-container">
             <div class="brand">
@@ -87,6 +87,7 @@
         </div>
         </div>
 <script src="js/sessao.js"></script>
+<script src="js/verificacao.js"></script>
 <script>
 function buscarMaterias(){
     let pesquisa = termo_pesquisa.value

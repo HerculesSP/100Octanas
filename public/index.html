@@ -11,7 +11,7 @@
   <title>100 Octanas | Início</title>
 </head>
 
-<body onload="buscarPopulares(), buscarRecentes(), validarSessaoIndex()">
+<body onload="buscarPopulares(), buscarRecentes(), validarSessaoIndex(), verificadoIndex()">
      <section class="navigation">
         <div class="nav-container">
             <div class="brand">
@@ -80,8 +80,21 @@
             </div>
         </div>
         </div>
+
+
+<div class="popup-bg" id="popupEmail">
+        <div class="popup-card">
+            <h1>Verifique seu email</h1>
+            <p>Enviamos um email de confirmação ao endereço cadastrado. Insira o código:</p>
+            <input type="text" id="codigoEmail" placeholder="Código de verificação" class="input-codigo" />
+            <div class="popup-actions">
+                <button class="popup-btn confirm" onclick="confirmarCodigo()">Verificar email</button>
+            </div>
+        </div>
+        </div>
 </html>
 <script src="js/sessao.js"></script>
+<script src="js/verificacao.js"></script>
 <script>
 const slides = ['slide1', 'slide2', 'slide3'];
 let atual = 0;
