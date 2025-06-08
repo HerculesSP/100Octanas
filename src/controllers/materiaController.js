@@ -138,3 +138,14 @@ exports.buscarIdadeMateria = (req, res) => {
         res.status(500).json(erro.sqlMessage);
     });
 };
+exports.buscarMensalMateria = (req, res) => {
+    const id =req.query.id;
+    materiaModel.buscarMensalMateria(id)
+    .then(function (resultado) {
+        res.json(resultado);
+    })
+    .catch(function (erro) {
+        console.log(erro);
+        res.status(500).json(erro.sqlMessage);
+    });
+};

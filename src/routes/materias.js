@@ -19,6 +19,10 @@ router.get("/buscarIdadeMaterias", function (req, res) {
     materiaController.buscarIdadeMateria(req, res);
 });
 
+router.get("/buscarMensalMaterias", function (req, res) {
+    materiaController.buscarMensalMateria(req, res);
+});
+
 router.post(
   '/enviarMateria',
   upload.fields([

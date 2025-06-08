@@ -46,7 +46,7 @@ function buscarKPIsMateria(id){
 }
 
 function buscarIdadeMateria(id){
-    console.log("ACESSEI O MATERIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarMateriasDash:");
+    console.log("ACESSEI O MATERIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarIdadeMateria:");
     var instrucaoSql = `
         select case when TIMESTAMPDIFF(year, u.dtNasc, NOW()) < 30 then '18 a 29 anos'
 			when  TIMESTAMPDIFF(year, u.dtNasc, NOW()) < 50 then '30 a 49 anos'
@@ -63,11 +63,25 @@ function buscarIdadeMateria(id){
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
 }
+
+function buscarMensalMateria(id){
+    console.log("ACESSEI O MATERIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarIdadeMateria:");
+    var instrucaoSql = `
+        SELECT COUNT(fkMateria) qtd, DATE_FORMAT(acesso, '%m/%y') mes_ano
+            FROM cemOctanas.Usuario_Materia
+            WHERE fkMateria = ${id} AND acesso BETWEEN DATE_ADD(now(), INTERVAL -12 MONTH) AND now()
+            GROUP BY mes_Ano
+            ORDER BY MIN(acesso);
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
 module.exports = {
     criarMateria,
     listarNormal,
     armazenar,
     listarMateriasDash,
     buscarKPIsMateria,
-    buscarIdadeMateria
+    buscarIdadeMateria,
+    buscarMensalMateria
 };
