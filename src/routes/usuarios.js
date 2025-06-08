@@ -20,4 +20,8 @@ router.get("/listarUsuariosDash", function (req, res) {
     usuarioController.listarUsuariosDash(req, res);
 });
 
+router.get("/buscarKPIsUsuarios", function (req, res) {
+    usuarioController.buscarKPIsUsuarios(req, res);
+});
+
 module.exports = router;

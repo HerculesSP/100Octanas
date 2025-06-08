@@ -116,7 +116,8 @@ CREATE TABLE IF NOT EXISTS cemOctanas.Newsletter (
 CREATE TABLE IF NOT EXISTS cemOctanas.InfoUsuario (
   idContato INT NOT NULL AUTO_INCREMENT,
   email VARCHAR(200) NOT NULL,
-  dtInsc DATE NOT NULL,
+  dtInsc DATETIME NOT NULL,
+  UltimoAcesso DATETIME NOT NULL,
   foto VARCHAR(69) NOT NULL DEFAULT 'default-icon.png',
   ativo TINYINT NULL DEFAULT 1,
   banido TINYINT NULL,
@@ -156,57 +157,11 @@ DELIMITER ;
 
 
 -- -----------------------------------------------------
--- Procedimento  ultimosSeteDiasMateria
--- -----------------------------------------------------
-DELIMITER $$
-
-CREATE PROCEDURE cemOctanas.ultimosSeteDiasMateria(
-    IN fk int
-)
-BEGIN
-	SET lc_time_names = 'pt_BR';
-	SELECT COUNT(fkMateria) qtd, DATE_FORMAT(acesso, '%a') semana
-	FROM cemOctanas.Usuario_Materia
-	WHERE fkMateria = fk AND acesso BETWEEN DATE_ADD(now(), INTERVAL -7 DAY) AND now()
-	GROUP BY DAY(acesso), semana;
-END$$
-
-DELIMITER ;
-
-
--- -----------------------------------------------------
--- Procedimento  ultimosSeteDiasUsuario
--- -----------------------------------------------------
-DELIMITER $$
-
-CREATE PROCEDURE cemOctanas.ultimosSeteDiasUsuario(
-    IN fk int
-)
-BEGIN
-	SET lc_time_names = 'pt_BR';
-	SELECT COUNT(fkUsuario) qtd, DATE_FORMAT(acesso, '%a') semana
-	FROM cemOctanas.Usuario_Materia
-	WHERE fkUsuario = fk AND acesso BETWEEN DATE_ADD(now(), INTERVAL -7 DAY) AND now()
-	GROUP BY DAY(acesso), semana;
-END$$
-
-DELIMITER ;
-
-
--- -----------------------------------------------------
--- View vw_kpis_usuario
--- -----------------------------------------------------
-create view cemOctanas.vw_kpis_usuario as
-select count(fkUsuario) materias_lidas, round(avg(segundosLidos),0) tempo_medio 
-	from cemOctanas.Usuario_Materia group by fkusuario;
-    
-
--- -----------------------------------------------------
 -- View vw_materias
 -- -----------------------------------------------------
 create view cemOctanas.vw_materias as
 select m.idMateria id, m.titulo titulo, m.resumo resumo, m.link link, m.capa capa, m.dtPub data, count(mu.fkMateria) acessos, 
-	u.nome autor, c1.Categoria categoria1, c2.Categoria categoria2, c3.Categoria categoria3
+	concat(u.nome, ' ', u.sobrenome) autor, c1.Categoria categoria1, c2.Categoria categoria2, c3.Categoria categoria3
 from cemOctanas.Usuario_Materia mu
 right join cemOctanas.Materia m on m.idMateria=mu.fkMateria
 inner join cemOctanas.Usuario u on u.idUsuario = m.fkAutor
@@ -215,6 +170,18 @@ inner join cemOctanas.Categoria c2 on m.fkCategoria2= c2.idCategoria
 inner join cemOctanas.Categoria c3 on m.fkCategoria3= c3.idCategoria
 group by id, titulo, resumo, link, capa, data, nome, categoria1, categoria2, categoria3;
     
+
+-- -----------------------------------------------------
+-- View vw_materias
+-- -----------------------------------------------------
+create view cemOctanas.vw_usuarios as
+select u.idUsuario, concat(u.nome, ' ', u.sobrenome) nomeCompleto, u.nome Sonome, ui.foto icon, count(mu.fkUsuario) acessos, descricao cargo, dtInsc inscricao
+from cemOctanas.Usuario_Materia mu
+right join cemOctanas.Materia m on m.idMateria=mu.fkMateria
+inner join cemOctanas.Usuario u on u.idUsuario = mu.fkUsuario
+inner join cemOctanas.InfoUsuario ui on ui.fkUsuario = u.idUsuario
+inner join cemOctanas.Cargo c on c.idCargo = u.fkCargo
+group by idUsuario, Sonome, icon, cargo, inscricao, nomeCompleto;
 
 -- -----------------------------------------------------
 -- Inserindo as categorias

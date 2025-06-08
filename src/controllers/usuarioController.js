@@ -96,9 +96,23 @@ function listarUsuariosDash (req, res){
     });
 };
 
+function buscarKPIsUsuarios (req, res){
+    id = req.query.id;
+    usuarioModel.buscarKPIsUsuarios(id)
+    .then(function (resultado) {
+        res.json(resultado);
+    })
+    .catch(function (erro) {
+        console.log(erro);
+        res.status(500).json(erro.sqlMessage);
+    });
+};
+
+
 module.exports = {
     autenticar,
     cadastrar,
     apagarUsuario,
-    listarUsuariosDash
+    listarUsuariosDash,
+    buscarKPIsUsuarios
 }

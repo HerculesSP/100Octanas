@@ -45,12 +45,12 @@
         </div>
         <div class="conta-leitor">
             <div class="dados-leitor">
-                <div class="icon-leitor">
+                <div class="icon-leitor" id="kpiIconeUsuario">
                     <img src="./../res/icon/default-icon.png" alt="Icone de usuario">
                 </div>
                 <div class="nome-leitor">
-                    <h2>Hércules da S. Pereira</h2>
-                    <p>Usuário desde: <span>01/01/2023</span></p>
+                    <h2 id="kpiNomeUsuario">Hércules da S. Pereira</h2>
+                    <p>Usuário desde: <span id="kpiDataUsuario">01/01/2023</span></p>
                 </div>
             </div>
             <div class="apagar-leitor">
@@ -76,29 +76,18 @@
                 </div>
                 <div class="kpis">
                     <div class="kpi">
-                        <h2>Tempo médio por matéria:</h2>
-                        <span>4:43</span>
+                        <h2>Último acesso</h2>
+                        <span id="kpiAcessoUsuario">4:43</span>
                     </div>
                     <div class="kpi">
                         <h2>Matérias acessadas:</h2>
-                        <span>4524</span>
+                        <span id="kpiQtdUsuario">4524</span>
                     </div>
                     <div class="kpi">
-                        <h2>Escrito na NewsLetter?</h2>
-                        <span>Sim</span>
+                        <h2>Cargo:</h2>
+                        <span id="kpiCargoUsuario"></span>
                     </div>
                 </div>
-                
-                    <div class="kpis">
-                        <h3>Selecione o tipo de usuário:</h3>
-                        <input type="radio" id="leitor" name="categoria" value="1">
-                        <label for="html">Usuário</label><br>
-                        <input type="radio" id="jornalista" name="categoria" value="2">
-                        <label for="css">Jornalista</label><br>
-                        <input type="radio" id="redator" name="categoria" value="3">
-                        <label for="javascript">Redator</label>
-                    </div>
-                
             </div>
             <div class="graficos">
                 <div class="grafico">
@@ -182,7 +171,7 @@
             labels: ['Tema 1', 'Tema 2', 'Tema 3'],
             datasets: [{
                 data: [34, 33, 33],
-                backgroundColor: ['rgb(6, 140, 173)', 'rgb(4, 92, 114)', 'rgb(4, 88, 109)'],
+                backgroundColor: ['rgb(255, 0, 0)', 'rgb(195, 0, 0)', 'rgb(135, 0, 0)', 'rgb(75, 0, 0)'],
                 borderWidth: 1
             }]
         },
@@ -208,8 +197,8 @@ function listarUsuariosDash() {
           const select = document.getElementById('listarUsuariosSelect');
           resposta.forEach(usuario => {
             const option = document.createElement('option');
-            option.value = usuario.idusuario;
-            option.textContent = usuario.nome;
+            option.value = usuario.idUsuario;
+            option.textContent = usuario.Sonome;
             select.appendChild(option);
           });
           exibirDadosUsuarios();
@@ -222,7 +211,34 @@ function listarUsuariosDash() {
       console.error(`Erro na obtenção dos usuários para a dashboard: ${error.message}`);
     });
 }
+function exibirDadosUsuarios(){
+    let id = listarUsuariosSelect.value;
+    preencherKPIUsuarios(id);
+    //preencherGraficoDonutUsuarios(id);
+    //preencherGraficoMensalUsuarios(id);
+    //preencherGraficoDiarioUsuarios(id);
+}
 
+function preencherKPIUsuarios(id){
+    fetch(`../usuarios/buscarKPIsUsuarios?id=${id}`)
+    .then(response => {
+      if (response.ok) {
+        response.json().then(resposta => {
+          kpiNomeUsuario.innerHTML = resposta[0].nomeCompleto;
+          kpiDataUsuario.innerHTML = new Date(resposta[0].inscricao).toLocaleDateString('pt-BR');
+          kpiAcessoUsuario.innerHTML = new Date(resposta[0].ultimo).toLocaleDateString('pt-BR');
+          kpiQtdUsuario.innerHTML = resposta[0].acessos;
+          kpiIconeUsuario.innerHTML = `<img src="./../res/icon/${resposta[0].icon}" alt="Icone de usuario">`;
+          kpiCargoUsuario.innerHTML = resposta[0].cargo;
+        });
+      } else {
+        console.error('Nenhum usuario encontrado ou erro na API');
+      }
+    })
+    .catch(error => {
+      console.error(`Erro na obtenção dos usuarios para a dashboard: ${error.message}`);
+    });
+}
 function abrir() {
     document.getElementById('popupConfirm').style.display = 'flex';
 }

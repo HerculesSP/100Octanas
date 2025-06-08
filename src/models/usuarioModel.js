@@ -49,7 +49,16 @@ function registrarVerificacao(idUsuario) {
 function listarUsuariosDash(){
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarUsuariosDash:");
     var instrucaoSql = `
-        select idUsuario, nome from Usuario order by nome;
+        select idUsuario, Sonome from vw_usuarios order by Sonome;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
+
+function buscarKPIsUsuarios(id){
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarKPIsUsuarios:");
+    var instrucaoSql = `
+        select nomeCompleto, icon, acessos, inscricao, cargo, ultimo from vw_usuarios where idUsuario=${id} order by nomeCompleto;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
@@ -60,5 +69,6 @@ module.exports = {
     cadastrar,
     apagarUsuario,
     registrarVerificacao,
-    listarUsuariosDash
+    listarUsuariosDash,
+    buscarKPIsUsuarios
 };
