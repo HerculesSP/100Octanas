@@ -234,7 +234,7 @@ function validarSessaoDash() {
                 </li>
                 <li>
                     <div class="nav-user">
-                        <img src="res/icon/${icon}" alt="Avatar do usuário" class="user-avatar">
+                        <img src="../res/icon/${icon}" alt="Avatar do usuário" class="user-avatar">
                         <span class="user-name" id="b_usuario">${nome}</span>
                     </div>
                     <ul class="nav-dropdown">

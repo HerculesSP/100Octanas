@@ -81,7 +81,6 @@ function confirmarConta(req, res) {
         color:#ffffff; 
     }
   </style>
-  <link href="https://fonts.googleapis.com/css?family=DM+Sans:ital,wght@0,400;0,400;0,600;0,700;0,800" rel="stylesheet">
 </head>
 <body>
   <div class="email-container">

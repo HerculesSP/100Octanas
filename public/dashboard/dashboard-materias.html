@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./../css/menu-rodape.css">
     <title>100 Octanas | Máterias</title>
 </head>
-<body onload="validarSessaoDash(), validarSessaoDashMateria(), verificadoDashMaterias()">
+<body onload="validarSessaoDash(), validarSessaoDashMateria(), verificadoDashMaterias(), listarMateriasDash()">
    <section class="navigation">
         <div class="nav-container">
             <div class="brand">
@@ -38,6 +38,11 @@
     </div>
     </section>
     <div class="container-fluid">
+         <div class="container-ordenar">
+                <label for="listarMateriasSelect">Selecione a matéria:</label>
+                <select id="listarMateriasSelect"class="dropdown" onchange="exibirDadosMaterias()">
+                </select>
+            </div>
         <div class="conta-leitor">
             <div class="dados-leitor">
                 <div class="nome-leitor">
@@ -197,14 +202,39 @@
         }
     });
 
-    function abrir() {
-      document.getElementById('popupConfirm').style.display = 'flex';
-    }
-    function fechar() {
-      document.getElementById('popupConfirm').style.display = 'none';
-    }
-    function confirmar() {
-      fechar();
-      alert('Apagado com sucesso!');
-    }
+function abrir() {
+    document.getElementById('popupConfirm').style.display = 'flex';
+}
+function fechar() {
+    document.getElementById('popupConfirm').style.display = 'none';
+}
+function confirmar() {
+    fechar();
+    alert('Apagado com sucesso!');
+}
+function listarMateriasDash() {
+    console.log('Listando matérias para o painel...');
+  fetch('../materias/listarMaterias')
+    .then(response => {
+      if (response.ok) {
+        response.json().then(resposta => {
+            console.log('Materias recebidas:', resposta);
+          const select = document.getElementById('listarMateriasSelect');
+          
+
+          resposta.forEach(categoria => {
+            const option = document.createElement('option');
+            option.value = categoria.idCategoria;
+            option.textContent = categoria.Categoria;
+            select.appendChild(option);
+          });
+        });
+      } else {
+        console.error('Nenhuma materia encontrada ou erro na API');
+      }
+    })
+    .catch(error => {
+      console.error(`Erro na obtenção das materias para a dashboard: ${error.message}`);
+    });
+}
 </script>
