@@ -5,7 +5,8 @@ function criarMateria(materia) {
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
      var instrucaoSql = `
-        CALL cadastrarMateria ('${materia.titulo}', 'Só para não ficar vazio', '${materia.link}', '${materia.capa}', '${materia.id}', '${materia.categoria1}', '${materia.categoria2}', '${materia.categoria3}');
+      INSERT INTO Materia (titulo, resumo, link, capa, dtPub, fkAutor, fkCategoria1, fkCategoria2, fkCategoria3)
+        VALUES ('${materia.titulo}', 'Só para não ficar vazio', '${materia.link}', '${materia.capa}', NOW(),  '${materia.id}', '${materia.categoria1}', '${materia.categoria2}', '${materia.categoria3}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)

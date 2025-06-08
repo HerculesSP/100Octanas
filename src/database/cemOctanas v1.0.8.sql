@@ -32,6 +32,17 @@ CREATE TABLE IF NOT EXISTS cemOctanas.Usuario (
 
 
 -- -----------------------------------------------------
+-- Tabela cemOctanas.Categoria
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS cemOctanas.Categoria (
+  idCategoria INT NOT NULL AUTO_INCREMENT,
+  Categoria VARCHAR(50) NOT NULL,
+  PRIMARY KEY (idCategoria),
+  INDEX idx_categoria (Categoria)
+);
+
+
+-- -----------------------------------------------------
 -- Tabela cemOctanas.Materia
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS cemOctanas.Materia (
@@ -43,11 +54,23 @@ CREATE TABLE IF NOT EXISTS cemOctanas.Materia (
   capa VARCHAR(69) NOT NULL,
   dtPub DATETIME,
   fkAutor INT NOT NULL,
+  fkCategoria1 INT NOT NULL,
+  fkCategoria2 INT NOT NULL,
+  fkCategoria3 INT NOT NULL,
   PRIMARY KEY (idMateria),
   INDEX idx_titulo (titulo),
   CONSTRAINT fk_Materia_Autor
     FOREIGN KEY (fkAutor)
-    REFERENCES cemOctanas.Usuario (idUsuario)
+    REFERENCES cemOctanas.Usuario (idUsuario),
+  CONSTRAINT fk_Materia_Categoria1
+    FOREIGN KEY (fkCategoria1)
+    REFERENCES cemOctanas.Categoria (idCategoria),
+  CONSTRAINT fk_Materia_Categoria2
+    FOREIGN KEY (fkCategoria2)
+    REFERENCES cemOctanas.Categoria (idCategoria),
+  CONSTRAINT fk_Materia_Categoria3
+    FOREIGN KEY (fkCategoria3)
+    REFERENCES cemOctanas.Categoria (idCategoria)
 );
 
 
@@ -84,35 +107,6 @@ CREATE TABLE IF NOT EXISTS cemOctanas.Newsletter (
   CONSTRAINT fk_Newsletter_Usuario
     FOREIGN KEY (fkUsuario)
     REFERENCES cemOctanas.Usuario (idUsuario)
-);
-
-
--- -----------------------------------------------------
--- Tabela cemOctanas.Categoria
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS cemOctanas.Categoria (
-  idCategoria INT NOT NULL AUTO_INCREMENT,
-  Categoria VARCHAR(50) NOT NULL,
-  PRIMARY KEY (idCategoria),
-  INDEX idx_categoria (Categoria)
-);
-
-
--- -----------------------------------------------------
--- Tabela cemOctanas.Categoria_Materia
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS cemOctanas.Categoria_Materia (
-  fkMateria INT NOT NULL,
-  fkCategoria INT NOT NULL,
-  nivel TINYINT NOT NULL,
-  PRIMARY KEY (fkMateria, fkCategoria, nivel),
-  INDEX idx_materia (fkMateria, fkCategoria),
-  CONSTRAINT fk_Categoria_Materia
-    FOREIGN KEY (fkCategoria)
-    REFERENCES cemOctanas.Categoria (idCategoria),
-  CONSTRAINT fk_Materia_Categoria
-    FOREIGN KEY (fkMateria)
-    REFERENCES cemOctanas.Materia (idMateria)
 );
 
 
@@ -156,33 +150,6 @@ BEGIN
 
     INSERT INTO cemOctanas.InfoUsuario (email, dtInsc, foto, fkUsuario)
     VALUES (p_email, NOW(), p_imagem, LAST_INSERT_ID());
-END$$
-
-DELIMITER ;
-
-
--- -----------------------------------------------------
--- Procedimento  cadastrarMateria
--- -----------------------------------------------------
-DELIMITER $$
-
-CREATE PROCEDURE cemOctanas.cadastrarMateria(
-    IN p_titulo VARCHAR(100),
-    IN p_resumo VARCHAR(300),
-    IN p_link VARCHAR(120),
-    IN p_capa VARCHAR(69),
-    IN p_autor int,
-    IN p_categoria1 int,
-    IN p_categoria2 int,
-    IN p_categoria3 int
-)
-BEGIN
-	DECLARE id int;
-    INSERT INTO cemOctanas.Materia (titulo, resumo, link, capa, dtPub, fkAutor)
-    VALUES (p_titulo, p_resumo, p_link, p_capa, NOW(), p_autor);
-    set id = LAST_INSERT_ID();
-    INSERT INTO cemOctanas.Categoria_Materia (fkMateria, fkCategoria, nivel)
-    VALUES (id, p_categoria1, 3), (id, p_categoria2, 2), (id, p_categoria3, 1);
 END$$
 
 DELIMITER ;
@@ -273,21 +240,18 @@ select count(fkUsuario) materias_lidas, round(avg(segundosLidos),0) tempo_medio
     
 
 -- -----------------------------------------------------
--- View vw_kpis_materia
--- -----------------------------------------------------
-create view cemOctanas.vw_kpis_materia as
-select count(fkMateria) quantidade_acessos, round(avg(segundosLidos),0) tempo_medio 
-	from cemOctanas.Usuario_Materia group by fkMateria;
-    
-
--- -----------------------------------------------------
 -- View vw_materias
 -- -----------------------------------------------------
 create view cemOctanas.vw_materias as
-select m.idMateria id, m.titulo titulo, m.resumo resumo, m.link link, m.capa capa, m.dtPub data, count(mu.fkMateria) acessos
+select m.idMateria id, m.titulo titulo, m.resumo resumo, m.link link, m.capa capa, m.dtPub data, count(mu.fkMateria) acessos, 
+	u.nome autor, c1.Categoria categoria1, c2.Categoria categoria2, c3.Categoria categoria3
 from cemOctanas.Usuario_Materia mu
-right join cemOctanas.Materia m on m.idMateria=mu.fkMateria 
-group by m.idMateria, m.titulo, m.resumo, m.link, m.capa, m.dtPub;
+right join cemOctanas.Materia m on m.idMateria=mu.fkMateria
+inner join cemOctanas.Usuario u on u.idUsuario = m.fkAutor
+inner join cemOctanas.Categoria c1 on m.fkCategoria1= c1.idCategoria
+inner join cemOctanas.Categoria c2 on m.fkCategoria2= c2.idCategoria
+inner join cemOctanas.Categoria c3 on m.fkCategoria3= c3.idCategoria
+group by id, titulo, resumo, link, capa, data, nome, categoria1, categoria2, categoria3;
     
 
 -- -----------------------------------------------------
