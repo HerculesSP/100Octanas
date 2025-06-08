@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./../css/dashboards.css">
     <title>100 Octanas | Usuários</title>
 </head>
-<body onload="validarSessaoDash(), validarSessaoDashUsuario(), verificadoDashMaterias()">
+<body onload="validarSessaoDash(), validarSessaoDashUsuario(), verificadoDashMaterias(), listarUsuariosDash()">
     <section class="navigation">
         <div class="nav-container">
             <div class="brand">
@@ -38,6 +38,11 @@
     </div>
     </section>
     <div class="container-fluid">
+        <div class="container-ordenar">
+                <label for="listarUsuariosSelect">Selecione o usuário:</label>
+                <select id="listarUsuariosSelect"class="dropdown" onchange="exibirDadosUsuarios()">
+                </select>
+        </div>
         <div class="conta-leitor">
             <div class="dados-leitor">
                 <div class="icon-leitor">
@@ -195,16 +200,37 @@
     });
 
     
+function listarUsuariosDash() {
+  fetch('../usuarios/listarUsuariosDash')
+    .then(response => {
+      if (response.ok) {
+        response.json().then(resposta => {
+          const select = document.getElementById('listarUsuariosSelect');
+          resposta.forEach(usuario => {
+            const option = document.createElement('option');
+            option.value = usuario.idusuario;
+            option.textContent = usuario.nome;
+            select.appendChild(option);
+          });
+          exibirDadosUsuarios();
+        });
+      } else {
+        console.error('Nenhuma usuario encontrado ou erro na API');
+      }
+    })
+    .catch(error => {
+      console.error(`Erro na obtenção dos usuários para a dashboard: ${error.message}`);
+    });
+}
 
-
-    function abrir() {
-      document.getElementById('popupConfirm').style.display = 'flex';
-    }
-    function fechar() {
-      document.getElementById('popupConfirm').style.display = 'none';
-    }
-    function confirmar() {
-      fechar();
-      alert('Apagado com sucesso!');
-    }
+function abrir() {
+    document.getElementById('popupConfirm').style.display = 'flex';
+}
+function fechar() {
+    document.getElementById('popupConfirm').style.display = 'none';
+}
+function confirmar() {
+    fechar();
+    alert('Apagado com sucesso!');
+}
 </script>

@@ -16,4 +16,8 @@ router.post("/apagarUsuario", function (req, res) {
     usuarioController.apagarUsuario(req, res);
 });
 
+router.get("/listarUsuariosDash", function (req, res) {
+    usuarioController.listarUsuariosDash(req, res);
+});
+
 module.exports = router;

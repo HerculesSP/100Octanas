@@ -46,9 +46,19 @@ function registrarVerificacao(idUsuario) {
     return database.executar(instrucaoSql)
 }
 
+function listarUsuariosDash(){
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarUsuariosDash:");
+    var instrucaoSql = `
+        select idUsuario, nome from Usuario order by nome;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
+
 module.exports = {
     autenticar,
     cadastrar,
     apagarUsuario,
-    registrarVerificacao
+    registrarVerificacao,
+    listarUsuariosDash
 };
