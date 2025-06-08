@@ -46,8 +46,8 @@
         <div class="conta-leitor">
             <div class="dados-leitor">
                 <div class="nome-leitor">
-                    <h2>Max Vestappen conquista vitória no Grand Pix de Interlagos.</h2>
-                    <p>Publicada em: <span>01/01/2023</span></p>
+                    <h2 id="kpiTitulo">Max Vestappen conquista vitória no Grand Pix de Interlagos.</h2>
+                    <p>Publicada em: <span id="kpiDataMateria">01/01/2023</span></p>
                 </div>
             </div>
             <div class="apagar-leitor">
@@ -78,26 +78,26 @@
                     </div>
                     <div class="kpi">
                         <h2>Quantidade de acessos</h2>
-                        <span>4524</span>
+                        <span id="kpiQtdMaterias">4524</span>
                     </div>
                     <div class="kpi">
-                        <h2>Autor</h2>
-                        <span>Calígula</span>
+                        <h2 >Autor</h2>
+                        <span id="kpiAutorMaterias">Calígula</span>
                     </div>
                 </div>
                 
                 <div class="kpis">
                     <div class="kpi">
                         <h2>Categoria principal</h2>
-                        <span>Fórmula 1</span>
+                        <span id="kpiCateg1Materias">Fórmula 1</span>
                     </div>
                     <div class="kpi">
                         <h2>Categoria secundária</h2>
-                        <span>Max Vestappen</span>
+                        <span id="kpiCateg2Materias">Max Vestappen</span>
                     </div>
                     <div class="kpi">
                         <h2>Categoria terciária</h2>
-                        <span>Corridas</span>
+                        <span id="kpiCateg3Materias">Corridas</span>
                     </div>
                 </div>
             </div>
@@ -213,21 +213,43 @@ function confirmar() {
     alert('Apagado com sucesso!');
 }
 function listarMateriasDash() {
-    console.log('Listando matérias para o painel...');
-  fetch('../materias/listarMaterias')
+  fetch('../materias/listarMateriasDash')
     .then(response => {
       if (response.ok) {
         response.json().then(resposta => {
-            console.log('Materias recebidas:', resposta);
           const select = document.getElementById('listarMateriasSelect');
-          
-
-          resposta.forEach(categoria => {
+          resposta.forEach(materia => {
             const option = document.createElement('option');
-            option.value = categoria.idCategoria;
-            option.textContent = categoria.Categoria;
+            option.value = materia.id;
+            option.textContent = materia.titulo;
             select.appendChild(option);
           });
+        });
+      } else {
+        console.error('Nenhuma materia encontrada ou erro na API');
+      }
+    })
+    .catch(error => {
+      console.error(`Erro na obtenção das materias para a dashboard: ${error.message}`);
+    });
+}
+function exibirDadosMaterias(){
+    let id = listarMateriasSelect.value;
+    preencherKPIMaterias(id);
+}
+function preencherKPIMaterias(id){
+    fetch(`../materias/buscarKPIsMaterias?id=${id}`)
+    .then(response => {
+      if (response.ok) {
+        response.json().then(resposta => {
+          kpiAutorMaterias.innerHTML = resposta.autor;
+          kpiDataMateria.innerHTML = new Date(resposta.data).toLocaleDateString('pt-BR');
+          kpiQtdMaterias.innerHTML = resposta.qtdAcessos;
+          kpiCateg1Materias.innerHTML = resposta.categoria1;
+          kpiCateg2Materias.innerHTML = resposta.categoria2;
+          kpiCateg3Materias.innerHTML = resposta.categoria3;
+          kpiTitulo.innerHTML = resposta.titulo;
+
         });
       } else {
         console.error('Nenhuma materia encontrada ou erro na API');

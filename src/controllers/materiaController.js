@@ -103,3 +103,26 @@ exports.armazenar = (req, res) => {
     });
 
 };
+
+exports.listarMateriasDash = (req, res) => {
+    materiaModel.listarMateriasDash()
+    .then(function (resultado) {
+        res.json(resultado);
+    })
+    .catch(function (erro) {
+        console.log(erro);
+        res.status(500).json(erro.sqlMessage);
+    });
+};
+
+exports.buscarKPIsMateria = (req, res) => {
+    materiaModel.buscarKPIsMateria()
+    .then(function (resultado) {
+        res.json(resultado);
+    })
+    .catch(function (erro) {
+        console.log(erro);
+        res.status(500).json(erro.sqlMessage);
+    });
+};
+

@@ -7,6 +7,14 @@ router.get("/listarMaterias", function (req, res) {
     materiaController.listarMaterias(req, res);
 });
 
+router.get("/listarMateriasDash", function (req, res) {
+    materiaController.listarMateriasDash(req, res);
+});
+
+router.get("/buscarKPIsMaterias", function (req, res) {
+    materiaController.buscarKPIsMateria(req, res);
+});
+
 router.post(
   '/enviarMateria',
   upload.fields([
