@@ -16,12 +16,20 @@ router.post("/apagarUsuario", function (req, res) {
     usuarioController.apagarUsuario(req, res);
 });
 
+router.post("/ultimoAcesso", function (req, res) {
+    usuarioController.ultimoAcesso(req, res);
+});
+
 router.get("/listarUsuariosDash", function (req, res) {
     usuarioController.listarUsuariosDash(req, res);
 });
 
 router.get("/buscarKPIsUsuarios", function (req, res) {
     usuarioController.buscarKPIsUsuarios(req, res);
+});
+
+router.get("/buscarMensalUsuarios", function (req, res) {
+    usuarioController.buscarMensalUsuarios(req, res);
 });
 
 module.exports = router;

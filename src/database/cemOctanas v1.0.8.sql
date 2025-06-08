@@ -116,8 +116,8 @@ CREATE TABLE IF NOT EXISTS cemOctanas.Newsletter (
 CREATE TABLE IF NOT EXISTS cemOctanas.InfoUsuario (
   idContato INT NOT NULL AUTO_INCREMENT,
   email VARCHAR(200) NOT NULL,
-  dtInsc DATETIME NOT NULL,
-  UltimoAcesso DATETIME NOT NULL,
+  dtInsc TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UltimoAcesso TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   foto VARCHAR(69) NOT NULL DEFAULT 'default-icon.png',
   ativo TINYINT NULL DEFAULT 1,
   banido TINYINT NULL,
@@ -131,6 +131,7 @@ CREATE TABLE IF NOT EXISTS cemOctanas.InfoUsuario (
     FOREIGN KEY (fkUsuario)
     REFERENCES cemOctanas.Usuario (idUsuario)
 );
+
 
 -- -----------------------------------------------------
 -- Procedimento  cadastrarUsuarioInfo
@@ -149,8 +150,8 @@ BEGIN
     INSERT INTO cemOctanas.Usuario (nome, sobrenome, dtNasc, senha)
     VALUES (p_nome, p_sobrenome, p_dtNasc, p_senha);
 
-    INSERT INTO cemOctanas.InfoUsuario (email, dtInsc, foto, fkUsuario)
-    VALUES (p_email, NOW(), p_imagem, LAST_INSERT_ID());
+    INSERT INTO cemOctanas.InfoUsuario (email, foto, fkUsuario)
+    VALUES (p_email, p_imagem, LAST_INSERT_ID());
 END$$
 
 DELIMITER ;
@@ -175,13 +176,14 @@ group by id, titulo, resumo, link, capa, data, nome, categoria1, categoria2, cat
 -- View vw_materias
 -- -----------------------------------------------------
 create view cemOctanas.vw_usuarios as
-select u.idUsuario, concat(u.nome, ' ', u.sobrenome) nomeCompleto, u.nome Sonome, ui.foto icon, count(mu.fkUsuario) acessos, descricao cargo, dtInsc inscricao
+select u.idUsuario, concat(u.nome, ' ', u.sobrenome) nomeCompleto, u.nome Sonome, ui.foto icon, count(mu.fkUsuario) acessos, 
+descricao cargo, dtInsc inscricao, UltimoAcesso ultimo
 from cemOctanas.Usuario_Materia mu
 right join cemOctanas.Materia m on m.idMateria=mu.fkMateria
 inner join cemOctanas.Usuario u on u.idUsuario = mu.fkUsuario
 inner join cemOctanas.InfoUsuario ui on ui.fkUsuario = u.idUsuario
 inner join cemOctanas.Cargo c on c.idCargo = u.fkCargo
-group by idUsuario, Sonome, icon, cargo, inscricao, nomeCompleto;
+group by idUsuario, Sonome, icon, cargo, inscricao, nomeCompleto, ultimo;
 
 -- -----------------------------------------------------
 -- Inserindo as categorias

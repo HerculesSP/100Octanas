@@ -145,9 +145,9 @@ function checkAllLoginSubmit(){
                 console.log(resposta);
 
                 resposta.json().then(json => {
-                    console.log('foi')
                     console.log(json);
                     console.log(JSON.stringify(json));
+                    let id = Number(JSON.stringify(json.idUsuario));
                     sessionStorage.ID_USUARIO = json.idUsuario;
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
@@ -155,6 +155,19 @@ function checkAllLoginSubmit(){
                     sessionStorage.VERIFICADO = json.verificado;
                     sessionStorage.CARGO = json.descricao;
                     sessionStorage.FOTO = json.icon;
+                    fetch("/usuarios/ultimoAcesso", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            id: id,
+                        })
+                    }).then(function (resposta) {
+                        if(resposta.ok) {
+                            console.log("Último acesso atualizado");
+                        }
+                    });
                      window.location = "./index.html";
 
                 });

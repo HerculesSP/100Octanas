@@ -72,6 +72,26 @@ function cadastrar(req, res) {
             );
     
 }
+
+function ultimoAcesso(req, res) {
+    const id = req.body.id
+        usuarioModel.ultimoAcesso(id)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao atualizar o último cadastro Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    
+}
 function apagarUsuario (req, res) {
   const idUsuario = req.body.idUsuario;
   usuarioModel.apagarUsuario(idUsuario)
@@ -108,11 +128,24 @@ function buscarKPIsUsuarios (req, res){
     });
 };
 
+function buscarMensalUsuarios (req, res){
+    id = req.query.id;
+    usuarioModel.buscarMensalUsuarios(id)
+    .then(function (resultado) {
+        res.json(resultado);
+    })
+    .catch(function (erro) {
+        console.log(erro);
+        res.status(500).json(erro.sqlMessage);
+    });
+};
 
 module.exports = {
     autenticar,
     cadastrar,
+    ultimoAcesso,
     apagarUsuario,
     listarUsuariosDash,
-    buscarKPIsUsuarios
+    buscarKPIsUsuarios,
+    buscarMensalUsuarios
 }

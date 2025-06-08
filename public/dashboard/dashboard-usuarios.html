@@ -76,7 +76,7 @@
                 </div>
                 <div class="kpis">
                     <div class="kpi">
-                        <h2>Último acesso</h2>
+                        <h2>Último acesso:</h2>
                         <span id="kpiAcessoUsuario">4:43</span>
                     </div>
                     <div class="kpi">
@@ -123,26 +123,7 @@
 <script src="../js/sessao.js"></script>
 <script src="../js/verificacao.js"></script>
 <script>
-    const usuarioMensal = document.getElementById('usuario-meses');
 
-  new Chart(usuarioMensal, {
-    type: 'bar',
-    data: {
-      labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-      datasets: [{
-        label: 'Matérias lidas por mês',
-        data: [12, 19, 3, 5, 2, 3, 10, 15, 20, 25, 30, 35],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
   const usuarioSemanal = document.getElementById('usuario-dias');
 
   new Chart(usuarioSemanal, {
@@ -215,7 +196,7 @@ function exibirDadosUsuarios(){
     let id = listarUsuariosSelect.value;
     preencherKPIUsuarios(id);
     //preencherGraficoDonutUsuarios(id);
-    //preencherGraficoMensalUsuarios(id);
+    preencherGraficoMensalUsuarios(id);
     //preencherGraficoDiarioUsuarios(id);
 }
 
@@ -226,7 +207,7 @@ function preencherKPIUsuarios(id){
         response.json().then(resposta => {
           kpiNomeUsuario.innerHTML = resposta[0].nomeCompleto;
           kpiDataUsuario.innerHTML = new Date(resposta[0].inscricao).toLocaleDateString('pt-BR');
-          kpiAcessoUsuario.innerHTML = new Date(resposta[0].ultimo).toLocaleDateString('pt-BR');
+          kpiAcessoUsuario.innerHTML = new Date(resposta[0].ultimo).toLocaleString('pt-BR');
           kpiQtdUsuario.innerHTML = resposta[0].acessos;
           kpiIconeUsuario.innerHTML = `<img src="./../res/icon/${resposta[0].icon}" alt="Icone de usuario">`;
           kpiCargoUsuario.innerHTML = resposta[0].cargo;
@@ -237,6 +218,46 @@ function preencherKPIUsuarios(id){
     })
     .catch(error => {
       console.error(`Erro na obtenção dos usuarios para a dashboard: ${error.message}`);
+    });
+}
+function preencherGraficoMensalUsuarios(id){
+    let labels=[]
+    let qtd=[]
+    fetch(`../usuarios/buscarMensalUsuarios?id=${id}`)
+    .then(response => {
+      if (response.ok) {
+        response.json().then(resposta => {
+            resposta.forEach(dados => {
+                labels.push(dados.mes_ano);
+                qtd.push(dados.qtd);
+            })
+            const usuarioMensal = document.getElementById('usuario-meses');
+            new Chart(usuarioMensal, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Matérias lidas por mês',
+                        data: qtd,
+                        backgroundColor: ['rgb(212, 0, 0)'],
+                    borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+    .catch(error => {
+      console.error(`Erro na obtenção dos acessos para a dashboard: ${error.message}`);
     });
 }
 function abrir() {

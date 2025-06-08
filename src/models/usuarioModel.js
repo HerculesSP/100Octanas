@@ -25,6 +25,15 @@ function cadastrar(usuario) {
     return database.executar(instrucaoSql)
 }
 
+function ultimoAcesso(id){
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function UltimoAcesso:");
+    var instrucaoSql = `
+        update InfoUsuario set UltimoAcesso=now() where fkUsuario=${id};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
+
 function apagarUsuario(idUsuario) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function apagarUsuario():", idUsuario);
     //const instrucao = `insert into usuario (nome, email, imagem_perfil) values ('${usuario.nome}', '${usuario.email}', '${usuario.imagem}')`;
@@ -64,11 +73,26 @@ function buscarKPIsUsuarios(id){
     return database.executar(instrucaoSql)
 }
 
+function buscarMensalUsuarios(id){
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarKPIsUsuarios:");
+    var instrucaoSql = `
+            SELECT COUNT(fkUsuario) qtd, DATE_FORMAT(acesso, '%m/%y') mes_ano
+                FROM cemOctanas.Usuario_Materia
+                WHERE fkMateria = ${id} AND acesso BETWEEN DATE_ADD(now(), INTERVAL -12 MONTH) AND now()
+                GROUP BY mes_Ano
+                ORDER BY MIN(acesso);
+        `;
+        console.log("Executando a instrução SQL: \n" + instrucaoSql);
+        return database.executar(instrucaoSql)
+}
+
 module.exports = {
     autenticar,
     cadastrar,
+    ultimoAcesso,
     apagarUsuario,
     registrarVerificacao,
     listarUsuariosDash,
-    buscarKPIsUsuarios
+    buscarKPIsUsuarios,
+    buscarMensalUsuarios
 };
