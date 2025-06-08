@@ -135,27 +135,6 @@
 <script src="../js/sessao.js"></script>
 <script src="../js/verificacao.js"></script>
 <script >
-  const materiaSemanal = document.getElementById('materia-dias');
-
-  new Chart(materiaSemanal, {
-    type: 'line',
-    data: {
-      labels: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-      datasets: [{
-        label: 'Acessos por dia',
-        data: [12, 19, 3, 5, 2, 3, 10],
-         backgroundColor: ['rgb(212, 0, 0)'],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
 
 function abrir() {
     document.getElementById('popupConfirm').style.display = 'flex';
@@ -194,6 +173,7 @@ function exibirDadosMaterias(){
     preencherKPIMaterias(id);
     preencherGraficoDonutMaterias(id);
     preencherGraficoMensalMaterias(id);
+    preencherGraficoDiarioMaterias(id);
 }
 function preencherKPIMaterias(id){
     fetch(`../materias/buscarKPIsMaterias?id=${id}`)
@@ -298,9 +278,48 @@ function preencherGraficoMensalMaterias(id){
       }
     })
     .catch(error => {
-      console.error(`Erro na obtenção das idades para a dashboard: ${error.message}`);
+      console.error(`Erro na obtenção dos acessos para a dashboard: ${error.message}`);
     });
 }
 
-
+function preencherGraficoDiarioMaterias(id){
+    let labels=[]
+    let qtd=[]
+    fetch(`../materias/buscarDiarioMaterias?id=${id}`)
+    .then(response => {
+      if (response.ok) {
+        response.json().then(resposta => {
+            resposta.forEach(dados => {
+                labels.push(dados.dia_mes);
+                qtd.push(dados.qtd);
+            })
+            const materiaMensal = document.getElementById('materia-dias');
+            new Chart(materiaMensal, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Acessos por dia',
+                        data: qtd,
+                        backgroundColor: ['rgb(212, 0, 0)'],
+                    borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+    .catch(error => {
+      console.error(`Erro na obtenção dos acessos para a dashboard: ${error.message}`);
+    });
+}
 </script>

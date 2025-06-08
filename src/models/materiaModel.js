@@ -76,6 +76,19 @@ function buscarMensalMateria(id){
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
 }
+
+function buscarDiarioMateria(id){
+    console.log("ACESSEI O MATERIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarIdadeMateria:");
+    var instrucaoSql = `
+       SELECT COUNT(fkMateria) qtd, DATE_FORMAT(acesso, '%d/%m') dia_mes
+        FROM cemOctanas.Usuario_Materia
+        WHERE fkMateria = ${id} AND acesso BETWEEN DATE_ADD(now(), INTERVAL -7 DAY) AND now()
+        GROUP BY dia_mes
+        ORDER BY MIN(acesso);
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
 module.exports = {
     criarMateria,
     listarNormal,
@@ -83,5 +96,6 @@ module.exports = {
     listarMateriasDash,
     buscarKPIsMateria,
     buscarIdadeMateria,
-    buscarMensalMateria
+    buscarMensalMateria,
+    buscarDiarioMateria
 };

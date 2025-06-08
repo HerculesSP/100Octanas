@@ -23,6 +23,10 @@ router.get("/buscarMensalMaterias", function (req, res) {
     materiaController.buscarMensalMateria(req, res);
 });
 
+router.get("/buscarDiarioMaterias", function (req, res) {
+    materiaController.buscarDiarioMateria(req, res);
+});
+
 router.post(
   '/enviarMateria',
   upload.fields([
