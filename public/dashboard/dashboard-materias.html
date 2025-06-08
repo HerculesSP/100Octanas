@@ -177,30 +177,6 @@
       }
     }
   });
-  const materiaDonut = document.getElementById('materia-donut').getContext('2d');
-
-    window.graficoDonutInstance = new Chart(materiaDonut, {
-        type: 'doughnut',
-        data: {
-            labels: ['18 a 29 anos', '30 a 49 anos', '50 a 64 anos', '65 anos ou mais'],
-            datasets: [{
-                data: [20, 20, 20, 20],
-                backgroundColor: ['rgb(255, 0, 0)', 'rgb(195, 0, 0)', 'rgb(135, 0, 0)', 'rgb(75, 0, 0)'],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'right'
-                },
-                title: {
-                    
-                }
-            }
-        }
-    });
 
 function abrir() {
     document.getElementById('popupConfirm').style.display = 'flex';
@@ -224,6 +200,7 @@ function listarMateriasDash() {
             option.textContent = materia.titulo;
             select.appendChild(option);
           });
+          exibirDadosMaterias();
         });
       } else {
         console.error('Nenhuma materia encontrada ou erro na API');
@@ -236,19 +213,20 @@ function listarMateriasDash() {
 function exibirDadosMaterias(){
     let id = listarMateriasSelect.value;
     preencherKPIMaterias(id);
+    preencherGraficoDonutMaterias(id);
 }
 function preencherKPIMaterias(id){
     fetch(`../materias/buscarKPIsMaterias?id=${id}`)
     .then(response => {
       if (response.ok) {
         response.json().then(resposta => {
-          kpiAutorMaterias.innerHTML = resposta.autor;
-          kpiDataMateria.innerHTML = new Date(resposta.data).toLocaleDateString('pt-BR');
-          kpiQtdMaterias.innerHTML = resposta.qtdAcessos;
-          kpiCateg1Materias.innerHTML = resposta.categoria1;
-          kpiCateg2Materias.innerHTML = resposta.categoria2;
-          kpiCateg3Materias.innerHTML = resposta.categoria3;
-          kpiTitulo.innerHTML = resposta.titulo;
+          kpiAutorMaterias.innerHTML = resposta[0].autor;
+          kpiDataMateria.innerHTML = new Date(resposta[0].data).toLocaleDateString('pt-BR');
+          kpiQtdMaterias.innerHTML = resposta[0].acessos;
+          kpiCateg1Materias.innerHTML = resposta[0].categoria1;
+          kpiCateg2Materias.innerHTML = resposta[0].categoria2;
+          kpiCateg3Materias.innerHTML = resposta[0].categoria3;
+          kpiTitulo.innerHTML = resposta[0].titulo;
 
         });
       } else {
@@ -258,5 +236,49 @@ function preencherKPIMaterias(id){
     .catch(error => {
       console.error(`Erro na obtenção das materias para a dashboard: ${error.message}`);
     });
+}
+function preencherGraficoDonutMaterias(id){
+    let labels=[]
+    let qtd=[]
+    fetch(`../materias/buscarIdadeMaterias?id=${id}`)
+    .then(response => {
+      if (response.ok) {
+        response.json().then(resposta => {
+            resposta.forEach(dados => {
+                labels.push(dados.Idade);
+                qtd.push(dados.qtd);
+            })
+            const materiaDonut = document.getElementById('materia-donut').getContext('2d');
+            window.graficoDonutInstance = new Chart(materiaDonut, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: qtd,
+                        backgroundColor: ['rgb(255, 0, 0)', 'rgb(195, 0, 0)', 'rgb(135, 0, 0)', 'rgb(75, 0, 0)'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'right'
+                        },
+                        title: {
+                    
+                        }
+                    }
+                }
+           });
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+    .catch(error => {
+      console.error(`Erro na obtenção das idades para a dashboard: ${error.message}`);
+    });
+    
 }
 </script>

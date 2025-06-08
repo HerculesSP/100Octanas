@@ -15,6 +15,10 @@ router.get("/buscarKPIsMaterias", function (req, res) {
     materiaController.buscarKPIsMateria(req, res);
 });
 
+router.get("/buscarIdadeMaterias", function (req, res) {
+    materiaController.buscarIdadeMateria(req, res);
+});
+
 router.post(
   '/enviarMateria',
   upload.fields([

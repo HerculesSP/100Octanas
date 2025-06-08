@@ -36,19 +36,38 @@ function listarMateriasDash(){
     return database.executar(instrucaoSql)
 }
 
-function buscarKPIsMateria(){
+function buscarKPIsMateria(id){
     console.log("ACESSEI O MATERIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarMateriasDash:");
     var instrucaoSql = `
-        select id, titulo from vw_materias order by titulo;
+        select titulo, categoria1, categoria2, categoria3, data, autor, acessos from vw_materias where id= ${id} order by titulo;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
 }
 
+function buscarIdadeMateria(id){
+    console.log("ACESSEI O MATERIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarMateriasDash:");
+    var instrucaoSql = `
+        select case when TIMESTAMPDIFF(year, u.dtNasc, NOW()) < 30 then '18 a 29 anos'
+			when  TIMESTAMPDIFF(year, u.dtNasc, NOW()) < 50 then '30 a 49 anos'
+            when  TIMESTAMPDIFF(year, u.dtNasc, NOW()) < 65 then '50 a 64 anos'
+            else '65 anos ou mais'
+            end Idade, count(*) qtd
+	from cemOctanas.Usuario_Materia mu
+    inner join cemOctanas.Usuario u on mu.fkUsuario = u.idUsuario
+    inner join cemOctanas.Materia m on mu.fkMateria = m.idMateria
+    where fkMateria=${id}
+    group by Idade
+    order by Idade;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
 module.exports = {
     criarMateria,
     listarNormal,
     armazenar,
     listarMateriasDash,
-    buscarKPIsMateria
+    buscarKPIsMateria,
+    buscarIdadeMateria
 };

@@ -116,7 +116,8 @@ exports.listarMateriasDash = (req, res) => {
 };
 
 exports.buscarKPIsMateria = (req, res) => {
-    materiaModel.buscarKPIsMateria()
+    const id =req.query.id;
+    materiaModel.buscarKPIsMateria(id)
     .then(function (resultado) {
         res.json(resultado);
     })
@@ -126,3 +127,14 @@ exports.buscarKPIsMateria = (req, res) => {
     });
 };
 
+exports.buscarIdadeMateria = (req, res) => {
+    const id =req.query.id;
+    materiaModel.buscarIdadeMateria(id)
+    .then(function (resultado) {
+        res.json(resultado);
+    })
+    .catch(function (erro) {
+        console.log(erro);
+        res.status(500).json(erro.sqlMessage);
+    });
+};
