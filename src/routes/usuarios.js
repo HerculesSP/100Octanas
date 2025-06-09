@@ -32,4 +32,8 @@ router.get("/buscarMensalUsuarios", function (req, res) {
     usuarioController.buscarMensalUsuarios(req, res);
 });
 
+router.get("/buscarDiarioUsuarios", function (req, res) {
+    usuarioController.buscarDiarioUsuarios(req, res);
+});
+
 module.exports = router;

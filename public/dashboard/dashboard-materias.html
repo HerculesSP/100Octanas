@@ -135,6 +135,9 @@
 <script src="../js/sessao.js"></script>
 <script src="../js/verificacao.js"></script>
 <script >
+let chartDonutMaterias=null;
+let chartMensalMaterias=null;
+let chartDiarioMaterias=null;
 
 function abrir() {
     document.getElementById('popupConfirm').style.display = 'flex';
@@ -208,8 +211,11 @@ function preencherGraficoDonutMaterias(id){
                 labels.push(dados.Idade);
                 qtd.push(dados.qtd);
             })
+            if (chartDonutMaterias) {
+                    chartDonutMaterias.destroy();
+                }
             const materiaDonut = document.getElementById('materia-donut').getContext('2d');
-            window.graficoDonutInstance = new Chart(materiaDonut, {
+            chartDonutMaterias = new Chart(materiaDonut, {
                 type: 'doughnut',
                 data: {
                     labels: labels,
@@ -252,8 +258,11 @@ function preencherGraficoMensalMaterias(id){
                 labels.push(dados.mes_ano);
                 qtd.push(dados.qtd);
             })
+            if (chartMensalMaterias) {
+                    chartMensalMaterias.destroy();
+                }
             const materiaMensal = document.getElementById('materia-meses');
-            new Chart(materiaMensal, {
+            chartMensalMaterias = new Chart(materiaMensal, {
                 type: 'bar',
                 data: {
                     labels: labels,
@@ -293,8 +302,11 @@ function preencherGraficoDiarioMaterias(id){
                 labels.push(dados.dia_mes);
                 qtd.push(dados.qtd);
             })
-            const materiaMensal = document.getElementById('materia-dias');
-            new Chart(materiaMensal, {
+            if (chartDiarioMaterias) {
+                    chartDiarioMaterias.destroy();
+                }
+            const materiaDiario = document.getElementById('materia-dias');
+            chartDiarioMaterias = new Chart(materiaDiario, {
                 type: 'line',
                 data: {
                     labels: labels,

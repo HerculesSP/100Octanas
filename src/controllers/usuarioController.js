@@ -140,6 +140,18 @@ function buscarMensalUsuarios (req, res){
     });
 };
 
+function buscarDiarioUsuarios (req, res){
+    id = req.query.id;
+    usuarioModel.buscarDiarioUsuarios(id)
+    .then(function (resultado) {
+        res.json(resultado);
+    })
+    .catch(function (erro) {
+        console.log(erro);
+        res.status(500).json(erro.sqlMessage);
+    });
+};
+
 module.exports = {
     autenticar,
     cadastrar,
@@ -147,5 +159,6 @@ module.exports = {
     apagarUsuario,
     listarUsuariosDash,
     buscarKPIsUsuarios,
-    buscarMensalUsuarios
+    buscarMensalUsuarios,
+    buscarDiarioUsuarios
 }

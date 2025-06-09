@@ -169,6 +169,7 @@ inner join cemOctanas.Usuario u on u.idUsuario = m.fkAutor
 inner join cemOctanas.Categoria c1 on m.fkCategoria1= c1.idCategoria
 inner join cemOctanas.Categoria c2 on m.fkCategoria2= c2.idCategoria
 inner join cemOctanas.Categoria c3 on m.fkCategoria3= c3.idCategoria
+where m.visivel = 1
 group by id, titulo, resumo, link, capa, data, nome, categoria1, categoria2, categoria3;
     
 
@@ -183,6 +184,7 @@ right join cemOctanas.Materia m on m.idMateria=mu.fkMateria
 inner join cemOctanas.Usuario u on u.idUsuario = mu.fkUsuario
 inner join cemOctanas.InfoUsuario ui on ui.fkUsuario = u.idUsuario
 inner join cemOctanas.Cargo c on c.idCargo = u.fkCargo
+where ui.ativo=1 and ui.banido is null
 group by idUsuario, Sonome, icon, cargo, inscricao, nomeCompleto, ultimo;
 
 -- -----------------------------------------------------

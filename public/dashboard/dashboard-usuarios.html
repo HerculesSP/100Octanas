@@ -91,7 +91,7 @@
             </div>
             <div class="graficos">
                 <div class="grafico">
-                    <h2>Taxa semanal de leitura</h2>
+                    <h2>Taxa diária de leitura</h2>
                     <canvas id="usuario-dias"></canvas>
                 </div>
                 <div class="grafico">
@@ -123,30 +123,15 @@
 <script src="../js/sessao.js"></script>
 <script src="../js/verificacao.js"></script>
 <script>
+let ChartUsuarioDonut = null;
+let ChartUsuarioMensal = null;
+let ChartUsuarioDiario = null;
 
-  const usuarioSemanal = document.getElementById('usuario-dias');
-
-  new Chart(usuarioSemanal, {
-    type: 'line',
-    data: {
-      labels: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-      datasets: [{
-        label: 'Matérias lidas por dia',
-        data: [12, 19, 3, 5, 2, 3, 10],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
-  const usuarioDonut = document.getElementById('usuario-donut').getContext('2d');
-
-    window.graficoDonutInstance = new Chart(usuarioDonut, {
+  if (ChartUsuarioDonut) {
+                    ChartUsuarioDonut.destroy();
+                }
+const usuarioDonut = document.getElementById('usuario-donut').getContext('2d');
+    ChartUsuarioDonut = new Chart(usuarioDonut, {
         type: 'doughnut',
         data: {
             labels: ['Tema 1', 'Tema 2', 'Tema 3'],
@@ -197,7 +182,7 @@ function exibirDadosUsuarios(){
     preencherKPIUsuarios(id);
     //preencherGraficoDonutUsuarios(id);
     preencherGraficoMensalUsuarios(id);
-    //preencherGraficoDiarioUsuarios(id);
+    preencherGraficoDiarioUsuarios(id);
 }
 
 function preencherKPIUsuarios(id){
@@ -231,13 +216,59 @@ function preencherGraficoMensalUsuarios(id){
                 labels.push(dados.mes_ano);
                 qtd.push(dados.qtd);
             })
+            if (ChartUsuarioMensal) {
+                    ChartUsuarioMensal.destroy();
+                }
             const usuarioMensal = document.getElementById('usuario-meses');
-            new Chart(usuarioMensal, {
+            ChartUsuarioMensal = new Chart(usuarioMensal, {
                 type: 'bar',
                 data: {
                     labels: labels,
                     datasets: [{
                         label: 'Matérias lidas por mês',
+                        data: qtd,
+                        backgroundColor: ['rgb(212, 0, 0)'],
+                    borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+    .catch(error => {
+      console.error(`Erro na obtenção dos acessos para a dashboard: ${error.message}`);
+    });
+}
+function preencherGraficoDiarioUsuarios(id){
+    let labels=[]
+    let qtd=[]
+    fetch(`../usuarios/buscarDiarioUsuarios?id=${id}`)
+    .then(response => {
+      if (response.ok) {
+        response.json().then(resposta => {
+            resposta.forEach(dados => {
+                labels.push(dados.dia_mes);
+                qtd.push(dados.qtd);
+            })
+            if (ChartUsuarioDiario) {
+                    ChartUsuarioDiario.destroy();
+                }
+            const usuarioMensal = document.getElementById('usuario-dias');
+            ChartUsuarioDiario = new Chart(usuarioMensal, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Matérias lidas por dia',
                         data: qtd,
                         backgroundColor: ['rgb(212, 0, 0)'],
                     borderWidth: 1

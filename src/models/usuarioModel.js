@@ -78,7 +78,7 @@ function buscarMensalUsuarios(id){
     var instrucaoSql = `
             SELECT COUNT(fkUsuario) qtd, DATE_FORMAT(acesso, '%m/%y') mes_ano
                 FROM cemOctanas.Usuario_Materia
-                WHERE fkMateria = ${id} AND acesso BETWEEN DATE_ADD(now(), INTERVAL -12 MONTH) AND now()
+                WHERE fkUsuario = ${id} AND acesso BETWEEN DATE_ADD(now(), INTERVAL -12 MONTH) AND now()
                 GROUP BY mes_Ano
                 ORDER BY MIN(acesso);
         `;
@@ -86,6 +86,18 @@ function buscarMensalUsuarios(id){
         return database.executar(instrucaoSql)
 }
 
+function buscarDiarioUsuarios(id){
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarKPIsUsuarios:");
+    var instrucaoSql = `
+           SELECT COUNT(fkUsuario) qtd, DATE_FORMAT(acesso, '%d/%m') dia_mes
+            FROM cemOctanas.Usuario_Materia
+            WHERE fkUsuario = ${id} AND acesso BETWEEN DATE_ADD(now(), INTERVAL -7 DAY) AND now()
+            GROUP BY dia_mes
+            ORDER BY MIN(acesso);
+        `;
+        console.log("Executando a instrução SQL: \n" + instrucaoSql);
+        return database.executar(instrucaoSql)
+}
 module.exports = {
     autenticar,
     cadastrar,
@@ -94,5 +106,6 @@ module.exports = {
     registrarVerificacao,
     listarUsuariosDash,
     buscarKPIsUsuarios,
-    buscarMensalUsuarios
+    buscarMensalUsuarios,
+    buscarDiarioUsuarios
 };
