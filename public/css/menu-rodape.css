@@ -79,6 +79,7 @@ nav ul li:hover > .nav-dropdown {
   display: block;
 }
 .nav-user {
+    margin-top: 15px;
     display: flex;
     align-items: center;
     gap: 12px;

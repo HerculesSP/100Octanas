@@ -103,7 +103,7 @@ function validarSessaoMateria() {
         menubar.innerHTML += `
         <li>
                     <div class="nav-user">
-                        <img src="res/icon/${icon}" alt="Avatar do usuário" class="user-avatar">
+                        <img src="./../icon/${icon}" alt="Avatar do usuário" class="user-avatar">
                         <span class="user-name" id="b_usuario">${nome}</span>
                     </div>
                     <ul class="nav-dropdown">
@@ -111,7 +111,7 @@ function validarSessaoMateria() {
                             <a onclick=" limparSessaoDashMaterias()">Sair</a>
                         </li>
                         <li>
-                            <a onclick=" apagarConta()">Apagar conta</a>
+                            <a onclick=" apagarContaMateria()">Apagar conta</a>
                         </li>
                     </ul>
                 </li>`;
@@ -140,7 +140,7 @@ function validarSessaoMateria() {
                             <a onclick=" limparSessaoDashMaterias()">Sair</a>
                         </li>
                         <li>
-                            <a onclick=" apagarConta()">Apagar conta</a>
+                            <a onclick=" apagarContaMateria()">Apagar conta</a>
                         </li>
                     </ul>
                 </li>
@@ -170,7 +170,7 @@ function validarSessaoMateria() {
                             <a onclick=" limparSessaoDashMaterias()">Sair</a>
                         </li>
                         <li>
-                            <a onclick=" apagarConta()">Apagar conta</a>
+                            <a onclick=" apagarContaMateria()">Apagar conta</a>
                         </li>
                     </ul>
                 </li>
@@ -212,7 +212,7 @@ function validarSessaoDash() {
                             <a onclick=" limparSessaoDashMaterias()">Sair</a>
                         </li>
                         <li>
-                            <a onclick=" apagarConta()">Apagar conta</a>
+                            <a onclick=" apagarContaDash()">Apagar conta</a>
                         </li>
                     </ul>
                 </li>
@@ -242,7 +242,7 @@ function validarSessaoDash() {
                             <a onclick=" limparSessaoDashMaterias()">Sair</a>
                         </li>
                         <li>
-                            <a onclick=" apagarConta()">Apagar conta</a>
+                            <a onclick=" apagarContaDash()">Apagar conta</a>
                         </li>
                     </ul>
                 </li>
@@ -381,7 +381,7 @@ function validarSessaoDashUsuario() {
 function validarSessaoDashMateria() {
     let cargo = sessionStorage.CARGO;
     if (!(cargo == 'Redator' || cargo == 'Jornalista')) {
-        window.location = "../index.html";
+        window.location = ".../../index.html";
     } 
 }
 function limparSessao() {
@@ -427,6 +427,72 @@ function confirmar() {
         console.log(`#ERRO: ${resposta}`);
       });
 }
+function apagarContaDash(){
+    document.getElementById('popupConfirmConta').style.display = 'flex';
+}
 
+function fecharDash() {
+    document.getElementById('popupConfirmConta').style.display = 'none';
+}
+function confirmarDash() {
+  fecharDash();
+   const dados = {
+        idUsuario: sessionStorage.ID_USUARIO
+    };
+  fetch("../usuarios/apagarUsuario", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(dados)
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+        if (resposta.ok) {
+          console.log(
+            "Usuário apagado com sucesso!");
+             sessionStorage.clear();
+             window.location = '../index.html';
+        } else {
+          throw "Houve um erro ao apagar o usuário!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+}
+function apagarContaMateria(){
+    document.getElementById('popupConfirmContaMateria').style.display = 'flex';
+}
 
+function fecharMateria() {
+    document.getElementById('popupConfirmContaMateria').style.display = 'none';
+}
+function confirmarMateria() {
+  fecharMateria();
+   const dados = {
+        idUsuario: sessionStorage.ID_USUARIO
+    };
+  fetch("../../usuarios/apagarUsuario", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(dados)
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+        if (resposta.ok) {
+          console.log(
+            "Usuário apagado com sucesso!");
+             sessionStorage.clear();
+             window.location = '../../index.html';
+        } else {
+          throw "Houve um erro ao apagar o usuário!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+}
 
