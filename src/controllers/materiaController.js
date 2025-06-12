@@ -104,6 +104,19 @@ exports.armazenar = (req, res) => {
 
 };
 
+exports.ApagarMateria = (req, res) => {
+  const idMateria = req.body.idMateria;
+  materiaModel.ApagarMateria(idMateria)
+    .then(function (resultado) {
+        res.json(resultado);
+    })
+    .catch(function (erro) {
+        console.log(erro);
+        res.status(500).json(erro.sqlMessage);
+    });
+
+};
+
 exports.listarMateriasDash = (req, res) => {
     materiaModel.listarMateriasDash()
     .then(function (resultado) {

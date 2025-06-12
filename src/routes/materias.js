@@ -27,6 +27,10 @@ router.get("/buscarDiarioMaterias", function (req, res) {
     materiaController.buscarDiarioMateria(req, res);
 });
 
+router.post("/ApagarMateria", function (req, res) {
+    materiaController.ApagarMateria(req, res);
+});
+
 router.post(
   '/enviarMateria',
   upload.fields([

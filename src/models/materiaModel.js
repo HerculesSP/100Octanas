@@ -27,6 +27,16 @@ function armazenar (idMateria, idUsuario){
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
 }
+
+function ApagarMateria(idMateria){
+    console.log("ACESSEI O MATERIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function ApagarMateria():", idMateria);
+    var instrucaoSql = `
+        update Materia set visivel=0 where idMateria=${idMateria}; 
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
+
 function listarMateriasDash(){
     console.log("ACESSEI O MATERIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarMateriasDash:");
     var instrucaoSql = `
@@ -97,5 +107,6 @@ module.exports = {
     buscarKPIsMateria,
     buscarIdadeMateria,
     buscarMensalMateria,
-    buscarDiarioMateria
+    buscarDiarioMateria,
+    ApagarMateria
 };

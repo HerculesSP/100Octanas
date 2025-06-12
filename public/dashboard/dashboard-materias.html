@@ -51,16 +51,16 @@
                 </div>
             </div>
             <div class="apagar-leitor">
-                <button class="btn-apagar" onclick="abrir()">Apagar matéria</button>
+                <button class="btn-apagar" onclick="abrirApagar()">Apagar matéria</button>
             </div>
         </div>
-         <div class="popup-bg" id="popupConfirm">
+         <div class="popup-bg" id="popupConfirmApagar">
         <div class="popup-card">
             <h3>Deseja realmente apagar a matéria?</h3>
             <p>Essa ação é irreversível.</p>
             <div class="popup-actions">
-                <button class="popup-btn confirm" onclick="confirmar()">Sim, apagar</button>
-                <button class="popup-btn cancel" onclick="fechar()">Cancelar</button>
+                <button class="popup-btn confirm" onclick="confirmarApagar()">Sim, apagar</button>
+                <button class="popup-btn cancel" onclick="fecharApagar()">Cancelar</button>
             </div>
         </div>
         </div>
@@ -342,5 +342,37 @@ function preencherGraficoDiarioMaterias(id){
     .catch(error => {
       console.error(`Erro na obtenção dos acessos para a dashboard: ${error.message}`);
     });
+}
+function abrirApagar() {
+    document.getElementById('popupConfirmApagar').style.display = 'flex';
+}
+function fecharApagar() {
+    document.getElementById('popupConfirmApagar').style.display = 'none';
+}
+function confirmarApagar() {
+    fecharApagar();
+    const dados = {
+        idMateria: listarMateriasSelect.value
+    };
+  fetch("../materias/ApagarMateria", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(dados)
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+        if (resposta.ok) {
+          console.log(
+            "Materia apagada com sucesso!");
+             window.location.reload();
+        } else {
+          throw "Houve um erro ao apagar a materia!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
 }
 </script>
