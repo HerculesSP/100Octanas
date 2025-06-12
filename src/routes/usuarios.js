@@ -36,4 +36,8 @@ router.get("/buscarDiarioUsuarios", function (req, res) {
     usuarioController.buscarDiarioUsuarios(req, res);
 });
 
+router.get("/buscarDonutUsuarios", function (req, res) {
+    usuarioController.buscarDonutUsuarios(req, res);
+});
+
 module.exports = router;

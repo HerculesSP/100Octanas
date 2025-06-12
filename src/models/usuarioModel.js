@@ -74,7 +74,7 @@ function buscarKPIsUsuarios(id){
 }
 
 function buscarMensalUsuarios(id){
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarKPIsUsuarios:");
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarMensalUsuarios:");
     var instrucaoSql = `
             SELECT COUNT(fkUsuario) qtd, DATE_FORMAT(acesso, '%m/%y') mes_ano
                 FROM cemOctanas.Usuario_Materia
@@ -87,13 +87,56 @@ function buscarMensalUsuarios(id){
 }
 
 function buscarDiarioUsuarios(id){
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarKPIsUsuarios:");
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarDiarioUsuarios:");
     var instrucaoSql = `
            SELECT COUNT(fkUsuario) qtd, DATE_FORMAT(acesso, '%d/%m') dia_mes
             FROM cemOctanas.Usuario_Materia
             WHERE fkUsuario = ${id} AND acesso BETWEEN DATE_ADD(now(), INTERVAL -7 DAY) AND now()
             GROUP BY dia_mes
             ORDER BY MIN(acesso);
+        `;
+        console.log("Executando a instrução SQL: \n" + instrucaoSql);
+        return database.executar(instrucaoSql)
+}
+
+function buscarDonutUsuarios(id){
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarDonutUsuarios:");
+    var instrucaoSql = `
+SELECT 
+    Categoria,
+    SUM(valor) total_valor
+FROM (SELECT 
+        c1.Categoria Categoria, 
+        COUNT(*) * 3 valor
+    FROM cemOctanas.Usuario_Materia mu
+    INNER JOIN cemOctanas.Materia m ON m.idMateria = mu.fkMateria
+    INNER JOIN cemOctanas.Usuario u ON u.idUsuario = mu.fkUsuario
+    INNER JOIN cemOctanas.Categoria c1 ON m.fkCategoria1 = c1.idCategoria
+    WHERE u.idUsuario = ${id}
+    GROUP BY c1.Categoria
+    UNION 
+    SELECT 
+        c2.Categoria Categoria, 
+        COUNT(*) * 2 valor
+    FROM cemOctanas.Usuario_Materia mu
+    INNER JOIN cemOctanas.Materia m ON m.idMateria = mu.fkMateria
+    INNER JOIN cemOctanas.Usuario u ON u.idUsuario = mu.fkUsuario
+    INNER JOIN cemOctanas.Categoria c2 ON m.fkCategoria2 = c2.idCategoria
+    WHERE u.idUsuario = ${id}
+    GROUP BY c2.Categoria
+    UNION 
+    SELECT 
+        c3.Categoria Categoria, 
+        COUNT(*) valor
+    FROM cemOctanas.Usuario_Materia mu
+    INNER JOIN cemOctanas.Materia m ON m.idMateria = mu.fkMateria
+    INNER JOIN cemOctanas.Usuario u ON u.idUsuario = mu.fkUsuario
+    INNER JOIN cemOctanas.Categoria c3 ON m.fkCategoria3 = c3.idCategoria
+    WHERE u.idUsuario = ${id}
+    GROUP BY c3.Categoria
+) interesse
+GROUP BY Categoria
+ORDER BY total_valor desc;
         `;
         console.log("Executando a instrução SQL: \n" + instrucaoSql);
         return database.executar(instrucaoSql)
@@ -107,5 +150,6 @@ module.exports = {
     listarUsuariosDash,
     buscarKPIsUsuarios,
     buscarMensalUsuarios,
-    buscarDiarioUsuarios
+    buscarDiarioUsuarios,
+    buscarDonutUsuarios
 };

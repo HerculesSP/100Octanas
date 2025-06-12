@@ -80,7 +80,7 @@
         <div class="painel">
             <div class="graficos">
                 <div class="grafico">
-                    <h2>Interesse por categorias</h2>
+                    <h2>Interesse por categorias (%)</h2>
                     <canvas id="usuario-donut"></canvas>
                 </div>
                 <div class="kpis">
@@ -136,32 +136,57 @@ let ChartUsuarioDonut = null;
 let ChartUsuarioMensal = null;
 let ChartUsuarioDiario = null;
 
-  if (ChartUsuarioDonut) {
+function preencherGraficoDonutUsuarios(id){
+    let labels=[]
+    let qtd=[]
+    let total = 0
+    let porcentagem = []
+    fetch(`../usuarios/buscarDonutUsuarios?id=${id}`)
+    .then(response => {
+      if (response.ok) {
+        response.json().then(resposta => {
+            resposta.forEach(dados => {
+                labels.push(dados.Categoria);
+                total += Number(dados.total_valor);
+                qtd.push(dados.total_valor);
+            })
+            qtd.forEach(valor => {
+                porcentagem.push(((valor / total) * 100).toFixed(2));
+            });
+            console.log(total)
+            console.log(porcentagem);
+            if (ChartUsuarioDonut) {
                     ChartUsuarioDonut.destroy();
                 }
-const usuarioDonut = document.getElementById('usuario-donut').getContext('2d');
-    ChartUsuarioDonut = new Chart(usuarioDonut, {
-        type: 'doughnut',
-        data: {
-            labels: ['Tema 1', 'Tema 2', 'Tema 3'],
-            datasets: [{
-                data: [34, 33, 33],
-                backgroundColor: ['rgb(255, 0, 0)', 'rgb(195, 0, 0)', 'rgb(135, 0, 0)', 'rgb(75, 0, 0)'],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'right'
+            const usuarioDonut = document.getElementById('usuario-donut');
+            ChartUsuarioDonut = new Chart(usuarioDonut, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Interesse por categorias (%)',
+                        data: porcentagem,
+                        backgroundColor: ['rgb(212, 0, 0)'],
+                    borderWidth: 1
+                    }]
                 },
-                title: {
-                    
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
                 }
-            }
-        }
+            });
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+    .catch(error => {
+      console.error(`Erro na obtenção dos acessos para a dashboard: ${error.message}`);
     });
+}
 
     
 function listarUsuariosDash() {
@@ -189,7 +214,7 @@ function listarUsuariosDash() {
 function exibirDadosUsuarios(){
     let id = listarUsuariosSelect.value;
     preencherKPIUsuarios(id);
-    //preencherGraficoDonutUsuarios(id);
+    preencherGraficoDonutUsuarios(id);
     preencherGraficoMensalUsuarios(id);
     preencherGraficoDiarioUsuarios(id);
 }
