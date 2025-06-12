@@ -16,6 +16,10 @@ router.post("/apagarUsuario", function (req, res) {
     usuarioController.apagarUsuario(req, res);
 });
 
+router.post("/BanirUsuario", function (req, res) {
+    usuarioController.BanirUsuario(req, res);
+});
+
 router.post("/ultimoAcesso", function (req, res) {
     usuarioController.ultimoAcesso(req, res);
 });

@@ -46,6 +46,18 @@ function apagarUsuario(idUsuario) {
     return database.executar(instrucaoSql)
 }
 
+function BanirUsuario(idUsuario) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function BanirUsuario():", idUsuario);
+    //const instrucao = `insert into usuario (nome, email, imagem_perfil) values ('${usuario.nome}', '${usuario.email}', '${usuario.imagem}')`;
+    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
+    //  e na ordem de inserção dos dados.
+     var instrucaoSql = `
+        update InfoUsuario set banido = 1 where fkUsuario=${idUsuario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
+
 function registrarVerificacao(idUsuario) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function registrarVerificação():", idUsuario);
      var instrucaoSql = `
@@ -146,6 +158,7 @@ module.exports = {
     cadastrar,
     ultimoAcesso,
     apagarUsuario,
+    BanirUsuario,
     registrarVerificacao,
     listarUsuariosDash,
     buscarKPIsUsuarios,

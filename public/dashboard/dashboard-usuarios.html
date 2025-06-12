@@ -54,16 +54,16 @@
                 </div>
             </div>
             <div class="apagar-leitor">
-                <button class="btn-apagar" onclick="abrir()">Apagar conta</button>
+                <button class="btn-apagar" onclick="abrirBan()">Apagar conta</button>
             </div>
         </div>
-         <div class="popup-bg" id="popupConfirm">
+         <div class="popup-bg" id="popupConfirmBan">
         <div class="popup-card">
-            <h3>Deseja realmente apagar o usuário?</h3>
+            <h3>Deseja realmente banir o usuário?</h3>
             <p>Você tem certeza que deseja apagar a conta do usuario?</p>
             <div class="popup-actions">
-                <button class="popup-btn confirm" onclick="confirmar()">Sim, apagar</button>
-                <button class="popup-btn cancel" onclick="fechar()">Cancelar</button>
+                <button class="popup-btn confirm" onclick="confirmarBan()">Sim, apagar</button>
+                <button class="popup-btn cancel" onclick="fecharBan()">Cancelar</button>
             </div>
         </div>
     </div>
@@ -325,14 +325,37 @@ function preencherGraficoDiarioUsuarios(id){
       console.error(`Erro na obtenção dos acessos para a dashboard: ${error.message}`);
     });
 }
-function abrir() {
-    document.getElementById('popupConfirm').style.display = 'flex';
+
+function abrirBan() {
+    document.getElementById('popupConfirmBan').style.display = 'flex';
 }
-function fechar() {
-    document.getElementById('popupConfirm').style.display = 'none';
+function fecharBan() {
+    document.getElementById('popupConfirmBan').style.display = 'none';
 }
-function confirmar() {
-    fechar();
-    alert('Apagado com sucesso!');
+function confirmarBan() {
+    fecharBan();
+    const dados = {
+        idUsuario: listarUsuariosSelect.value
+    };
+  fetch("/usuarios/banirUsuario", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(dados)
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+        if (resposta.ok) {
+          console.log(
+            "Usuário banido com sucesso!");
+             window.location.reload();
+        } else {
+          throw "Houve um erro ao apagar o usuário!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
 }
 </script>
