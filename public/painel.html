@@ -57,10 +57,6 @@
                             <input type="file" class="form-control" id="input_capa" placeholder="...">
                         </div>
                         <div class="input">
-                            <h3>Resumo*</h3>
-                            <input type="text" class="form-control" id="input_resumo" placeholder="Adicionar resumo...">
-                        </div>
-                        <div class="input">
                             <h3>Gerar matéria</h3>
                             <button class="btn-materia" onclick="generate()">Enviar</button>
                         </div>
@@ -218,11 +214,10 @@ function generate(){
     let titulo = input_titulo.value;
     var tituloLink ='';
     let capa = input_capa.files[0];
-    let resumo = input_resumo.value;
     let categoria1let = categoria1.value;
     let categoria2let = categoria2.value;
     let categoria3let = categoria3.value;
-    if(titulo=='' || resumo=='' || capa=='' || categoria1let==''|| categoria2let=='' || categoria3let==''){
+    if(titulo=='' ||  capa=='' || categoria1let==''|| categoria2let=='' || categoria3let==''){
         alert('Preencha todos os campos obrigatórios');
         return;
     } 

@@ -48,7 +48,6 @@ CREATE TABLE IF NOT EXISTS cemOctanas.Categoria (
 CREATE TABLE IF NOT EXISTS cemOctanas.Materia (
   idMateria INT NOT NULL AUTO_INCREMENT,
   titulo VARCHAR(100) NOT NULL,
-  resumo VARCHAR(300) NOT NULL,
   link VARCHAR(120) NOT NULL,
   visivel TINYINT NOT NULL DEFAULT 1,
   capa VARCHAR(69) NOT NULL,
@@ -161,7 +160,7 @@ DELIMITER ;
 -- View vw_materias
 -- -----------------------------------------------------
 create view cemOctanas.vw_materias as
-select m.idMateria id, m.titulo titulo, m.resumo resumo, m.link link, m.capa capa, m.dtPub data, count(mu.fkMateria) acessos, 
+select m.idMateria id, m.titulo titulo, m.link link, m.capa capa, m.dtPub data, count(mu.fkMateria) acessos, 
 	concat(u.nome, ' ', u.sobrenome) autor, c1.Categoria categoria1, c2.Categoria categoria2, c3.Categoria categoria3
 from cemOctanas.Usuario_Materia mu
 right join cemOctanas.Materia m on m.idMateria=mu.fkMateria
@@ -170,11 +169,11 @@ inner join cemOctanas.Categoria c1 on m.fkCategoria1= c1.idCategoria
 inner join cemOctanas.Categoria c2 on m.fkCategoria2= c2.idCategoria
 inner join cemOctanas.Categoria c3 on m.fkCategoria3= c3.idCategoria
 where m.visivel = 1
-group by id, titulo, resumo, link, capa, data, nome, categoria1, categoria2, categoria3;
+group by id, titulo, link, capa, data, nome, categoria1, categoria2, categoria3;
     
 
 -- -----------------------------------------------------
--- View vw_materias
+-- View vw_usuarios
 -- -----------------------------------------------------
 create view cemOctanas.vw_usuarios as
 select u.idUsuario, concat(u.nome, ' ', u.sobrenome) nomeCompleto, u.nome Sonome, ui.foto icon, count(mu.fkUsuario) acessos, 
