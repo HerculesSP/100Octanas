@@ -47,7 +47,7 @@
                 <label for="ordenar">Ordenar por:</label>
                 <select id="ordenar"class="dropdown" onchange="buscarMaterias()">
                     <option value="data">Mais recentes</option>
-                    <option value="recomendados">Recomendados</option>
+                    <option value="lidas">Lidas</option>
                     <option value="acessos">Mais acessadas</option>
                 </select>
             </div>
@@ -96,7 +96,7 @@ function buscarMaterias(){
         pesquisa = ``;
     } 
 
-    fetch(`materias/listarMaterias?ordem=${ordem}&pesquisa=${pesquisa}&limit=100`)
+    fetch(`materias/listarMaterias?ordem=${ordem}&pesquisa=${pesquisa}&limit=100&id=${sessionStorage.ID_USUARIO}`)
     .then(response => {
       if (response.ok) {
         response.json().then(resposta => {

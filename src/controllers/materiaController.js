@@ -67,6 +67,7 @@ exports.listarMaterias = (req, res) => {
   const ordem =req.query.ordem;
   const pesquisa1 =req.query.pesquisa;
   const limite = req.query.limit;
+  const id= req.query.id;
   const pesquisa = `where titulo like '%${pesquisa1}%'`
   console.log(ordem, pesquisa, limite, 'a')
   if (ordem=='data' || ordem == 'acessos'){
@@ -78,8 +79,8 @@ exports.listarMaterias = (req, res) => {
         console.log(erro);
         res.status(500).json(erro.sqlMessage);
     });
-  } /*else {
-    materiaModel.listarRecomendados(pesquisa)
+  } else {
+    materiaModel.listarLidas(ordem, pesquisa, limite, id)
     .then(function (resultado) {
         res.json(resultado);
     })
@@ -87,7 +88,7 @@ exports.listarMaterias = (req, res) => {
         console.log(erro);
         res.status(500).json(erro.sqlMessage);
     });
-  }*/
+  }
 };
 
 exports.armazenar = (req, res) => {

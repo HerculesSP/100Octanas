@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `cemOctanas` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `cemOctanas`;
--- MySQL dump 10.13  Distrib 8.0.42, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.36, for Linux (x86_64)
 --
 -- Host: 127.0.0.1    Database: cemOctanas
 -- ------------------------------------------------------
--- Server version	8.0.42-0ubuntu0.22.04.1
+-- Server version	8.0.36-0ubuntu0.22.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -47,7 +45,6 @@ SET @saved_cs_client     = @@character_set_client;
 /*!50001 CREATE VIEW `vw_materias` AS SELECT 
  1 AS `id`,
  1 AS `titulo`,
- 1 AS `resumo`,
  1 AS `link`,
  1 AS `capa`,
  1 AS `data`,
@@ -56,19 +53,6 @@ SET @saved_cs_client     = @@character_set_client;
  1 AS `categoria1`,
  1 AS `categoria2`,
  1 AS `categoria3`*/;
-SET character_set_client = @saved_cs_client;
-
---
--- Temporary view structure for view `vw_kpis_usuario`
---
-
-DROP TABLE IF EXISTS `vw_kpis_usuario`;
-/*!50001 DROP VIEW IF EXISTS `vw_kpis_usuario`*/;
-SET @saved_cs_client     = @@character_set_client;
-/*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `vw_kpis_usuario` AS SELECT 
- 1 AS `materias_lidas`,
- 1 AS `tempo_medio`*/;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -102,28 +86,14 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`aluno`@`%` SQL SECURITY DEFINER */
-/*!50001 VIEW `vw_materias` AS select `m`.`idMateria` AS `id`,`m`.`titulo` AS `titulo`,`m`.`resumo` AS `resumo`,`m`.`link` AS `link`,`m`.`capa` AS `capa`,`m`.`dtPub` AS `data`,count(`mu`.`fkMateria`) AS `acessos`,concat(`u`.`nome`,' ',`u`.`sobrenome`) AS `autor`,`c1`.`Categoria` AS `categoria1`,`c2`.`Categoria` AS `categoria2`,`c3`.`Categoria` AS `categoria3` from (((((`Materia` `m` left join `Usuario_Materia` `mu` on((`m`.`idMateria` = `mu`.`fkMateria`))) join `Usuario` `u` on((`u`.`idUsuario` = `m`.`fkAutor`))) join `Categoria` `c1` on((`m`.`fkCategoria1` = `c1`.`idCategoria`))) join `Categoria` `c2` on((`m`.`fkCategoria2` = `c2`.`idCategoria`))) join `Categoria` `c3` on((`m`.`fkCategoria3` = `c3`.`idCategoria`))) where (`m`.`visivel` = 1) group by `id`,`m`.`titulo`,`m`.`resumo`,`m`.`link`,`m`.`capa`,`data`,`u`.`nome`,`categoria1`,`categoria2`,`categoria3` */;
+/*!50001 VIEW `vw_materias` AS select `m`.`idMateria` AS `id`,`m`.`titulo` AS `titulo`,`m`.`link` AS `link`,`m`.`capa` AS `capa`,`m`.`dtPub` AS `data`,count(`mu`.`fkMateria`) AS `acessos`,concat(`u`.`nome`,' ',`u`.`sobrenome`) AS `autor`,`c1`.`Categoria` AS `categoria1`,`c2`.`Categoria` AS `categoria2`,`c3`.`Categoria` AS `categoria3` from (((((`Materia` `m` left join `Usuario_Materia` `mu` on((`m`.`idMateria` = `mu`.`fkMateria`))) join `Usuario` `u` on((`u`.`idUsuario` = `m`.`fkAutor`))) join `Categoria` `c1` on((`m`.`fkCategoria1` = `c1`.`idCategoria`))) join `Categoria` `c2` on((`m`.`fkCategoria2` = `c2`.`idCategoria`))) join `Categoria` `c3` on((`m`.`fkCategoria3` = `c3`.`idCategoria`))) where (`m`.`visivel` = 1) group by `id`,`m`.`titulo`,`m`.`link`,`m`.`capa`,`data`,`u`.`nome`,`categoria1`,`categoria2`,`categoria3` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
--- Final view structure for view `vw_kpis_usuario`
+-- Dumping events for database 'cemOctanas'
 --
-
-/*!50001 DROP VIEW IF EXISTS `vw_kpis_usuario`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`aluno`@`%` SQL SECURITY DEFINER */
-/*!50001 VIEW `vw_kpis_usuario` AS select count(`Usuario_Materia`.`fkUsuario`) AS `materias_lidas`,round(avg(`Usuario_Materia`.`segundosLidos`),0) AS `tempo_medio` from `Usuario_Materia` group by `Usuario_Materia`.`fkUsuario` */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
 -- Dumping routines for database 'cemOctanas'
@@ -150,8 +120,8 @@ BEGIN
     INSERT INTO cemOctanas.Usuario (nome, sobrenome, dtNasc, senha)
     VALUES (p_nome, p_sobrenome, p_dtNasc, p_senha);
 
-    INSERT INTO cemOctanas.InfoUsuario (email, dtInsc, foto, fkUsuario)
-    VALUES (p_email, NOW(), p_imagem, LAST_INSERT_ID());
+    INSERT INTO cemOctanas.InfoUsuario (email, foto, fkUsuario)
+    VALUES (p_email, p_imagem, LAST_INSERT_ID());
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -168,4 +138,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-08 22:00:09
+-- Dump completed on 2025-06-12 12:01:56

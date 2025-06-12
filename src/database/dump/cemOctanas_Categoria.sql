@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `cemOctanas` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `cemOctanas`;
--- MySQL dump 10.13  Distrib 8.0.42, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.36, for Linux (x86_64)
 --
 -- Host: 127.0.0.1    Database: cemOctanas
 -- ------------------------------------------------------
--- Server version	8.0.42-0ubuntu0.22.04.1
+-- Server version	8.0.36-0ubuntu0.22.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -29,7 +27,7 @@ CREATE TABLE `Categoria` (
   `Categoria` varchar(50) NOT NULL,
   PRIMARY KEY (`idCategoria`),
   KEY `idx_categoria` (`Categoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +36,7 @@ CREATE TABLE `Categoria` (
 
 LOCK TABLES `Categoria` WRITE;
 /*!40000 ALTER TABLE `Categoria` DISABLE KEYS */;
-INSERT INTO `Categoria` VALUES (8,'Audi'),(9,'BMW'),(16,'Clássicos'),(18,'Elétricos'),(19,'Eventos'),(11,'Ferrari'),(1,'Fórmula 1'),(3,'Fórmula E'),(20,'JDM'),(13,'Lançamentos'),(14,'Mercado'),(21,'Mercado de usados'),(10,'Mercedes-Benz'),(5,'MotoGP'),(7,'NASCAR'),(12,'Porsche'),(4,'Rali'),(6,'Stock Car'),(17,'Tecnologia'),(15,'Testes'),(2,'WEC');
+INSERT INTO `Categoria` VALUES (8,'Audi'),(9,'BMW'),(16,'Clássicos'),(22,'Corridas de Rua'),(23,'Drift'),(18,'Elétricos'),(19,'Eventos'),(11,'Ferrari'),(1,'Fórmula 1'),(3,'Fórmula E'),(20,'JDM'),(13,'Lançamentos'),(14,'Mercado'),(21,'Mercado de usados'),(10,'Mercedes-Benz'),(5,'MotoGP'),(7,'NASCAR'),(12,'Porsche'),(4,'Rali'),(6,'Stock Car'),(17,'Tecnologia'),(15,'Testes'),(2,'WEC');
 /*!40000 ALTER TABLE `Categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-08 22:00:07
+-- Dump completed on 2025-06-12 12:01:56

@@ -19,6 +19,22 @@ function listarNormal(ordem, pesquisa, limite){
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
 }
+
+function listarLidas(ordem, pesquisa, limite, id){
+    console.log("ACESSEI O MATERIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarNormal:", ordem, pesquisa, limite);
+    var instrucaoSql = `
+        select distinct m.idMateria id, m.titulo titulo, m.link link, m.capa capa, m.dtPub data, mu.acesso
+            from cemOctanas.Usuario_Materia mu
+            right join cemOctanas.Materia m on m.idMateria=mu.fkMateria
+            ${pesquisa} and m.visivel = 1 and mu.fkUsuario=${id}
+            group by id, titulo, link, capa, data, acesso
+            order by acesso desc
+            limit ${limite};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
+
 function armazenar (idMateria, idUsuario){
     console.log("ACESSEI O MATERIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function armazenar():", idMateria, idUsuario);
     var instrucaoSql = `
@@ -102,6 +118,7 @@ function buscarDiarioMateria(id){
 module.exports = {
     criarMateria,
     listarNormal,
+    listarLidas,
     armazenar,
     listarMateriasDash,
     buscarKPIsMateria,

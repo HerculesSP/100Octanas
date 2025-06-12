@@ -210,6 +210,8 @@ INSERT INTO cemOctanas.Categoria (Categoria) VALUES
   ('Elétricos'),
   ('Eventos'),
   ('JDM'),
+  ('Corridas de Rua'),
+  ('Drift'),
   ('Mercado de usados');
 
 -- -----------------------------------------------------
