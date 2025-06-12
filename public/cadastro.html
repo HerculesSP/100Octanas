@@ -67,6 +67,7 @@
             </div>
             <button class="credential-submit" id="credential_submit_button" onclick="checkAllSubmit()" onmouseover="checkAll()">Cadastrar</button>
             </div>
+            <div id="invalid_d" class="invalid-feedback"></div>
             <div class="login-redirect">
                 <p>Já tem uma conta? <a href="login.html">Faça login</a></p>
             </div>    
@@ -235,20 +236,14 @@ function checkAllSubmit(){
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-          alert(
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...");
-
-          setTimeout(() => {
             window.location = "login.html";
-          }, "2000");
 
-          limparFormulario();
         } else {
-          throw "Houve um erro ao tentar realizar o cadastro!";
+          throw 'deu ruim';
         }
       })
       .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
+        invalid_d.innerHTML = "<img src='../assets/icon/denied.png'> <span class='denied'> Erro ao realizar o cadastro! </span>";
       });
 
     return false;
