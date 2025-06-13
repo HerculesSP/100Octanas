@@ -148,6 +148,25 @@
                     <!--https://uxwing.com/instagram-white-icon/-->
             </div>
     </footer>
+    <div class="popup-bg" id="popupOk">
+        <div class="popup-card">
+            <h3>Matéria cadastrada com sucesso!!</h3>
+            <p>Deseja visualizá-la?</p>
+            <div class="popup-actions">
+                <button class="popup-btn confirm" onclick="confirmarOk()">Sim</button>
+                <button class="popup-btn cancel" onclick="fecharOk()">Não</button>
+            </div>
+        </div>
+        </div>
+        <div class="popup-bg" id="popupVish">
+        <div class="popup-card">
+            <h3>Houve um erro ao cadastrar a matéria!!</h3>
+            <p>Tente novamente</p>
+            <div class="popup-actions">
+                <button class="popup-btn cancel" onclick="fecharVish()">Entendi</button>
+            </div>
+        </div>
+        </div>
 </body>
 <div class="popup-bg" id="popupConfirm">
         <div class="popup-card">
@@ -164,6 +183,7 @@
 <script>
 const corpo=[];
 const tipo=[];
+var tituloLink ='';
 function addSubtitle (){
     let text= input_subtitulo.value;
     if(text==''){
@@ -212,7 +232,6 @@ function addVideo(){
 }
 function generate(){
     let titulo = input_titulo.value;
-    var tituloLink ='';
     let capa = input_capa.files[0];
     let categoria1let = categoria1.value;
     let categoria2let = categoria2.value;
@@ -252,16 +271,12 @@ function generate(){
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-          alert(
-            "Cadastro da notícia realizado com sucesso! Redirecionando para a matéria..");
-
-          setTimeout(() => {
-            window.location = `res/materias/${tituloLink}.html`;
-          }, "1000");
-
-          limparFormulario();
+         abrirOk();
         } else {
-          throw "Houve um erro ao tentar realizar o cadastro!";
+            resposta.json().then(json => {
+                console.error(json);
+                abrirVish();
+            });
         }
       })
       .catch(function (resposta) {
@@ -327,4 +342,21 @@ function categorias(idSelect, selecionada = null) {
     });
 }
 
+function abrirOk() {
+    document.getElementById('popupOk').style.display = 'flex';
+}
+function fecharOk() {
+    document.getElementById('popupOk').style.display = 'none';
+}
+function confirmarOk() {
+    fecharOk();
+    window.location = `res/materias/${tituloLink}.html`;
+    
+}
+function abrirVish() {
+    document.getElementById('popupVish').style.display = 'flex';
+}
+function fecharVish() {
+    document.getElementById('popupVish').style.display = 'none';
+}
 </script>
