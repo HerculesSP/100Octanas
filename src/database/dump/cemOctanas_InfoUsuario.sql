@@ -1,8 +1,10 @@
--- MySQL dump 10.13  Distrib 8.0.36, for Linux (x86_64)
+CREATE DATABASE  IF NOT EXISTS `cemOctanas` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `cemOctanas`;
+-- MySQL dump 10.13  Distrib 8.0.42, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: cemOctanas
 -- ------------------------------------------------------
--- Server version	8.0.36-0ubuntu0.22.04.1
+-- Server version	8.0.42-0ubuntu0.22.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -38,7 +40,7 @@ CREATE TABLE `InfoUsuario` (
   KEY `idx_email` (`email`),
   KEY `fk_Contato_Usuario` (`fkUsuario`),
   CONSTRAINT `fk_Contato_Usuario` FOREIGN KEY (`fkUsuario`) REFERENCES `Usuario` (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,7 +49,7 @@ CREATE TABLE `InfoUsuario` (
 
 LOCK TABLES `InfoUsuario` WRITE;
 /*!40000 ALTER TABLE `InfoUsuario` DISABLE KEYS */;
-INSERT INTO `InfoUsuario` VALUES (1,'smokey@email.com','2025-06-12 12:43:51','2025-06-12 13:03:38','4192d37c26602a9c608bc7654a9d9a452add1fbd475f2b195b3a54ddf8a0fe7b.jpeg',1,NULL,1,1),(2,'keiichi@email.com','2025-06-12 13:34:27','2025-06-12 13:35:04','010473ba1377cc6f652e51963d07ab0b2cc2d4ef55a2a8660b63f10ddc9b875f.jpg',1,NULL,1,2),(3,'alemao@email.com','2025-06-12 13:57:10','2025-06-12 13:58:20','f501ee88a67e0780f76aacad5bc7fa181e5a6cd91109ccd11f01b2650086db64.jpg',1,NULL,1,3),(4,'ayrton@','2025-06-12 14:03:29','2025-06-12 14:03:29','47b7324894c233a5b8d5760ef9475f522d86dc38fa8060f31670440eb9a938ce.webp',1,NULL,1,4),(5,'ken@email.com','2025-06-12 14:06:27','2025-06-12 14:06:55','85d75f0d82a25f218ed9651b67bf37859933b83348b5f1ff677399acbe720a59.webp',1,NULL,1,5);
+INSERT INTO `InfoUsuario` VALUES (1,'smokey@email.com','2025-03-03 13:21:25','2025-06-12 13:03:38','4192d37c26602a9c608bc7654a9d9a452add1fbd475f2b195b3a54ddf8a0fe7b.jpeg',1,NULL,1,1),(2,'keiichi@email.com','2025-01-12 13:21:25','2025-06-12 13:35:04','010473ba1377cc6f652e51963d07ab0b2cc2d4ef55a2a8660b63f10ddc9b875f.jpg',1,NULL,1,2),(3,'alemao@email.com','2020-02-18 13:21:25','2025-06-12 21:14:08','f501ee88a67e0780f76aacad5bc7fa181e5a6cd91109ccd11f01b2650086db64.jpg',1,NULL,1,3),(4,'ayrton@','2024-12-28 13:21:25','2025-06-12 14:03:29','47b7324894c233a5b8d5760ef9475f522d86dc38fa8060f31670440eb9a938ce.webp',1,NULL,1,4),(5,'ken@email.com','2022-11-10 13:21:25','2025-06-12 14:06:55','85d75f0d82a25f218ed9651b67bf37859933b83348b5f1ff677399acbe720a59.webp',1,NULL,1,5),(6,'anderson@email.com','2023-07-07 13:21:25','2025-06-12 23:32:12','184458f141a3b7c2ffe46fb1dd9445dad341aa574d9e5694b6fcae07583547da.jpg',1,NULL,1,6),(7,'felipe@email.com','2024-10-09 13:21:25','2025-06-12 23:36:58','bffeaacd2a7f893bf5d09b5618abac3008501898e965c3ac07677a4b4950d404.jpg',1,NULL,1,7);
 /*!40000 ALTER TABLE `InfoUsuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -60,4 +62,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-12 12:01:56
+-- Dump completed on 2025-06-12 20:57:03

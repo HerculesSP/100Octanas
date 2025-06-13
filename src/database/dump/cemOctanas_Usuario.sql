@@ -1,8 +1,10 @@
--- MySQL dump 10.13  Distrib 8.0.36, for Linux (x86_64)
+CREATE DATABASE  IF NOT EXISTS `cemOctanas` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `cemOctanas`;
+-- MySQL dump 10.13  Distrib 8.0.42, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: cemOctanas
 -- ------------------------------------------------------
--- Server version	8.0.36-0ubuntu0.22.04.1
+-- Server version	8.0.42-0ubuntu0.22.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -33,7 +35,7 @@ CREATE TABLE `Usuario` (
   KEY `idx_nome` (`nome`),
   KEY `fk_Usuario_Cargo` (`fkCargo`),
   CONSTRAINT `fk_Usuario_Cargo` FOREIGN KEY (`fkCargo`) REFERENCES `Cargo` (`idCargo`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +44,7 @@ CREATE TABLE `Usuario` (
 
 LOCK TABLES `Usuario` WRITE;
 /*!40000 ALTER TABLE `Usuario` DISABLE KEYS */;
-INSERT INTO `Usuario` VALUES (1,'Smokey','Nagata','Smokey1234!','1963-02-24',2),(2,'Keiichi','Tsuchiya','Keiichi1234!','1956-01-30',2),(3,'Alemão','da Caravan','Alemao1234!','1987-03-09',2),(4,'Ayrton','Senna','Senna1234!','1960-03-21',2),(5,'Ken','Miles','Ken1234!','1918-11-01',2);
+INSERT INTO `Usuario` VALUES (1,'Smokey','Nagata','Smokey1234!','1963-02-24',2),(2,'Keiichi','Tsuchiya','Keiichi1234!','1956-01-30',2),(3,'Alemão','da Caravan','Alemao1234!','1987-03-09',2),(4,'Ayrton','Senna','Senna1234!','1960-03-21',3),(5,'Ken','Miles','Ken1234!','1918-11-01',2),(6,'Anderson','Dick','Anderson1234!','2005-06-07',1),(7,'Felipe','Massa','Felipe1234!','1980-11-23',1);
 /*!40000 ALTER TABLE `Usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-12 12:01:56
+-- Dump completed on 2025-06-12 20:57:03
