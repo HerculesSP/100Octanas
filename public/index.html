@@ -198,7 +198,6 @@ function buscarRecentes(){
     .then(response => {
       if (response.ok) {
         response.json().then(resposta => {
-            console.log(resposta)
             exibirMaterias(resposta)
         });
       } else {

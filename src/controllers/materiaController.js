@@ -6,22 +6,10 @@ var materiaModel = require("../models/materiaModel");
 
 exports.criarMateria = (req, res) => {
   const capa = req.files['capa'] ? req.files['capa'][0].filename : null;
-  const {titulo, link, local, categoria1, categoria2, categoria3, tipo, id, nome, sobrenome, icon, corpoTexto } = req.body;
+  const {titulo, link, categoria1, categoria2, categoria3, tipo, id, nome, sobrenome, icon, corpoTexto } = req.body;
   const materia = {titulo, link, capa, categoria1, categoria2, categoria3, id}
   const arquivosCorpo = req.files['corpoArquivo[]'] || [];
   if (corpoTexto && !Array.isArray(corpoTexto)) corpoTexto = [corpoTexto];
-  console.log('--- DADOS DA MATÉRIA ---');
-  console.log('Capa:', capa);
-  console.log('Título:', titulo);
-  console.log('Link:', link);
-  console.log('Local:', local);
-  console.log('Categoria1:', categoria1);
-  console.log('Categoria2:', categoria2);
-  console.log('Categoria3:', categoria3);
-  console.log('ID:', id);
-  console.log('Tipos:', tipo);
-  console.log('Arquivos do corpo:', arquivosCorpo.map(f => f.filename));
-  console.log('Textos/links do corpo:', corpoTexto);
   let text = '';
   let txtIndex = 0;
   let imgIndex = 0;
@@ -40,7 +28,14 @@ exports.criarMateria = (req, res) => {
   const hoje = new Date();
   const dataAtual = hoje.toLocaleDateString('pt-BR');
   console.log(text)
-  ejs.renderFile('src/views/template.ejs', { Titulo: titulo, foto_jornalista:icon, Nome_do_jornalista:(nome + ' ' + sobrenome), data:dataAtual, capa_materia:capa, conteudo:text }, (err, html) => {
+  ejs.renderFile('src/views/template.ejs', { 
+    Titulo: titulo, 
+    foto_jornalista:icon, 
+    Nome_do_jornalista:(nome + ' ' + sobrenome), 
+    data:dataAtual, 
+    capa_materia:capa, 
+    conteudo:text 
+  }, (err, html) => {
   if (err) {
     console.error('Erro ao renderizar EJS:', err);
     return res.status(500).send('Erro ao gerar página');
@@ -68,8 +63,7 @@ exports.listarMaterias = (req, res) => {
   const pesquisa1 =req.query.pesquisa;
   const limite = req.query.limit;
   const id= req.query.id;
-  const pesquisa = `where titulo like '%${pesquisa1}%'`
-  console.log(ordem, pesquisa, limite, 'a')
+  const pesquisa = `where titulo like '%${pesquisa1}%'`;
   if (ordem=='data' || ordem == 'acessos'){
     materiaModel.listarNormal(ordem, pesquisa, limite)
     .then(function (resultado) {

@@ -1,27 +1,21 @@
 var database = require("../database/config")
+
 function criarMateria(materia) {
-    console.log("ACESSEI O MATERIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar materia():", materia);
-    //const instrucao = `insert into usuario (nome, email, imagem_perfil) values ('${usuario.nome}', '${usuario.email}', '${usuario.imagem}')`;
-    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
-    //  e na ordem de inserção dos dados.
      var instrucaoSql = `
       INSERT INTO Materia (titulo, link, capa, dtPub, fkAutor, fkCategoria1, fkCategoria2, fkCategoria3)
         VALUES ('${materia.titulo}', '${materia.link}', '${materia.capa}', NOW(),  '${materia.id}', '${materia.categoria1}', '${materia.categoria2}', '${materia.categoria3}');
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql)
-}
-function listarNormal(ordem, pesquisa, limite){
-    console.log("ACESSEI O MATERIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarNormal:", ordem, pesquisa, limite);
-    var instrucaoSql = `
-        select  id, titulo, link, capa, data from vw_materias ${pesquisa} order by ${ordem} desc limit ${limite};
-    `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
 }
 
-function listarLidas(ordem, pesquisa, limite, id){
-    console.log("ACESSEI O MATERIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarNormal:", ordem, pesquisa, limite);
+function listarNormal(ordem, pesquisa, limite){
+    var instrucaoSql = `
+        select  id, titulo, link, capa, data from vw_materias ${pesquisa} order by ${ordem} desc limit ${limite};
+    `;
+    return database.executar(instrucaoSql)
+}
+
+function listarLidas(pesquisa, limite, id){
     var instrucaoSql = `
         select distinct m.idMateria id, m.titulo titulo, m.link link, m.capa capa, m.dtPub data, MAX(mu.acesso) acesso
             from cemOctanas.Usuario_Materia mu
@@ -31,48 +25,38 @@ function listarLidas(ordem, pesquisa, limite, id){
             order by acesso desc
             limit ${limite};
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
 }
 
 function armazenar (idMateria, idUsuario){
-    console.log("ACESSEI O MATERIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function armazenar():", idMateria, idUsuario);
     var instrucaoSql = `
         insert into cemOctanas.Usuario_Materia (fkMateria, fkusuario) values (${idMateria},${idUsuario}); 
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
 }
 
 function ApagarMateria(idMateria){
-    console.log("ACESSEI O MATERIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function ApagarMateria():", idMateria);
     var instrucaoSql = `
         update Materia set visivel=0 where idMateria=${idMateria}; 
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
 }
 
 function listarMateriasDash(){
-    console.log("ACESSEI O MATERIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarMateriasDash:");
     var instrucaoSql = `
         select id, titulo from vw_materias order by titulo;
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
 }
 
 function buscarKPIsMateria(id){
-    console.log("ACESSEI O MATERIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarMateriasDash:");
     var instrucaoSql = `
         select titulo, categoria1, categoria2, categoria3, data, autor, acessos from vw_materias where id= ${id} order by titulo;
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
 }
 
 function buscarIdadeMateria(id){
-    console.log("ACESSEI O MATERIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarIdadeMateria:");
     var instrucaoSql = `
         select case when TIMESTAMPDIFF(year, u.dtNasc, NOW()) < 30 then '18 a 29 anos'
 			when  TIMESTAMPDIFF(year, u.dtNasc, NOW()) < 50 then '30 a 49 anos'
@@ -86,12 +70,10 @@ function buscarIdadeMateria(id){
     group by Idade
     order by Idade;
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
 }
 
 function buscarMensalMateria(id){
-    console.log("ACESSEI O MATERIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarIdadeMateria:");
     var instrucaoSql = `
         SELECT COUNT(fkMateria) qtd, DATE_FORMAT(acesso, '%m/%y') mes_ano
             FROM cemOctanas.Usuario_Materia
@@ -99,12 +81,10 @@ function buscarMensalMateria(id){
             GROUP BY mes_Ano
             ORDER BY MIN(acesso);
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
 }
 
 function buscarDiarioMateria(id){
-    console.log("ACESSEI O MATERIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarIdadeMateria:");
     var instrucaoSql = `
        SELECT COUNT(fkMateria) qtd, DATE_FORMAT(acesso, '%d/%m') dia_mes
         FROM cemOctanas.Usuario_Materia
@@ -112,7 +92,6 @@ function buscarDiarioMateria(id){
         GROUP BY dia_mes
         ORDER BY MIN(acesso);
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
 }
 module.exports = {

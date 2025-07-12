@@ -122,7 +122,6 @@ function confirmarConta(req, res) {
             text: `Olá ${nome}, seu código de verificação é: ${codigo}`, 
             html: html
         });
-        console.log("Message sent: %s", info.messageId);
         res.send(codigo.toString());
     } catch (error) {
         console.error("Erro ao enviar o email:", error);
@@ -158,7 +157,6 @@ function redefinirSenha(req, res) {
             text: `Olá ${nome}, seu código de verificação é: ${codigo}`, 
             html: htmlContent
         });
-        console.log("Message sent: %s", info.messageId);
         res.send(codigo.toString());
     } catch (error) {
         console.error("Erro ao enviar o email:", error);
